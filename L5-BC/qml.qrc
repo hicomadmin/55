@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/Button.qml</file>
+        <file>qml/SetOption.qml</file>
+        <file>qml/Menu.qml</file>
+        <file>qml/MenuButton.qml</file>
+        <file>qml/VolumeBar.qml</file>
+        <file>qml/OffScreen.qml</file>
+        <file>qml/Mute.qml</file>
+        <file>qml/voiceAssistant.qml</file>
+        <file>qml/media.qml</file>
+        <file>qml/effcts.qml</file>
+        <file>qml/airConditioner.qml</file>
+        <file>qml/BaseText.qml</file>
+        <file>qml/lightPage.qml</file>
+        <file>qml/BaseButton.qml</file>
+        <file>qml/chirismus.qml</file>
+        <file>qml/chairBack.qml</file>
+        <file>qml/hotWind.qml</file>
+        <file>qml/starSky.qml</file>
+        <file>qml/coldWarm.qml</file>
+        <file>qml/backgroundLight.qml</file>
+        <file>qml/carWithSpeed.qml</file>
+        <file>qml/helpPage.qml</file>
+        <file>qml/windowCurtains.qml</file>
+        <file>qml/HelpButton.qml</file>
+    </qresource>
+</RCC>
