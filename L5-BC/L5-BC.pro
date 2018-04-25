@@ -4,8 +4,7 @@ QT += qml quick widgets
 
 SOURCES += main.cpp \
     appupdateviewer.cpp \
-    qmlinterface.cpp \
-    protocol/TheMcuAgent.cpp
+    qmlinterface.cpp
 
 RESOURCES += \
     qml.qrc \
@@ -23,8 +22,7 @@ include(deployment.pri)
 HEADERS += \
     appupdateviewer.h \
     qmlinterface.h \
-    protocol/mcu_agent_api.h \
-    protocol/TheMcuAgent.h
+    protocol/mcu_agent_api.h
 
 LIBS +=-L$${PWD}/protocol -lmcu_agent
 message($${PWD})

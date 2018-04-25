@@ -4,7 +4,6 @@
 #if 0
 MCU_MSG_HANDLE_REGISTER g_mcu_msg_handle_register[] = {{MCU_MSG_RET_MB_VERSION, TheXMCUAGT::McuMsgHandle_RetMBVersion}, \
                                                        {MCU_MSG_RET_RTC_CLOCK_INFO,TheXMCUAGT::McuMsgHandle_RetRTCTimeInfo},\
-                                                       {MCU_MSG_RET_RADIO_NOTIFY ,TheXMCUAGT::McuMsgHandle_RetRadioInfo},\
                                                        {MCU_MSG_RET_RADIO_PRESET_INFO,TheXMCUAGT::McuMsgHandle_RetRadioPresetInfo},\
                                                        {MCU_MSG_RET_CUR_AUDIO_SOURCE,TheXMCUAGT::McuMsgHandle_RetCurSourceId},\
                                                        {MCU_MSG_RET_AUDIO_SETTING_INFO,TheXMCUAGT::McuMsgHandle_RetAudioSettingInfo},\
@@ -31,7 +30,8 @@ MCU_MSG_HANDLE_REGISTER g_mcu_msg_handle_register[] = {{MCU_MSG_RET_MB_VERSION, 
                                                        {MCU_MSG_MAX_ID,NULL}};
 
 #endif
-MCU_MSG_HANDLE_REGISTER g_mcu_msg_handle_register[] = {{MCU_MSG_RET_RTC_CLOCK_INFO,(&TheXMCUAGT::McuMsgHandle_RetRTCTimeInfo)}};
+MCU_MSG_HANDLE_REGISTER g_mcu_msg_handle_register[] = {{MCU_MSG_RET_RTC_CLOCK_INFO,(&TheXMCUAGT::McuMsgHandle_RetRTCTimeInfo)},\
+                                                       {MCU_MSG_RET_MB_VERSION, TheXMCUAGT::McuMsgHandle_RetMBVersion},};
 
 MCU_AGENT_API* mcu_agent_api = NULL;
 
@@ -1653,117 +1653,6 @@ void TheXMCUAGT::McuMsgHandle_RetRTCTimeInfo(PACKET_MSG *packet_msg)
       {
           qCritical("[TheXMCUAGT] ----- time set fail") ;
       }
-}
-
-void TheXMCUAGT::McuMsgHandle_RetRadioInfo(PACKET_MSG *packet_msg)
-{
-    RADIO_NOTIFY *pRadioNotify = (RADIO_NOTIFY *)packet_msg->data;
-
-
-    if(pInstance->m_radioInfo.band != pRadioNotify->band)
-    {
-        pInstance->m_radioInfo.band = pRadioNotify->band;
-        pInstance->_radioBand = pInstance->m_radioInfo.band;
-        if (bHMIReady)
-        {
-            emit pInstance->radioBandChanged(pInstance->_radioBand);
-        }
-    }
-    if(pInstance->m_radioInfo.cur_freq != pRadioNotify->cur_freq)
-    {
-        pInstance->m_radioInfo.cur_freq = pRadioNotify->cur_freq;
-        if(pInstance->m_radioInfo.band == 4)
-        {
-             pInstance->_frequency = pInstance->m_radioInfo.cur_freq;
-             pInstance->_amFrequency = pInstance->_frequency;
-             if (bHMIReady)
-             {
-                 emit pInstance->amFrequencyChanged(pInstance->_amFrequency);
-             }
-
-        }
-        else if (pInstance->m_radioInfo.band < 4)
-        {
-             pInstance->_frequency = (((double)pInstance->m_radioInfo.cur_freq)/100.0);
-             pInstance->_fmFrequency = pInstance->_frequency;
-             if (bHMIReady)
-             {
-                 emit pInstance->fmFrequencyChanged(pInstance->_fmFrequency);
-             }
-        }
-    }
-    if(pInstance->m_radioInfo.preset_num != pRadioNotify->preset_num)
-    {
-        pInstance->m_radioInfo.preset_num = pRadioNotify->preset_num;
-        pInstance->_presetID = pInstance->m_radioInfo.preset_num;
-        if (bHMIReady)
-        {
-            emit pInstance->presetIDChanged(pInstance->_presetID);
-        }
-    }
-    if(pInstance->m_radioInfo.status != pRadioNotify->status)
-    {
-        pInstance->m_radioInfo.status = pRadioNotify->status;
-        pInstance->_radioState = pInstance->m_radioInfo.status;
-        if (bHMIReady)
-        {
-            emit pInstance->radioStateChanged(pInstance->_radioState);
-        }
-    }
-}
-
-
-
-void TheXMCUAGT::McuMsgHandle_RetRadioPresetInfo(PACKET_MSG *packet_msg)
-{
-
-    RADIO_PRESET_INFO *pRadioPresetInfo =(RADIO_PRESET_INFO *)packet_msg->data;
-
-     bool isAm = ((pRadioPresetInfo->band == 4) ? true:false);
-
-    if (isAm)
-    {
-        int i = 0,j = 0;
-        if(pInstance->_ampresetList.size()!= 0 )
-        {
-            for(j = 0;j < 6;j++)
-            {
-                pInstance->_ampresetList.removeFirst();
-            }
-        }
-        for (i = 0;i < 6;i++)
-        {
-            pInstance->_ampresetList.append((int)pRadioPresetInfo->preset_freq[i]);
-        }
-        if (bHMIReady)
-        {
-            emit pInstance->ampresetListChanged(pInstance->_ampresetList);
-            qDebug("[TheXMCUAGT]--emit _ampresetList,size = %d  ",pInstance->_ampresetList.size());
-        }
-    }
-    else
-    {
-        int k = 0,q = 0;
-        if(pInstance->_fmpresetList.size()!= 0 )
-        {
-            for(k = 0;k < 12;k++)
-            {
-                pInstance->_fmpresetList.removeFirst();
-            }
-        }
-        for (q = 0;q < 12;q++)
-        {
-            QJsonValue fmValue(((double)pRadioPresetInfo->preset_freq[q])/100.0);
-            pInstance->_fmpresetList.append(fmValue);
-        }
-        if (bHMIReady)
-        {
-            emit pInstance->fmpresetListChanged(pInstance->_fmpresetList);
-            qDebug("[TheXMCUAGT]--emit _fmpresetList,size = %d  ",pInstance->_fmpresetList.size());
-        }
-    }
-    qInfo("[TheXMCUAGT]-- _ampresetList.size() = [%d],_fmpresetList.size() =[%d]",pInstance->_ampresetList.size(),pInstance->_fmpresetList.size());
-
 }
 
 

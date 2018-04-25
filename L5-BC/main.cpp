@@ -3,13 +3,14 @@
 #include <QDebug>
 #include "appupdateviewer.h"
 #include "qmlinterface.h"
-#include "./protocol/TheMcuAgent.h"
 
 #include <QFileInfo>
 #include <QFile>
 #include <QMutex>
 #include <QDateTime>
 #include <QString>
+
+QmlInterface *g_QmlInterface = NULL;
 
 void outputMessage(QtMsgType type, const QMessageLogContext&context, const QString &msg)
 {
@@ -107,8 +108,8 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(myMessageOutput);
 
     AppUpdateViewer viewer;
-    viewer.setQmlObject(QStringLiteral("c_qmlInterface"), new QmlInterface);
-    //viewer.setQmlObject(QStringLiteral("c_theXMCUAGT"), new TheXMCUAGT);
+    g_QmlInterface = new QmlInterface;
+    viewer.setQmlObject(QStringLiteral("c_qmlInterface"), g_QmlInterface);
     viewer.setMainQmlFile(QStringLiteral("qrc:/qml/main.qml"));
     viewer.showExpanded();
 
