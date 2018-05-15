@@ -12,6 +12,7 @@ Item {
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('2-1');
     }
 
 
@@ -23,6 +24,7 @@ Item {
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('2-2');
     }
 
 
@@ -35,6 +37,7 @@ Item {
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('2-4');
     }
 
 
@@ -46,6 +49,7 @@ Item {
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('2-8');
     }
 
 

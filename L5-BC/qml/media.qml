@@ -17,9 +17,15 @@ Item {
             anchors.rightMargin: 40;
             anchors.top: parent.top;
             anchors.bottom: parent.bottom;
-            onPressed: prvBtn.focus = true;
+            onPressed: {
+                c_qmlInterface.sendRccCAN('1-48-0-0')
+                prvBtn.focus = true;
+            }
             onExited: prvBtn.focus = false;
-            onReleased: prvBtn.focus = false;
+            onReleased: {
+                c_qmlInterface.sendRccCAN('1-0-0-0')
+                prvBtn.focus = false;
+            }
             onClicked: {
                 prvBtn.focus = false;
                 //leftBtn.clicked();
@@ -40,9 +46,15 @@ Item {
             anchors.right: parent.right;
             anchors.top: parent.top;
             anchors.bottom: parent.bottom;
-            onPressed: nextBtn.focus = true;
+            onPressed: {
+                c_qmlInterface.sendRccCAN('1-56-0-0')
+                nextBtn.focus = true;
+            }
             onExited: nextBtn.focus = false;
-            onReleased: nextBtn.focus = false;
+            onReleased: {
+                c_qmlInterface.sendRccCAN('1-0-0-0')
+                nextBtn.focus = false;
+            }
             onClicked: {
                 nextBtn.focus = false;
                 //leftBtn.clicked();
@@ -67,9 +79,15 @@ Item {
             anchors.topMargin: 30;
             anchors.bottom: parent.bottom;
             anchors.bottomMargin: 30;
-            onPressed: leftBtn.focus = true;
+            onPressed: {
+                c_qmlInterface.sendRccCAN('1-24-0-0')
+                leftBtn.focus = true;
+            }
             onExited: leftBtn.focus = false;
-            onReleased: leftBtn.focus = false;
+            onReleased: {
+                c_qmlInterface.sendRccCAN('1-0-0-0')
+                leftBtn.focus = false;
+            }
             onClicked: {
                 leftBtn.focus = false;
                 //leftBtn.clicked();
@@ -94,9 +112,15 @@ Item {
             anchors.top: parent.top;
             anchors.bottom: parent.bottom;
             anchors.bottomMargin: 16;
-            onPressed: upBtn.focus = true;
+            onPressed: {
+                c_qmlInterface.sendRccCAN('1-8-0-0')
+                upBtn.focus = true;
+            }
             onExited: upBtn.focus = false;
-            onReleased: upBtn.focus = false;
+            onReleased: {
+                c_qmlInterface.sendRccCAN('1-0-0-0')
+                upBtn.focus = false;
+            }
             onClicked: {
                 upBtn.focus = false;
                 //upBtn.clicked();
@@ -121,9 +145,15 @@ Item {
             anchors.topMargin: 30;
             anchors.bottom: parent.bottom;
             anchors.bottomMargin: 30;
-            onPressed: rightBtn.focus = true;
+            onPressed: {
+                c_qmlInterface.sendRccCAN('1-32-0-0')
+                rightBtn.focus = true;
+            }
             onExited:  rightBtn.focus = false;
-            onReleased:rightBtn.focus = false;
+            onReleased:{
+                c_qmlInterface.sendRccCAN('1-0-0-0')
+                rightBtn.focus = false;
+            }
             onClicked: {
                 rightBtn.focus = false;
                 //leftBtn.clicked();
@@ -145,9 +175,15 @@ Item {
             anchors.topMargin: 30;
             anchors.bottom: parent.bottom;
             anchors.bottomMargin: 30;
-            onPressed: downBtn.focus = true;
+            onPressed: {
+                c_qmlInterface.sendRccCAN('1-16-0-0')
+                downBtn.focus = true;
+            }
             onExited:  downBtn.focus = false;
-            onReleased:downBtn.focus = false;
+            onReleased:{
+                c_qmlInterface.sendRccCAN('1-0-0-0')
+                downBtn.focus = false;
+            }
             onClicked: {
                 downBtn.focus = false;
                 //leftBtn.clicked();
@@ -180,9 +216,15 @@ Item {
         color: "transparent";
         MouseArea  {
             anchors.fill: parent
-            onPressed: okBtn.focus = true;
+            onPressed: {
+                c_qmlInterface.sendRccCAN('1-40-0-0')
+                okBtn.focus = true;
+            }
             onExited:  okBtn.focus = false;
-            onReleased:okBtn.focus = false;
+            onReleased:{
+                c_qmlInterface.sendRccCAN('1-0-0-0')
+                okBtn.focus = false;
+            }
             onClicked: {
                 okBtn.focus = false;
                 //leftBtn.clicked();

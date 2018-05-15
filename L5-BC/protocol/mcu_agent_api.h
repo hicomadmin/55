@@ -86,9 +86,9 @@ typedef enum {
 
     MCU_MSG_RET_AVM_DATA_INFO = 0xF0,               /**< 返回接收到的AVM数据，返回数据参考struct AVM_DATA_INFO  相关定义。@see AVM_DATA_INFO*/
     
-    MCU_MSG_RET_ENHOST_CAN = 0xF6,                  /**< 返回L5项目CAN相关信息,仅为红旗L5增加 */
-    MCU_MSG_RET_FCC_CAN = 0xF7,                     /**< 返回L5项目FCC CAN相关信息,仅为红旗L5增加 */
-    MCU_MSG_RET_RCC_CAN = 0xF8,                     /**< 返回L5项目RCC CAN相关信息,仅为红旗L5增加 */
+    MCU_MSG_RET_ENHOST_CAN = 0xF6,                  /**< 返回L5项目CAN相关信息,仅为红旗L5增加:主机 */
+    MCU_MSG_RET_FCC_CAN = 0xF7,                     /**< 返回L5项目FCC CAN相关信息,仅为红旗L5增加:前中控 */
+    MCU_MSG_RET_RCC_CAN = 0xF8,                     /**< 返回L5项目RCC CAN相关信息,仅为红旗L5增加:后中控 */
     
     MCU_MSG_RET_HVAC_INFO = 0xFA,                   /**< 返回空调状态信息，返回数据参考struct HVAC_INFO 相关定义。@see HVAC_INFO*/
     MCU_MSG_RET_HVAC_DIAG_INFO = 0xFB,              /**< 返回空调诊断信息，返回数据参考struct HVAC_DIAG_INFO  相关定义。@see HVAC_DIAG_INFO*/
@@ -2331,6 +2331,28 @@ typedef struct {
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*send_mcan_info)(MCAN_DATA_INFO *mcan_info);
+
+/**
+  * @brief      发送主机can消息
+  * @param    mcan_info。
+  * @returns  成功返回发送数据包大小，失败返回小于0 。
+  */
+    int (*send_host_can)(MCAN_DATA_INFO *mcan_info);
+
+/**
+  * @brief      发送前中控can消息
+  * @param    mcan_info。
+  * @returns  成功返回发送数据包大小，失败返回小于0 。
+  */
+    int (*send_fcc_can)(MCAN_DATA_INFO *mcan_info);
+
+/**
+  * @brief      发送后中控can消息
+  * @param    mcan_info。
+  * @returns  成功返回发送数据包大小，失败返回小于0 。
+  */
+    int (*send_rcc_can)(MCAN_DATA_INFO *mcan_info);
+
 
 /**
   * @brief      发送空调状态 消息

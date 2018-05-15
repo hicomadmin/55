@@ -4,9 +4,6 @@ Item {
     anchors.fill: parent;
     property int brightnessTxt: 5
 
-
-
-
     BaseButton {
         id: starCeilingON;
         width: 110;
@@ -17,7 +14,8 @@ Item {
         anchors.topMargin: 197;
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('5-125-125-125-16');
     }
 
     BaseButton {
@@ -29,7 +27,8 @@ Item {
         anchors.top: starCeilingON.top;
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('5-125-125-125-0');
     }
 
     BaseText{
@@ -50,7 +49,8 @@ Item {
         anchors.topMargin: 94;
         btnText: qsTr("红");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+         onClicked: c_qmlInterface.sendFccCAN('5-255-0-0-16');
     }
 
     BaseText{
@@ -70,7 +70,8 @@ Item {
         anchors.top: redBtn.top;
         btnText: qsTr("黄");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('5-0-255-0-16');
     }
 
     BaseButton {
@@ -82,42 +83,8 @@ Item {
         anchors.top: redBtn.top;
         btnText: qsTr("蓝");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
-    }
-
-
-    function onJustmentBtnClicked(val)
-    {
-        var tmp;
-        switch(val)
-        {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        case 7:
-            if(brightnessTxt < 10){
-                tmp = brightnessTxt +1;
-                brightnessTxt = tmp;
-            }
-            break;
-        case 8:
-            if(brightnessTxt > 1){
-                tmp = brightnessTxt -1;
-                brightnessTxt = tmp;
-            }
-            break;
-        default:
-            break;
-        }
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('5-0-0-255-16');
     }
 
 }

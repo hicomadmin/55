@@ -11,10 +11,7 @@
 #ifndef _MCU_AGENT_API_H_
 #define _MCU_AGENT_API_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
+ 
 #define MCU_SEND_START_BYTE     0xE0
 #define MCU_RECV_START_BYTE     0x24
 
@@ -29,48 +26,37 @@ extern "C" {
   *  @brief  MCU  返回信息识别码定义
   */
 typedef enum {
-    MCU_MSG_RET_MB_VERSION = 0x03,                  /**< 返回主板版本信息，返回数据参考struct MB_VERSION_INFO 相关定义。@see MB_VERSION_INFO*/  
-    MCU_MSG_RET_HARD_KEY = 0x04,                    /**< 返回按键信息，返回数据参考enum  HARD_KEY_ID 相关定义。@see  HARD_KEY_ID*/ 
-    //MCU_MSG_SET_TOUCH = 0x05,                     /**< 返回屏幕触摸坐标信息，返回数据参考struct TOUCH_INFO 相关定义。@see TOUCH_INFO*/ 
-    MCU_MSG_RET_POWER_KEY = 0x05,                   /**< 返回power按键消息给核心板，返回数据参考struct POWER_INFO 相关定义。@see POWER_INFO*/ 
-    MCU_MSG_SET_ENGINEER_MODE = 0x06,               /**< 设置工程诊断模式进入或退出，返回数据参考enum ENGINEER_MODE_ID 相关定义。@see ENGINEER_MODE_ID*/ 
+    MCU_MSG_RET_MB_VERSION = 0x03,      /**< 返回主板版本信息，返回数据参考struct MB_VERSION_INFO 相关定义。@see MB_VERSION_INFO*/  
+    MCU_MSG_RET_HARD_KEY = 0x04,        /**< 返回按键信息，返回数据参考enum  HARD_KEY_ID 相关定义。@see  HARD_KEY_ID*/ 
+    MCU_MSG_SET_TOUCH = 0x05,           /**< 返回屏幕触摸坐标信息，返回数据参考struct TOUCH_INFO 相关定义。@see TOUCH_INFO*/ 
+    MCU_MSG_SET_ENGINEER_MODE = 0x06,   /**< 设置工程诊断模式进入或退出，返回数据参考enum ENGINEER_MODE_ID 相关定义。@see ENGINEER_MODE_ID*/ 
     MCU_MSG_RET_POWEROFF_TIMER_DISP_STATUS = 0x08,  /**< 返回关机时，时钟显示状态，返回数据参考enum DISP_STATUS_ID 相关定义。@see DISP_STATUS_ID */
     MCU_MSG_RET_SCREEN_SAVE_MODE = 0x09,            /**< 返回省电模式时屏幕保存状态，返回数据参考enum SCREEN_SAVE_MODE_ID 相关定义。@see SCREEN_SAVE_MODE_ID*/
     MCU_MSG_RET_ALINE = 0x0E,                       /**< 返回心跳回应，无返回数据。*/
     MCU_MSG_GET_VERSION_INFO = 0x0F,                /**< 获取HMI/BT 的版本信息，返回数据参考enum VERSION_TYPE_ID 相关定义。@see VERSION_TYPE_ID*/
     MCU_MSG_RET_CUR_AUDIO_POWER_STATUS = 0x11,      /**< 返回主板开关机状态，返回数据参考struct POWER_INFO 相关定义。@see POWER_INFO*/
     MCU_MSG_RET_RTC_CLOCK_INFO = 0x13,              /**< 返回RTC 时间信息，返回数据参考struct RTC_MSG 相关定义。@see RTC_MSG*/
-    MCU_MSG_RET_BUTTON_LIGHT_PWM = 0x14,            /**< 返回诊断模式下控制面板灯亮度PWM的占空比给核心板（诊断使用）*/
     MCU_MSG_RET_GPS_CLOCK_INFO = 0x15,              /**< 返回GPS 时间信息，返回数据参考struct CLOCK_MSG 相关定义。@see CLOCK_MSG*/
     MCU_MSG_RET_SETUP_PARAM_INFO = 0x1F,            /**< 返回设置菜单中的相关参数信息，返回数据参考struct SETUP_PARAM_INFO 相关定义。@see SETUP_PARAM_INFO*/
     
     MCU_MSG_RET_CUR_AUDIO_SOURCE = 0x21,            /**< 返回音频源，返回数据参考enum AUDIO_SOURCE_ID 相关定义。@see AUDIO_SOURCE_ID*/
     MCU_MSG_RET_AUDIO_SETTING_INFO = 0x23,          /**< 返回音频参数设置信息，返回数据参考struct AUDIO_SETTING_INFO 相关定义。@see AUDIO_SETTING_INFO*/
-    MCU_MSG_RET_AUDIO_AUX_GAIN_MODE = 0x25,         /**< 返回AUX 输入增益参数，返回数据参考enum AUDIO_AUX_GAIN_ID 相关定义。@see AUDIO_AUX_GAIN_ID*/
+    MCU_MSG_RET_AUDIO_AUX_GAIN_MODE = 0x25,	        /**< 返回AUX 输入增益参数，返回数据参考enum AUDIO_AUX_GAIN_ID 相关定义。@see AUDIO_AUX_GAIN_ID*/
     MCU_MSG_RET_AUDIO_BEEP_STATUS = 0x27,           /**< 返回Beep开关状态，返回数据参考enum BEEP_STATUS_ID 相关定义。@see BEEP_STATUS_ID*/
     MCU_MSG_RET_AUDIO_SPEED_VOLUME_MODE = 0x29,     /**< 返回车速音量连动参数，返回数据参考enum AUDIO_SPEED_VOLUME_ID  相关定义。@see AUDIO_SPEED_VOLUME_ID*/
     MCU_MSG_RET_AUDIO_SPEED = 0x2A,                 /**< 返回车辆速度，返回数据为unsigned short 。*/
 
-    MCU_MSG_RET_MAIN_ANSWER_STATUS = 0x2E,          /**< 返回主驾驶接听状态，返回数据参考enum MAIN_DRIVER_ANSWER_ID 相关定义。@see MAIN_DRIVER_ANSWER_ID*/
-    
     MCU_MSG_RET_AUDIO_DEVICE_PLUG_STATUS = 0x30,    /**< 返回外设状态，返回数据参考enum DEVICE_PLUG_STATUS_ID  相关定义。@see DEVICE_PLUG_STATUS_ID*/
     MCU_MSG_RET_AUDIO_VOLUME_INFO = 0x31,           /**< 返回音量信息，返回数据参考struct AUDIO_VOLUME_INFO  相关定义。@see AUDIO_VOLUME_INFO*/
     MCU_MSG_RET_AUDIO_POPUP_INFO = 0x32,            /**< 返回DISK/AUX弹出信息，返回数据参考enum POPUP_INFO_ID  相关定义。@see POPUP_INFO_ID*/
-    MCU_MSG_RET_ARKAMYS_FUNC_SW = 0x3B,             /**< 返回主板音效功能开关，返回数据参考enum ARKAMYS_FUNC_SW_INFO  相关定义。@see ARKAMYS_FUNC_SW_INFO*/
-    
+
     MCU_MSG_RET_RADIO_COLLECTED_INFO = 0x4C,        /**< 返回收藏电台信息，返回数据参考struct RADIO_COLLECTED_INFO 相关定义。@see RADIO_COLLECTED_INFO*/
     MCU_MSG_RET_RADIO_NOTIFY = 0x50,                /**< 返回当前波段、状态、预置台、频率信息，返回数据参考struct RADIO_NOTIFY  相关定义。@see RADIO_NOTIFY*/
     MCU_MSG_RET_RADIO_PRESET_INFO = 0x51,           /**< 返回波段对应预存电台信息，返回数据参考struct RADIO_PRESET_INFO  相关定义。@see RADIO_PRESET_INFO*/
 
-    MCU_MSG_RET_RADIO_FM_PARAMETER_INFO = 0x52,     /**< 返回当前FM工程模式参数，返回数据参考struct RADIO_FM_PARAMETER_INFO  相关定义。@see RADIO_FM_PARAMETER_INFO*/
-    MCU_MSG_RET_RADIO_AM_PARAMETER_INFO = 0x53,     /**< 返回当前AM工程模式参数，返回数据参考struct RADIO_AM_PARAMETER_INFO  相关定义。@see RADIO_AM_PARAMETER_INFO*/
-    MCU_MSG_RET_RADIO_STATION_LIST_INFO = 0x54,     /**< 返回当前波段最优电台信息，返回数据参考struct RADIO_STATION_LIST_INFO  相关定义。@see RADIO_STATION_LIST_INFO*/
-    MCU_MSG_RET_CURRADIO_STATION_LIST_INFO = 0x55,  /**< 返回当前正在播放的条目信息，返回数据参考struct CURRADIO_STATION_LIST_INFO  相关定义。@see CURRADIO_STATION_LIST_INFO*/
-    
-    MCU_MSG_RET_IGN_ON_OFF_STATUS = 0x7F,           /**< 返回IGN_ON_OF状态，返回数据参考struct IGN_ON_OFF_INFO 相关定义。@see IGN_ON_OFF_INFO*/
-    
+	MCU_MSG_RET_IGN_ON_OFF_STATUS = 0x7F,           /**< 返回IGN_ON_OF状态，返回数据参考struct IGN_ON_OFF_INFO 相关定义。@see IGN_ON_OFF_INFO*/
+	
     MCU_MSG_RET_COREBOARD_RESUME_INFO = 0x81,       /**< 返回核心板恢复保存状态信息，返回数据参考struct COREBOARD_RESUME_INFO  相关定义。@see COREBOARD_RESUME_INFO*/
-    
     MCU_MSG_RET_BLUETOOTH_STATUS = 0x90,            /**< 返回当前蓝牙状态，返回数据参考struct BLUETOOTH_STATUS_INFO  相关定义。@see BLUETOOTH_STATUS_INFO*/
 
     MCU_MSG_RET_TFT_VIDEO_SOURCE = 0xA1,            /**< 返回视频输入信号源，返回数据参考struct VIDEO_SOURCE_INFO  相关定义。@see VIDEO_SOURCE_INFO*/
@@ -79,22 +65,20 @@ typedef enum {
     MCU_MSG_RET_TFT_BACKLIGHT_STATUS = 0xA7,        /**< 返回背光开关状态，返回数据参考enum BACKLIGHT_STATUS_ID  相关定义。@see BACKLIGHT_STATUS_ID*/
     MCU_MSG_RET_TFT_BRIGHTNESS_STATUS = 0xA9,       /**< 返回亮度值，返回数据为unsigned char 。*/
     MCU_MSG_RET_TFT_CONTRAST_STATUS = 0xAB,         /**< 返回对比度值，返回数据为unsigned char 。*/
-    MCU_MSG_RET_TFT_DAYNIGHT_MODE_INFO = 0xAC,      /**< 返回当前白天黑夜模式、当前亮度等级和ILL模式，返回数据参考DAYNIGHT_MODE_SET_INFO相关定义。@see DAYNIGHT_MODE_SET_INFO**/
     
     MCU_MSG_RET_AVM_SETTING_INFO = 0xB2,            /**< 返回AVM设置参数信息，返回数据参考struct AVM_SETTING_INFO  相关定义。@see AVM_SETTING_INFO*/
     MCU_MSG_RET_MHL_SIGNAL_DET = 0xC0,              /**< 返回手机连接状态，返回数据参考enum MHL_SIGNAL_STATUS_ID  相关定义。@see MHL_SIGNAL_STATUS_ID*/
 
     MCU_MSG_RET_AVM_DATA_INFO = 0xF0,               /**< 返回接收到的AVM数据，返回数据参考struct AVM_DATA_INFO  相关定义。@see AVM_DATA_INFO*/
+
+    MCU_MSG_RET_ENHOST_CAN = 0xF6,                  /**< 返回L5项目CAN相关信息,仅为红旗L5增加 */
+    MCU_MSG_RET_FCC_CAN = 0xF7,                     /**< 返回L5项目FCC CAN相关信息,仅为红旗L5增加 */
+    MCU_MSG_RET_RCC_CAN = 0xF8,                     /**< 返回L5项目RCC CAN相关信息,仅为红旗L5增加 */
     
-    MCU_MSG_RET_ENHOST_CAN = 0xF6,                  /**< 返回L5项目CAN相关信息,仅为红旗L5增加:主机 */
-    MCU_MSG_RET_FCC_CAN = 0xF7,                     /**< 返回L5项目FCC CAN相关信息,仅为红旗L5增加:前中控 */
-    MCU_MSG_RET_RCC_CAN = 0xF8,                     /**< 返回L5项目RCC CAN相关信息,仅为红旗L5增加:后中控 */
-    
-    MCU_MSG_RET_HVAC_INFO = 0xFA,                   /**< 返回空调状态信息，返回数据参考struct HVAC_INFO 相关定义。@see HVAC_INFO*/
+    MCU_MSG_RET_MCAN_INFO = 0xFD,                   /**< 返回MCAN 信息，返回数据参考struct MCAN_INFO  相关定义。@see MCAN_INFO*/
+    MCU_MSG_RET_HVAC_INFO = 0xFA,                 /**< 返回空调状态信息，返回数据参考struct HVAC_INFO 相关定义。@see HVAC_INFO*/
     MCU_MSG_RET_HVAC_DIAG_INFO = 0xFB,              /**< 返回空调诊断信息，返回数据参考struct HVAC_DIAG_INFO  相关定义。@see HVAC_DIAG_INFO*/
     MCU_MSG_RET_IT_COMMANDER_INFO = 0xFC,           /**< 返回多功能旋钮按键信息，返回数据参考struct IT_COMMANDER_INFO  相关定义。@see IT_COMMANDER_INFO*/
-    MCU_MSG_RET_MCAN_INFO = 0xFD,                   /**< 返回MCAN 信息，返回数据参考struct MCAN_INFO  相关定义。@see MCAN_INFO*/
-    MCU_MSG_RET_AUTOTEST_DATA_INFO = 0xFE,          /**< 返回接收到的自动化测试数据，返回数据参考struct AUTOTEST_DATA_INFO, @see AUTOTEST_DATA_INFO*/
     MCU_MSG_MAX_ID = 0xFF,
 }MCU_MSG_ID;
 
@@ -121,8 +105,7 @@ typedef struct {
 typedef struct {
     unsigned short MB_version;
     unsigned short MB_checksum;
-    char CD_version[5];
-    unsigned short Panel_version;
+    char CD_version[6];
     unsigned long AVM_version;
     unsigned char AVM_Vin[6];
 }MB_VERSION_INFO;
@@ -139,7 +122,7 @@ typedef enum {
     HARD_KEY_SWC_SOURCE = 0x05,
     HARD_KEY_SWC_ANSWER = 0x06,
     HARD_KEY_SWC_HANGUP = 0x07,
-    HARD_KEY_CMD_OK = 0x08, //add 20160330
+    HARD_KEY_SWC_ENTER = 0x08,
     HARD_KEY_SWC_BACK = 0x09,
     HARD_KEY_ROT_VOL_UP = 0x10,
     HARD_KEY_ROT_VOL_DOWN = 0x11,
@@ -159,26 +142,16 @@ typedef enum {
     HARD_KEY_PRESET4 = 0x1F,
     HARD_KEY_PRESET5 = 0x20,
     HARD_KEY_PRESET6 = 0x21,
-    HARD_KEY_CMD_UP = 0x28,
-    HARD_KEY_CMD_UPRIGHT = 0x29,
-    HARD_KEY_CMD_RIGHT = 0x2A,
-    HARD_KEY_CMD_RIGHTDOWN = 0x2B,
-    HARD_KEY_CMD_DOWN = 0x2C,
-    HARD_KEY_CMD_LEFTDOWN = 0x2D,
-    HARD_KEY_CMD_LEFT = 0x2E,
-    HARD_KEY_CMD_UPLEFT = 0x2F,
     HARD_KEY_SCAN = 0x30,
     HARD_KEY_MENU = 0x31,
     HARD_KEY_BACK = 0x32,
     HARD_KEY_SEEK_UP = 0x33,
     HARD_KEY_SEEK_DOWN = 0x34,
     HARD_KEY_HOME = 0x35,
-    HARD_KEY_CMD_MEDIA = 0X36,
     HARD_KEY_EJECT = 0x40,
     HARD_KEY_PURPOSE_AUDIO = 0x50,
     HARD_KEY_PURPOSE_USB = 0x51,
     HARD_KEY_PURPOSE_PHONE = 0x52,
-    HARD_KEY_SWC_ENTER,
 }HARD_KEY_ID;
 
 /** 
@@ -200,17 +173,6 @@ typedef struct {
     unsigned short y;
     TOUCH_TYPE_ID type;
 }TOUCH_INFO;
-
-/** 
-  *  @struct ERR_COUNT_INFO
-  *  @brief 错误计数信息
-  */
-typedef struct {
-    unsigned short fail_to_start_num;
-    unsigned short heartbeat_timeout_num;
-    unsigned short loss_of_sync_msg_num;
-    unsigned short repeat_sync_msg_num;
-}ERR_COUNT_INFO;
 
 /** 
   *  @enums
@@ -253,15 +215,6 @@ typedef enum {
 
 /** 
   *  @enums
-  *  @brief  心跳指令开关
-  */
-typedef enum {
-    HEARTBEAT_OFF = 0x00,
-    HEARTBEAT_ON,
-}HEARTBEAT_COMMAD_SWITCH;
-
-/** 
-  *  @enums
   *  @brief  获取版本类型定义
   */
 typedef enum {
@@ -294,16 +247,11 @@ typedef enum {
   *  @brief  开关机状态模式定义
   */
 typedef enum {
-    #if 1  //for CMF-B
     POWER_MODE_SLEEP_OFF = 0x00,
     POWER_MODE_TEMP_OFF,
     POWER_MODE_USER_OFF,
     POWER_MODE_USER_ON,
     POWER_MODE_MAX_ID,
-    #else //for other
-    POWER_MODE_NORMAL = 0x00,
-    POWER_MODE_SHUTDOWN_IN_ONE_SECOND,
-    #endif
 }POWER_MODE_ID;
 
 /** 
@@ -311,7 +259,6 @@ typedef enum {
   *  @brief 开关机状态信息
   */
 typedef struct {
-    unsigned char reserver;
     POWER_STATUS_ID power_status;
     POWER_MODE_ID power_mode;
 }POWER_INFO;
@@ -341,32 +288,6 @@ typedef struct {
 }CLOCK_MSG;
 
 /** 
-  *  @enums
-  *  @brief 面板灯参数定义参数定义
-  */
-typedef enum {
-    SET_DUTY_CYCLE = 0x01,
-}MODE_ID;
-
-/** 
-  *  @enums
-  *  @brief 面板灯操作参数定义
-  */
-typedef enum {
-    BUTTON_ADD         = 0x00,
-    BUTTON_MINUS     = 0x01,
-}OPERATE_ID;
-
-/** 
-  *  @struct BUTTON_DUTY_INFO
-  *  @brief 设置调节信息
-  */
-typedef struct {
-    MODE_ID     mode;
-    OPERATE_ID     value;
-}BUTTON_DUTY_INFO;
-
-/** 
   *  @struct RTC_MSG
   *  @brief RTC 时钟信息
   */
@@ -389,32 +310,25 @@ typedef struct {
   *  @brief 音频信号源定义
   */
 typedef enum {
-    AUDIO_SOURCE_FM1 = 0x00,
-    AUDIO_SOURCE_FM2,
-    AUDIO_SOURCE_FM3,
-    AUDIO_SOURCE_FM4,
-    AUDIO_SOURCE_AM1,
-    AUDIO_SOURCE_AM2,
-    AUDIO_SOURCE_AM3,
-    AUDIO_SOURCE_TUNER,
-    AUDIO_SOURCE_CD,
-    AUDIO_SOURCE_AUX,
-    AUDIO_SOURCE_AUDIO_PLAYER,
-    AUDIO_SOURCE_VIDEO_PLAYER,
-    AUDIO_SOURCE_IPOD_CARPLAY, //CarPlayAudio(I2S)
-    AUDIO_SOURCE_BT_HFP,
-    AUDIO_SOURCE_BT_AUDIO,
-    AUDIO_SOURCE_SMARTPHONE,
-    AUDIO_SOURCE_IPOD = 0x10,
-    AUDIO_SOURCE_CARPLAYPHONE,
-    AUDIO_SOURCE_CARLIFE,
-    
-    AUDIO_SOURCE_NAVIGATION,
-
-    AUDIO_SOURCE_NAVIGATION_RADIO = 0x52,
-    AUDIO_SOURCE_NAVIGATION_I2S = 0x92,
-    
-    AUDIO_SOURCE_MAX_ID,
+	AUDIO_SOURCE_FM1=0x00,
+	AUDIO_SOURCE_FM2,
+	AUDIO_SOURCE_FM3,
+	AUDIO_SOURCE_FM4,
+	AUDIO_SOURCE_AM1,
+	AUDIO_SOURCE_AM2,
+	AUDIO_SOURCE_AM3,
+	AUDIO_SOURCE_TUNER,
+	AUDIO_SOURCE_CD,
+	AUDIO_SOURCE_AUX,
+	AUDIO_SOURCE_AUDIO_PLAYER,
+	AUDIO_SOURCE_VIDEO_PLAYER,
+	AUDIO_SOURCE_IPOD_CARPLAY,
+	AUDIO_SOURCE_BT_HFP,
+	AUDIO_SOURCE_BT_AUDIO,
+	AUDIO_SOURCE_SMARTPHONE,
+	AUDIO_SOURCE_IPOD,
+	
+	AUDIO_SOURCE_MAX_ID,
 }AUDIO_SOURCE_ID;
 
 /** 
@@ -424,7 +338,6 @@ typedef enum {
 typedef enum {
     AUDIO_SETTING_VOLUME = 0x00,
     AUDIO_SETTING_BAS,
-    AUDIO_SETTING_MID,
     AUDIO_SETTING_TRE,
     AUDIO_SETTING_BAL,
     AUDIO_SETTING_FAD,
@@ -449,7 +362,6 @@ typedef struct {
 typedef struct {
     unsigned char volume;
     unsigned char bass;
-    unsigned char mid;
     unsigned char treble;
     unsigned char bal;
     unsigned char fader;
@@ -499,43 +411,12 @@ typedef enum {
   *  @enums
   *  @brief 导航混音开关状态定义
   */
-typedef enum {      
-    NAVI_MIX_STATUS_END   = 0x00,
-    NAVI_MIX_STATUS_START = 0x01,
-    SIRI_MIX_STATUS_END   = 0x02,
-    SIRI_MIX_STATUS_START = 0x03,
-    SPDIF_STATUS_CLOSE    = 0x04,
-    SPDIF_STATUS_OPEN     = 0x05
-}NAVIGATION_BROADCAST;
-
-/** 
-  *  @enums
-  *  @brief 导航混音状态定义
-  */
-typedef enum {       
-    NAVI_TYPE_MIRACAST = 0x00,
-    NAVI_TYPE_CARPLAY = 0x01,
-}NAVIGATION_TYPE;
-
-/** 
-  *  @enums
-  *  @brief 导航播报开关状态定义
-  */
-typedef struct {
-    NAVIGATION_BROADCAST navigation_broadcast;
-    NAVIGATION_TYPE      navigation_type;
-}NAVIGATION_BROADCAST_ID;
-
-/** 
-  *  @enums
-  *  @brief 导航混音开关状态定义
-  */
-typedef enum {      
-    MAIN_DRIVER_ANSWER_STATUS_OFF = 0x00,
-    MAIN_DRIVER_ANSWER_STATUS_ON = 0x01,
+typedef enum {
+    NAVI_MIX_STATUS_START = 0x00,   
+    NAVI_MIX_STATUS_END = 0x01,
     
-    MAIN_DRIVER_ANSWER_STATUS_MAX_ID,
-}MAIN_DRIVER_ANSWER_ID;
+    NAVI_MIX_STATUS_MAX_ID, 
+}NAVI_MIX_STATUS_ID;
 
 /** 
   *  @enums
@@ -546,8 +427,8 @@ typedef enum {
     DEVICE_PLUG_STATUS_AUX_IN = 0x01,
     DEVICE_PLUG_STATUS_TEL_OFF = 0x10,
     DEVICE_PLUG_STATUS_TEL_ON = 0x11,
-    DEVICE_PLUG_STATUS_PARK_OFF = 0x20,
-    DEVICE_PLUG_STATUS_PARK_ON = 0x21,
+    DEVICE_PLUG_STATUS_PARK_ON = 0x20,
+    DEVICE_PLUG_STATUS_PARK_OFF = 0x21,
     DEVICE_PLUG_STATUS_REVERSE_OFF = 0x30,
     DEVICE_PLUG_STATUS_REVERSE_ON = 0x31,
     DEVICE_PLUG_STATUS_DISK_OUT = 0x40,
@@ -568,102 +449,21 @@ typedef enum {
 
 /** 
   *  @enums
-  *  @brief 设置/获取主板各个音源参数定义
-  */
-typedef enum
-{
-    SET_MAIN_VOLUME         = 0x00,
-    SET_BTHFP_VOLUME         = 0x01,
-    GET_MAIN_VOLUME         = 0x02,
-    GET_BTHFP_VOLUME         = 0x03,
-    SET_SMARTPHONE_VOLUME     = 0x04,
-    GET_SMARTPHONE_VOLUME    = 0x05,
-}ABSOLUTELY_VOLUME_ID;
-
-/** 
-  *  @struct ABSOLUTELY_VOLUME
-  *  @brief 设置获取各个音源音量信息
-  */
-typedef struct
-{
-    ABSOLUTELY_VOLUME_ID     absolutely_volume;
-    unsigned char             value;
-}ABSOLUTELY_VOLUME;
-
-/** 
-  *  @enums
-  *  @brief 核心板设置主板音效功能开关
-  */
-typedef enum
-{
-    FLAT_OFF = 0x00,
-    FLAT_ON  = 0x01,
-}AUDIO_FUNCTION_SWITCH;
-
-/** 
-  *  @enums
-  *  @brief 外设类型定义
-  */
-typedef enum
-{
-    AUX         = 0x00,
-    BCM_TEL      = 0x01,
-    PARK        = 0x02,
-    REVERSE        = 0x03,
-    DISK        = 0x04,
-    ILL            = 0x05,
-    EQ_PIN        = 0x06,
-}DEVICE_TYPE;
-
-/** 
-  *  @struct EQ_PIN_INFO
-  *  @brief EQ pin信息
-  */
-typedef struct {
-    unsigned char data;
-    unsigned char detection_position;
-}EQ_PIN_INFO;
-
-
-/** 
-  *  @struct AUDIO_DEVICE_PLUG_STATUS
-  *  @brief 外设状态信息
-  */
-typedef struct {
-    DEVICE_TYPE         type;
-    unsigned char         status;
-    EQ_PIN_INFO            eq_info;
-}AUDIO_DEVICE_PLUG_STATUS;
-
-/** 
-  *  @enums
   *  @brief 音量信息类型定义
   */
 typedef enum {
-    AUDIO_VOLUME_TYPE               = 0x00,
-    AUDIO_ON_OFF_TYPE               = 0X01,
-    AUDIO_BT_HFP_VOLUME_TYPE_OFF     = 0X09,
-    AUDIO_SMARTPHONE_VOLUME_TYPE    = 0x10,
-}AUDIO_INFO_TYPE;
-
-/** 
-  *  @enums
-  *  @brief AUDIO开关定义
-  */
-typedef enum
-{
-    AUDIO_ON     = 0x00,
-    AUDIO_OFF     = 0x01,
-}AUDIO_ON_OFF_INFO;
+    AUDIO_VOLUME_INFO_TYPE_CUR_VOL = 0x00,
+    AUDIO_VOLUME_INFO_TYPE_ON,
+    AUDIO_VOLUME_INFO_TYPE_OFF,
+}AUDIO_VOLUME_INFO_TYPE_ID;
 
 /** 
   *  @struct AUDIO_VOLUME_INFO
   *  @brief 音量信息
   */
 typedef struct {
-    AUDIO_INFO_TYPE     audio_type;
-    unsigned char         volume_values;
-    AUDIO_ON_OFF_INFO     audio_info;
+    AUDIO_VOLUME_INFO_TYPE_ID type;
+    unsigned char values;
 }AUDIO_VOLUME_INFO;
 
 /** 
@@ -674,15 +474,6 @@ typedef enum {
     POPUP_INFO_NO_DISK = 0x00,
     POPUP_INFO_NO_AUX,
 }POPUP_INFO_ID;
-
-/** 
-  *  @enums
-  *  @brief 主板音效开关信息定义
-  */
-typedef enum {
-    RET_FLAT_OFF = 0x00,
-    RET_FLAT_ON  = 0x01,
-}ARKAMYS_FUNC_SW_INFO;
 
 /** 
   *  @enums
@@ -710,147 +501,6 @@ typedef enum {
 
     RADIO_BAND_MAX_ID,
 }RADIO_BAND_ID;
-
-/** 
-  *  @enums
-  *  @brief Radio 方向定义
-  */
-typedef enum {
-    NO_DIRECTION = 0X00,
-    RADIO_LEFT,
-    RADIO_RIGHT,
-}RADIO_DRECTION;
-
-/** 
-  *  @enums
-  *  @brief Radio 波段信息
-  */
-typedef struct {
-    RADIO_DRECTION radio_direction;
-    RADIO_BAND_ID band;
-    unsigned char preset_num;
-    unsigned long preset_freq;
-}RADIO_BAND_CHANGE_INFO;
-
-
-/** 
-  *  @enums
-  *  @brief FM,AM CMD定义
-  */
-typedef enum {
-    /*FM*/
-    FM_SET_LEVEL = 0x01,
-    FM_SET_FOF,
-    FM_SET_USN,
-    FM_SET_WAM,
-    FM_RF_AGC,
-    FM_BW,
-    FM_NBSA,
-    FM_BWS,
-    FM_BWSLEV,
-    FM_MFT,
-    FM_MAT,
-    FM_MDT,
-    FM_MST,
-    FM_MSL,
-    FM_MNS,
-    FM_MMS    = 0x10, 
-    FM_MLIM,
-    FM_HFT,
-    FM_HAT,
-    FM_HDT,
-    FM_HST,
-    FM_HSL,
-    FM_HNS,
-    FM_HMS,
-    FM_HSLIM,
-    FM_HLIM,
-    FM_HLOC,
-    FM_SFT,
-    FM_SAT,
-    FM_SDT,
-    FM_SST,
-    FM_SSL = 0x20,
-    FM_SNS,
-    FM_SMS,
-    FM_SSLIM,
-    
-    /*AM*/
-    AM_SET_LEVEL = 0x74,
-    AM_SET_FOF,
-    AM_RF_AGC,
-    AM_BW,
-    AM_ANT,
-    AM_ATT,
-    AM_NBSA,
-    AM_NBSB,
-    AM_FLOC,
-    AM_DEMP,
-    AM_MAT,
-    AM_MDT,
-    AM_MST = 0x80,
-    AM_MSL,
-    AM_MLIM,
-    AM_HAT,
-    AM_HDT,
-    AM_HST,
-    AM_HSL,
-    AM_HSLIM,
-    AM_HLIM,
-}CMD_INFO;
-
-/** 
-  *  @enums
-  *  @brief option定义
-  */
-typedef enum {
-    ADD     = 0x00,
-    MINUS     = 0x01,
-}OPTION_INFO;
-
-
-/** 
-  *  @enums
-  *  @brief 诊断情况下设置FM,AM的停台条件
-  */
-typedef struct {
-    CMD_INFO cmd_info;
-    OPTION_INFO option_info;
-}RADIO_STOP_CONDITIONS_INFO;
-
-
-/** 
-  *  @enums
-  *  @brief Radio 诊断界面进入或退出
-  */
-typedef enum {
-    ENTER_RADIO_DIAGNOSE = 0x01,
-    EXIT_RADIO_DIAGNOSE = 0x02,    
-}RADIO_DIAGNOSE_INFO;
-
-
-/** 
-  *  @enums
-  *  @brief Radio 波段定义
-  */
-typedef enum {
-    CMD_FM1 = 0x00,
-    CMD_FM2,
-    CMD_FM3,
-    CMD_FMAS2,
-    CMD_UNUSED,
-    CMD_AM1,
-    CMD_AM2,
-}RADIO_CURBAND_INFO;
-
-/** 
-  *  @enums
-  *  @brief Radio 播放状态定义
-  */
-typedef enum {
-    RADIO_SCAN_PLAY_START = 0x00,
-    RADIO_SCAN_PLAY_END = 0xFF,
-}RADIO_PLAY_STATE;
 
 /** 
   *  @enums
@@ -884,105 +534,9 @@ typedef struct {
   */
 typedef struct {
     RADIO_BAND_ID band;
-    unsigned long preset_freq[12];
+    unsigned long preset_freq[7];
     unsigned char preset_num;
 }RADIO_PRESET_INFO;
-
-/** 
-  *  @struct RADIO_FM_PARAMETER_INFO
-  *  @brief FM工程模式信息
-  */
-typedef struct {
-    unsigned char fm_level;
-    unsigned char fm_fof;
-    unsigned char fm_usn;
-    unsigned char fm_wam;
-    unsigned char fm_set_level;
-    unsigned char fm_set_fof;
-    unsigned char fm_set_usn;
-    unsigned char fm_set_wam;
-    unsigned char fm_rf_agc;
-    unsigned char fm_bw;
-    unsigned char fm_nbsa;
-    unsigned char fm_bws;
-    unsigned char fm_bwslev;
-    unsigned char fm_mft;
-    unsigned char fm_mat;
-    unsigned char fm_mdt;
-    unsigned char fm_mst;
-    unsigned char fm_msl;
-    unsigned char fm_mns;
-    unsigned char fm_mms;
-    unsigned char fm_mlim;
-    unsigned char fm_hft;
-    unsigned char fm_hat;
-    unsigned char fm_hdt;
-    unsigned char fm_hst;
-    unsigned char fm_hsl;
-    unsigned char fm_hns;
-    unsigned char fm_hms;
-    unsigned char fm_hslim;
-    unsigned char fm_hlim;
-    unsigned char fm_hloc;
-    unsigned char fm_sft;
-    unsigned char fm_sat;
-    unsigned char fm_sdt;
-    unsigned char fm_sst;
-    unsigned char fm_ssl;
-    unsigned char fm_sns;
-    unsigned char fm_sms;
-    unsigned char fm_sslim;
-
-}RADIO_FM_PARAMETER_INFO;
-
-/** 
-  *  @struct RADIO_AM_PARAMETER_INFO
-  *  @brief AM工程模式信息
-  */
-typedef struct {
-    unsigned char am_level;
-    unsigned char am_fof;
-    unsigned char am_set_level;
-    unsigned char am_set_fof;
-    unsigned char am_rf_agc;
-    unsigned char am_bw;
-    unsigned char am_ant;
-    unsigned char am_att;
-    unsigned char am_nbsa;
-    unsigned char am_nbsb;
-    unsigned char am_floc;
-    unsigned char am_demp;
-    unsigned char am_mat;
-    unsigned char am_mdt;
-    unsigned char am_mst;
-    unsigned char am_msl;
-    unsigned char am_mlim;
-    unsigned char am_hat;
-    unsigned char am_hdt;
-    unsigned char am_hst;
-    unsigned char am_hsl;
-    unsigned char am_hslim;
-    unsigned char am_hlim;    
-}RADIO_AM_PARAMETER_INFO;
-
-/** 
-  *  @struct RADIO_STATION_LIST_INFO
-  *  @brief 当前波段最优电台信息
-  */
-typedef struct {
-    RADIO_CURBAND_INFO band_type;
-    unsigned char station_num;
-    unsigned long station_freq[50];
-}RADIO_STATION_LIST_INFO;
-
-/** 
-  *  @struct CURRADIO_STATION_LIST_INFO
-  *  @brief 当前正在播放的条目信息
-  */
-typedef struct {
-    RADIO_CURBAND_INFO band_type;
-    RADIO_PLAY_STATE play_state;
-}CURRADIO_STATION_LIST_INFO;
 
 /** 
   *  @struct RADIO_COLLECTED_INFO
@@ -992,18 +546,6 @@ typedef struct {
     unsigned char size;
     unsigned char content[64];
 }RADIO_COLLECTED_INFO;
-
-/** 
-  *  @enums
-  *  @brief UPDATE CMD ID
-  */
-typedef enum
-{
-    START_LIST_UPDATE         = 0x01,
-    CANCEL_LIST_UPDATE         = 0X02,
-    GET_FM1_STATION_LIST     = 0x05,
-    GET_AM1_STATION_LIST     = 0x06,
-}UPDATE_CMD;
 
 /** 
   *  @enums
@@ -1023,6 +565,7 @@ typedef struct {
     IGN_STATUS ign_status;
 }IGN_ON_OFF_INFO;
 
+
 /** 
   *  @struct COREBOARD_RESUME_INFO
   *  @brief 核心板恢复保存状态信息
@@ -1032,25 +575,6 @@ typedef struct {
    unsigned short length;
    unsigned char data[128];
 }COREBOARD_RESUME_INFO;
-
-/** 
-  *  @enums
-  *  @brief 当前播放器播放状态类型定义
-  */
-typedef enum {
-    DEMUTE              = 0x00,                /*解除mute*/
-    MCU_MUTE_100      = 0x01,                /* MCU静音100ms*/
-    MCU_MUTE_200       = 0x02,                /* MCU静音200ms*/
-    MCU_MUTE_300      = 0x03,                /* MCU静音300ms*/
-    MCU_MUTE_400     = 0x04,                /* MCU静音400ms*/
-    MCU_MUTE_500     = 0x05,                /* MCU静音500ms*/
-    MCU_MUTE_600     = 0x06,                /* MCU静音600ms*/
-    MCU_MUTE_700     = 0x07,                /* MCU静音700ms*/
-    MCU_MUTE_800     = 0x08,                /* MCU静音800ms*/
-    MCU_MUTE_900     = 0x09,                /* MCU静音900ms*/
-                                        /*静音时间 N * 100ms,N为传入参数*/
-    MUTE            = 0xFF,                /*MUTE*/
-}PLATER_PLAY_SKIP_STATUS_INFO;
 
 /** 
   *  @enums
@@ -1121,38 +645,6 @@ typedef struct {
 }VIDEO_SOURCE_INFO;
 
 /** 
-  *  @enums
-  *  @brief 模式ID定义
-  */
-typedef enum
-{
-    DAY_MODE     = 0x00,
-    NIGHT_MODE     = 0x01,
-}DAYNIGHT_MODE;
-
-/** 
-  *  @enums
-  *  @brief ILL模式ID定义
-  */
-typedef enum
-{
-    AUTO_MODE             = 0x00,
-    MANUAL_DAY_MODE     = 0x01,
-    MANUAL_NIGHT_MODE    = 0x02,
-}ILL_MODE;
-
-/** 
-  *  @struct DAYNIGHT_MODE_INFO
-  *  @brief  白天黑夜模式信息
-  */
-typedef struct
-{
-    DAYNIGHT_MODE     daynight_mode;
-    unsigned char     brightness_level;
-    ILL_MODE         ILL_mode;
-}DAYNIGHT_MODE_SET_INFO;
-
-/** 
   *  @struct AVM_DATA_INFO
   *  @brief 存储AVM数据
   */
@@ -1161,14 +653,6 @@ typedef struct {
     unsigned char content[128];
 }AVM_DATA_INFO;
 
-/** 
-  *  @struct MCAN_DATA_INFO
-  *  @brief 存储MCAN数据
-  */
-typedef struct {
-    unsigned char size;
-    unsigned char data[256];
-}MCAN_DATA_INFO;
 
 /** 
   *  @enums
@@ -1233,25 +717,6 @@ typedef enum{
 }AVM_MODEL_COLOR_ID;
 
 /** 
-  *  @enums
-  *  @brief 设置获取亮度等级信息
-  */
-typedef enum
-{
-    SET_CUR_MODE_LEVEL = 0x02,
-    GET_CUR_MODE_LEVEL = 0x03,
-}DAYNIGHT_LEVEL;
-
-/** 
-  *  @struct DAYNIGHT_MODE_INFO
-  *  @brief  设置白天黑夜模式、等级信息
-  */
-typedef struct {
-    DAYNIGHT_LEVEL     level;
-    unsigned char     value;
-}DAYNIGHT_MODE_INFO;
-
-/** 
   *  @struct AVM_SETTING_TYPE_INFO
   *  @brief  AVM 设置类型信息
   */
@@ -1306,31 +771,18 @@ typedef enum {
 
 /** 
   *  @enums
-  *  @brief 录音播放状态 定义
-  */
-
-typedef enum {
-    RECORD_END = 0X00,
-    RECORD_START = 0X01,
-}RECORD_PLAY_STATE_ID;
-
-/** 
-  *  @enums
   *  @brief 嗽叭诊断输出声音 定义
   */
 typedef enum {
-    BEEP_MUTE = 0x22,//0xCC,
-    BEEP_3K = 0x40,//0xAA,
-    BEEP_300 = 0x80,//0x55,
-    BEEP_FL_ON = 0x11,
-    BEEP_FR_ON = 0x12,
-    BEEP_RL_ON = 0x13,
-    BEEP_RR_ON = 0x14,
-    BEEP_FL_OFF = 0x01,
-    BEEP_FR_OFF = 0x02,
-    BEEP_RL_OFF = 0x03,
-    BEEP_RR_OFF = 0x04,
-    BEEP_STOP = 0xFF,
+	SPEAKER_FL_3K = 0x00,   /**< speaker front left 3KHZ */
+	SPEAKER_FR_3K,          /**< speaker front right 3KHZ */
+	SPEAKER_RL_3K,          /**< speaker rear left 3KHZ */
+	SPEAKER_RR_3K,          /**< speaker rear right 3KHZ */
+	SPEAKER_FL_3H,          /**< speaker front left 300HZ */
+	SPEAKER_FR_3H,          /**< speaker front right 300HZ */
+	SPEAKER_RL_3H,          /**< speaker rear left 300HZ */
+	SPEAKER_RR_3H,          /**< speaker rear right 300HZ */
+	SPEAKER_STOP=0xFF,      /**< speaker stop */
 }SPEAKER_FREQ_ID;
 
 /** 
@@ -1340,32 +792,6 @@ typedef enum {
 typedef struct {
     char *data;
 }MCAN_INFO;
-
-/** 
-  *  @enums
-  *  @brief 空调按键定义
-  */
-typedef enum
-{
-    HVAC_KEY_NULL = 0x00,
-    HVAC_KEY_LEFT_TEM_INCREASED = 0x01,
-    HVAC_KEY_LEFT_TEM_DECREASED = 0x02,
-    HVAC_KEY_RIGHT_TEM_INCREASED = 0x03,
-    HVAC_KEY_RIGHT_TEM_DECREASED = 0x04,
-    HVAC_KEY_AIR_INCREASED = 0x05,
-    HVAC_KEY_AIR_DECREASED = 0x06,
-    HVAC_KEY_MODE = 0x07,
-    HVAC_KEY_DAUL_ZONE = 0x08,
-    HVAC_KEY__ON_OFF = 0x09,
-    HVAC_KEY_OUTSIDE_LOOP = 0x0A,
-    HVAC_KEY_INNER_LOOP = 0x0B,
-    HVAC_KEY_FRONT_DEFROST = 0x0C,
-    HVAC_KEY_REAR_DEFROST = 0x0D,
-    HVAC_KEY_AC = 0x0E,
-    HVAC_KEY__MAX_AC = 0x0F,
-
-    HVAC_KEY_MAXID,
-}HVAC_KEY_ID;
 
 /** 
   *  @enums
@@ -1385,9 +811,6 @@ typedef enum {
   *  @brief  空调返回状态信息定义
   */
 typedef struct {
-    #if 1
-    unsigned char hvac_status;            /**< 空调连接状态 */
-    #endif
     unsigned char maxAC_on_off;         /**< MAX AC 开关状态；1 开启，0 关闭 */
     unsigned char AC_on_off;            /**< AC  开关状态；1 开启，0 关闭 */
     unsigned char recirc_on_off;        /**< 内循环 开关状态；1 开启，0 关闭 */
@@ -1401,7 +824,6 @@ typedef struct {
     unsigned char left_temp;            /**< 左区温度；0-16, 0表示不显示 */
     unsigned char right_temp;           /**< 右区温度；0-16, 0表示不显示 */
     HVAC_MODE_ID hvac_mode;             /**< 空调模式,参考HVAC_MODE_ID 定义 */
-    HVAC_KEY_ID hvac_key;               /**< 空调按键，参考HVAC_KEY_ID 定义> */
 }HVAC_INFO;
 
 /** 
@@ -1522,9 +944,8 @@ typedef enum {
     EVAPORATOR_TEMPERATURE_SENSOR_SHORT_CIRCUIT_GND = 0x0601,
     EVAPORATOR_TEMPERATURE_SENSOR_SHORT_CIRCUIT_POWER = 0x0602,
 
-/*
-    KEY_DEFROST_RELEASE = 0x3FFFFE,
-    KEY_REDEFROST_RELEASE = 0x08,
+    KEY_DEFROST_RELEASE = 0x0800,
+    KEY_REDEFROST_RELEASE = 0x0801,
     KEY_L_UP_RELEASE = 0x0802,
     KEY_L_DOWN_RELEASE = 0x0803,
     KEY_ON_OFF_RELEASE = 0x0804,
@@ -1563,61 +984,8 @@ typedef enum {
     KEY_BACK_PRESS = 0x08B2,
     KEY_HOME_PRESS = 0x08B5,
     KEY_MEDIA_PRESS = 0x08B6,
-    KEY_POWER_PRESS = 0x0892,*/
+    KEY_POWER_PRESS = 0x0892,
 }HVAC_DIAG_FAULT_CODE_ID;
-
-typedef enum {
-    KEY_DEFROST_PRESS = 0x3FFFFE,
-    KEY_REDEFROST_PRESS = 0x3FFFFD,
-    KEY_L_UP_PRESS = 0x3FFFFB,
-    KEY_L_DOWN_PRESS = 0x3FFFF7,    
-    KEY_ON_OFF_PRESS = 0x3FFFEF,
-    KEY_RECIRC_PRESS = 0x3FFFDF,
-    KEY_FRESH_PRESS = 0x3FFFBF,
-    KEY_DUAL_PRESS = 0x3FFF7F,
-    
-    KEY_MAX_AC_PRESS = 0x3FFEFF,
-    KEY_BLOWER_P_PRESS = 0x3FFDFF,
-    KEY_R_UP_PRESS = 0x3FFBFF,
-    KEY_R_DOWN_PRESS = 0x3FF7FF,     
-    KEY_MODE_PRESS = 0x3FEFFF,   
-    KEY_AC_ON_PRESS = 0x3FDFFF,
-    KEY_BLOWER_M_PRESS = 0x3FBFFF,
-    KEY_MENU_PRESS = 0x3F7FFF,
-    
-    KEY_BACK_PRESS = 0x3EFFFF,    
-    KEY_HOME_PRESS = 0x3DFFFF,
-    KEY_MEDIA_PRESS = 0x3BFFFF,
-    KEY_POWER_PRESS = 0x37FFFF,
-    KEY_VOLUME_LEFT_PRESS = 0x2FFFFF,
-    KEY_VOLUME_RIGHT_PRESS = 0x1FFFFF,
-    
-    KEY_DEFROST_RELEASE = 0x3FFFFF,
-    KEY_REDEFROST_RELEASE = 0x3FFFFF,
-    KEY_L_UP_RELEASE = 0x3FFFFF,
-    KEY_L_DOWN_RELEASE = 0x3FFFFF,   
-    KEY_ON_OFF_RELEASE = 0x3FFFFF,
-    KEY_RECIRC_RELEASE = 0x3FFFFF,
-    KEY_FRESH_RELEASE = 0x3FFFFF,
-    KEY_DUAL_RELEASE = 0x3FFFFF,
-    
-    KEY_MAX_AC_RELEASE = 0x3FFFFF,  
-    KEY_BLOWER_P_RELEASE = 0x3FFFFF,
-    KEY_R_UP_RELEASE = 0x3FFFFF,
-    KEY_R_DOWN_RELEASE = 0x3FFFFF,   
-    KEY_MODE_RELEASE = 0x3FFFFF,
-    KEY_AC_ON_RELEASE = 0x3FFFFF,
-    KEY_BLOWER_M_RELEASE = 0x3FFFFF,
-    KEY_MENU_RELEASE = 0x3FFFFF,
-    
-    KEY_BACK_RELEASE = 0x3FFFFF,
-    KEY_HOME_RELEASE = 0x3FFFFF,
-    KEY_MEDIA_RELEASE = 0x3FFFFF,
-    KEY_POWER_RELEASE = 0x3FFFFF,
-    KEY_VOLUME_LEFT_RELEASE = 0x3FFFFF,
-    KEY_VOLUME_RIGHT_RELEASE = 0x3FFFFF,
-
-}HVAC_DIAG_KEY_ID;
 
 /** 
   *  @struct HVAC_DIAG_INFO
@@ -1627,7 +995,6 @@ typedef struct {
     HVAC_DIAG_STATUS_ID status;
     HVAC_DIAG_CTRL_OBJ_ID obj;
     HVAC_DIAG_FAULT_CODE_ID code;
-    HVAC_DIAG_KEY_ID key;
 }HVAC_DIAG_INFO;
 
 /** 
@@ -1670,17 +1037,8 @@ typedef struct {
     IT_COMMANDER_DIRECTIONS_ID directions;  /**< 8-directions data ,@see IT_COMMANDER_DIRECTIONS_ID */
 }IT_COMMANDER_INFO;
 
-/** 
-  *  @struct AUTOTEST_DATA_INFO
-  *  @brief 存储AUTO TEST数据
-  */
-typedef struct
-{
-    unsigned char size;
-    unsigned char data[128];
-}AUTOTEST_DATA_INFO;
-
 /**@}*/
+
 
 /**
   * @addtogroup  Mcu_Agent_API
@@ -1768,7 +1126,7 @@ typedef struct {
   * @param    void 无。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
-    int (*send_alive)(HEARTBEAT_COMMAD_SWITCH status);
+    int (*send_alive)(void);
 
 /**
   * @brief      发送HMI 或BT 的版本信息给主板。
@@ -1825,35 +1183,13 @@ typedef struct {
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*get_gps_clock)(void);
-
-/**
-  * @brief      调节面板灯亮度（目前仅用在诊断模式) ID:0x14
-  * @param      info 设置面板灯亮度信息BUTTON_DUTY_INFO
-  * @returns  成功返回0，失败返回小于0 。
-  */
-    int (*set_button_backlight_duty_cycle)(BUTTON_DUTY_INFO *info);
-
-/**
-  * @brief    控制USB电源开关
-  * @param    设置断电时间 time * 500ms
-  * @returns  成功返回0，失败返回小于0 。
-  */
-    int (*set_usb_power)(unsigned char time);
-
 /**
   * @brief      设置设置菜单参数信息。
   * @param    info  设置菜单参数信息, 参考SETUP_PARAM_INFO。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*set_setup_param_info) (SETUP_PARAM_INFO *info);
-
-/**
-  * @brief      获取设置菜单参数信息。
-  * @param      void 无
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*get_setup_param_info)(void);
-
+    
 /**
   * @brief      设置主板的音频源。
   * @param    audio_source 音频源，参考AUDIO_SOURCE_ID 。
@@ -1933,59 +1269,25 @@ typedef struct {
 
 /**
   * @brief      设置主板导航混音开关状态。
-  * @param    info  导航混音开关状态，参考NAVIGATION_BROADCAST_ID。
+  * @param    status  导航混音开关状态，参考NAVI_MIX_STATUS_ID。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
-    int (*set_audio_navi_mix_status)(NAVIGATION_BROADCAST_ID *info);
-
-/**
-    * @brief        设置主驾驶接听开关状态。
-    * @param      status  导航混音开关状态，参考MAIN_DRIVER_ANSWER_ID。
-    * @returns  成功返回发送数据包大小，失败返回小于0 。
-    */
-      
-    int (*set_main_driver_answer_status)(MAIN_DRIVER_ANSWER_ID status);
-
-/**
-    * @brief        获取主驾驶接听状态。
-    * @param      void    无。
-    * @returns  成功返回发送数据包大小，失败返回小于0 。
-    */
-    int (*get_main_driver_answer_status)(void);
-
+  
+    int (*set_audio_navi_mix_status) (NAVI_MIX_STATUS_ID status);
+    
 /**
   * @brief      获取AUX接口的拔出或插入状态。
   * @param    void  无。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*get_aux_plug_status)(void);
-
+ 
 /**
   * @brief      设置主板的音量加减。
   * @param    status 音量加减状态，参考ADJUST_VOLUME_ID。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*set_adjust_volume)(ADJUST_VOLUME_ID status);
-
-/**
-  * @brief        设置/获取主板各个音源的音量。
-  * @param      info    各个音源音量信息，参考ABSOLUTELY_VOLUME。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*set_absolutely_volume)(ABSOLUTELY_VOLUME *info);
-
-/**
-  * @brief        设置主板的功效功能开关。ID:0x3A
-  * @param      status 功效开关状态，参考AUDIO_FUNCTION_SWITCH。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*set_audio_function_switch)(AUDIO_FUNCTION_SWITCH status);
-/**
-  * @brief        获取主板的功效功能开关。ID:0x3B
-  * @param      void    无。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*get_audio_function_switch)(void);
 
 /**
   * @brief      设置当前波段频率参数。
@@ -2051,15 +1353,15 @@ typedef struct {
     int (*change_radio_band)(void);
 
 /**
-  * @brief        向上搜索
-  * @param      void 无。
+  * @brief	    向上搜索
+  * @param	  void 无。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*radio_fastseek_up)(void);
 
 /**
-  * @brief        向下搜索
-  * @param      void 无。
+  * @brief		向下搜索
+  * @param	  void 无。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*radio_fastseek_down)(void);
@@ -2071,13 +1373,7 @@ typedef struct {
   */
     int (*save_radio_collected_info)(RADIO_COLLECTED_INFO *info);
 
-/**
-  * @brief      Radio list Update
-  * @param    cmd 更新list ID,参考UPDATE_CMD。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*radio_list_update)(UPDATE_CMD cmd);
-
+    
 /**
   * @brief      获取当前波段、状态、预置台、频率信息
   * @param    void 无。
@@ -2091,34 +1387,6 @@ typedef struct {
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*get_radio_preset_info)(RADIO_BAND_ID band);
-
-/**
-  * @brief        核心板设置主板收音切换到指定的波段
-  * @param      info 波段信息，参考RADIO_BAND_CHANGE_INFO。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*set_radio_band_change_info)(RADIO_BAND_CHANGE_INFO *info);
-
-/**
-  * @brief        核心板在诊断情况下设置FM,AM的停台条件
-  * @param      info 波段信息，参考RADIO_STOP_CONDITIONS_INFO。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*set_radio_stop_conditions_info)(RADIO_STOP_CONDITIONS_INFO *info);
-
-/**
-  * @brief        核心板通知主板进入或者退出radio诊断界面
-  * @param      info 波段信息，参考RADIO_DIAGNOSE_INFO。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*set_radio_diagnose_info)(RADIO_DIAGNOSE_INFO status);
-
-/**
-  * @brief        核心板通知主板切换到指定波段
-  * @param      info 波段信息，参考RADIO_CURBAND_INFO。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*set_radio_curband_info)(RADIO_CURBAND_INFO status);
 
 /**
   * @brief      获取IGN ON_OFF状态信息(CMF-B);
@@ -2142,13 +1410,6 @@ typedef struct {
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*get_coreboard_resume_info)(unsigned short address_offset, unsigned short length);
-
-/**
-  * @brief      发送当前播放器播放状态(MUTE接口)
-  * @param    status  播放状态，参考PLATER_PLAY_SKIP_STATUS_INFO（时间：status * 100ms）。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*send_player_play_skip_status)(PLATER_PLAY_SKIP_STATUS_INFO status);
 
 /**
   * @brief      发送当前蓝牙状态
@@ -2242,13 +1503,6 @@ typedef struct {
     int (*get_contrast)(void);
 
 /**
-  * @brief        设置白天黑夜模式、亮度等级以及获取当前模式等级信息
-  * @param      info    设置参数信息，参考DAYNIGHT_MODE_INFO。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*set_TFT_daynight_mode_info)(DAYNIGHT_MODE_INFO *info);
-
-/**
   * @brief      退出AVM设置菜单。
   * @param    void  无。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
@@ -2291,13 +1545,6 @@ typedef struct {
     int (*update_mainboard_firmware)(UPDATE_TYPE_ID type);
 
 /**
-  * @brief        核心板发命令给核心板重启
-  * @param      void  无。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*set_coreboard_restart)(void);
-
-/**
   * @brief      设置主板恢复工厂默认设置
   * @param    void  无。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
@@ -2305,22 +1552,15 @@ typedef struct {
     int (*set_mainboard_default_setting)(void);
 
 /**
-  * @brief      设置录音播放开始结束 
-  * @param    info 录音播放开始结束ID，参考邋RECORD_PLAY_STATE_ID。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*set_record_play_state)(RECORD_PLAY_STATE_ID status);
-
-/**
-  * @brief      设置嗽叭诊断输出声音  ID:0xDE
+  * @brief      设置嗽叭诊断输出声音 
   * @param    freq 喇叭输出声音频率变化ID，参考SPEAKER_FREQ_ID。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*set_speaker_diag)(SPEAKER_FREQ_ID freq);
 
 /**
-  * @brief        保存电台信息
-  * @param      info 保存接收到的电台信息,参考AVM_DATA_INFO。
+  * @brief		保存电台信息
+  * @param	  info 保存接收到的电台信息,参考AVM_DATA_INFO。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*save_avm_data_info)(AVM_DATA_INFO *info);
@@ -2330,36 +1570,7 @@ typedef struct {
   * @param    mcan_info。
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
-    int (*send_mcan_info)(MCAN_DATA_INFO *mcan_info);
-
-/**
-  * @brief      发送主机can消息
-  * @param    mcan_info。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*send_host_can)(MCAN_DATA_INFO *mcan_info);
-
-/**
-  * @brief      发送前中控can消息
-  * @param    mcan_info。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*send_fcc_can)(MCAN_DATA_INFO *mcan_info);
-
-/**
-  * @brief      发送后中控can消息
-  * @param    mcan_info。
-  * @returns  成功返回发送数据包大小，失败返回小于0 。
-  */
-    int (*send_rcc_can)(MCAN_DATA_INFO *mcan_info);
-
-/**
-  * @brief	获取can消息
-  * @param 	gcid		MessageGroup & Command ID
-  * @param 	subid 	Sub ID 	
-  * @returns	成功返回发送数据包大小，失败返回小于0 。
-  */
-	int (*get_can_info)(unsigned char gcid, unsigned char subid);
+    int (*send_mcan_info)(MCAN_INFO *mcan_info);
 
 /**
   * @brief      发送空调状态 消息
@@ -2428,8 +1639,5 @@ MCU_AGENT_API *McuAgent_get_api_handle(void);
 /**@}*/
 
 /**@}*/
-#ifdef __cplusplus
-}
-#endif
 #endif
 

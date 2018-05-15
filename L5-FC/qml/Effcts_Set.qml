@@ -253,8 +253,6 @@ Item {
     }
 
 
-
-
     function onJustmentBtnClicked(val)
     {
         var tmp;
@@ -264,48 +262,56 @@ Item {
             if(lowTxt < 10){
                 tmp = lowTxt +1;
                 lowTxt = tmp;
+                c_qmlInterface.sendFccCAN('3-16-0');
             }
             break;
         case 2:
             if(lowTxt > 1){
                 tmp = lowTxt -1;
                 lowTxt = tmp;
+                c_qmlInterface.sendFccCAN('3-32-0');
             }
             break;
         case 3:
             if(hightTxt < 10){
                 tmp = hightTxt +1;
                 hightTxt = tmp;
+                c_qmlInterface.sendFccCAN('3-4-0');
             }
             break;
         case 4:
             if(hightTxt > 1){
                 tmp = hightTxt -1;
                 hightTxt = tmp;
+                c_qmlInterface.sendFccCAN('3-8-0');
             }
             break;
         case 5:
             if(lrBalanceTxt < 10){
                 tmp = lrBalanceTxt +1;
                 lrBalanceTxt = tmp;
+                c_qmlInterface.sendFccCAN('3-0-0');
             }
             break;
         case 6:
             if(lrBalanceTxt > 1){
                 tmp = lrBalanceTxt -1;
                 lrBalanceTxt = tmp;
+                c_qmlInterface.sendFccCAN('3-0-16');
             }
             break;
         case 7:
             if(fbBalanceTxt < 10){
                 tmp = fbBalanceTxt +1;
                 fbBalanceTxt = tmp;
+                c_qmlInterface.sendFccCAN('3-0-32');
             }
             break;
         case 8:
             if(fbBalanceTxt > 1){
                 tmp = fbBalanceTxt -1;
                 fbBalanceTxt = tmp;
+                c_qmlInterface.sendFccCAN('3-0-48');
             }
             break;
         case 9:
@@ -323,6 +329,19 @@ Item {
         default:
             break;
         }
+    }
+
+
+    function setTrebleVal(treble)
+    {
+        console.log("############### treble ################ ", treble);
+        hightTxt = treble;
+    }
+
+    function setBassVal(bass)
+    {
+        console.log("############### bass ################ ", bass);
+        lowTxt = bass;
     }
 
 }

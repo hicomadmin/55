@@ -22,7 +22,6 @@ Item {
         onClicked: onMuteBtnClicked(1);
     }
 
-
     MenuButton{
         id:usbMedia;
         width: 250;
@@ -32,7 +31,6 @@ Item {
         btnText: qsTr("多媒体");
         normalSource: "qrc:/images/Menu_Icon_media_nml.png";
         pressSource:  "qrc:/images/Menu_Icon_media_exe.png";
-
         onClicked: onMuteBtnClicked(2);
     }
 
@@ -48,7 +46,6 @@ Item {
         onClicked: onMuteBtnClicked(3);
     }
 
-
     MenuButton{
         id:bluetooth;
         width: 250;
@@ -58,7 +55,7 @@ Item {
         btnText: qsTr("蓝牙");
         normalSource: "qrc:/images/Menu_Icon_BT_nml.png";
         pressSource:  "qrc:/images/Menu_Icon_BT_exe.png";
-        onClicked: onMuteBtnClicked(4);
+        onClicked:onMuteBtnClicked(4);
     }
 
     MenuButton{
@@ -125,8 +122,6 @@ Item {
         source: "qrc:/images/List_SeparatorLine.png"
     }
 
-
-
     MenuButton{
         id:off;
         anchors.left: radio.right;
@@ -141,7 +136,6 @@ Item {
         onClicked: onMuteBtnClicked(7);
     }
 
-
     MenuButton{
         id:sound;
         anchors.left: off.left;
@@ -150,11 +144,10 @@ Item {
         width: 64;
         height: 58;
         btnText: qsTr("");
-        normalSource: "qrc:/images/Top_Icon_sound_nml.png";
+        normalSource: c_qmlInterface.isMute?"qrc:/images/Top_Icon_sound_exe.png":"qrc:/images/Top_Icon_sound_nml.png";
         pressSource:  "qrc:/images/Top_Icon_sound_exe.png";
         onClicked: onMuteBtnClicked(8);
     }
-
 
     MenuButton{
         id:home;
@@ -168,6 +161,18 @@ Item {
         pressSource:  "qrc:/images/Top_Icon_home_exe.png";
         onClicked: onMuteBtnClicked(9);
 
+    }
+
+    Item {
+        width: 130;
+        height: 130;
+        anchors.left: home.right;
+        anchors.top: parent.top;
+        anchors.topMargin: 295;
+        MouseArea {
+            anchors.fill: parent
+            onClicked:onMuteBtnClicked(12);
+        }
     }
 
 
@@ -194,7 +199,7 @@ Item {
         btnText: qsTr("");
         normalSource: "qrc:/images/Top_Icon_volum-_nml.png";
         pressSource:  "qrc:/images/Top_Icon_volum-_exe.png";
-        onClicked: onMuteBtnClicked(10);
+        onClicked: onMuteBtnClicked(11);
     }
 
 

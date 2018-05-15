@@ -21,4 +21,8 @@ include(deployment.pri)
 
 HEADERS += \
     appupdateviewer.h \
-    qmlinterface.h
+    qmlinterface.h \
+    MW/mcu_agent_api.h
+
+LIBS +=-L$${PWD}/MW -lmcu_agent
+

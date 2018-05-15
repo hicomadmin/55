@@ -8,6 +8,7 @@ import QtQuick 2.3
 
 Item {
     signal sigSettingClicked(int index);
+    property int reset: 0;
 
     Button{
         id:effects;
@@ -53,7 +54,17 @@ Item {
         btnText: qsTr("雨刮维修复位");
         normalIcon: "qrc:/images/set/Setting_Icon_Wiper_nml.png";
         pressIcon:  "qrc:/images/set/Setting_Icon_Wiper_exe.png"
-        onClicked: onSettingBtnClicked(4);
+        onClicked: {
+            if(reset === 0){
+                c_qmlInterface.sendFccCAN('2-0-0-128-0-0');
+                reset = 1;
+            }else{
+                c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
+                reset = 0;
+            }
+
+            onSettingBtnClicked(4);
+        }
     }
 
     Button{

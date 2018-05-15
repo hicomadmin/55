@@ -25,5 +25,6 @@
         <file>qml/helpPage.qml</file>
         <file>qml/windowCurtains.qml</file>
         <file>qml/HelpButton.qml</file>
+        <file>qml/TestRccMCU.qml</file>
     </qresource>
 </RCC>

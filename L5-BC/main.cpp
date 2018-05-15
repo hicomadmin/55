@@ -10,7 +10,6 @@
 #include <QDateTime>
 #include <QString>
 
-QmlInterface *g_QmlInterface = NULL;
 
 void outputMessage(QtMsgType type, const QMessageLogContext&context, const QString &msg)
 {
@@ -108,8 +107,7 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(myMessageOutput);
 
     AppUpdateViewer viewer;
-    g_QmlInterface = new QmlInterface;
-    viewer.setQmlObject(QStringLiteral("c_qmlInterface"), g_QmlInterface);
+    viewer.setQmlObject(QStringLiteral("c_qmlInterface"), new QmlInterface);
     viewer.setMainQmlFile(QStringLiteral("qrc:/qml/main.qml"));
     viewer.showExpanded();
 

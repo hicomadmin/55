@@ -11,6 +11,7 @@ Item {
     property string pressSource:"";
     signal pressed();
     signal clicked();
+    signal pressAndHold();
 
     Image {
         anchors.fill: parent
@@ -51,6 +52,10 @@ Item {
             button.focus = false;
             button.clicked();
             //onButtonClicked(mouse.x, mouse.y);
+        }
+        onPressAndHold: {
+            button.focus = true;
+            button.pressAndHold();
         }
     }
 

@@ -2,7 +2,7 @@
 
 Item {
     anchors.fill: parent;
-
+    property int level: 1;
 
     MenuButton{
         id:leadingLightON_l;
@@ -12,6 +12,7 @@ Item {
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('4-0-0-0-2-0-4');
     }
 
     BaseText{
@@ -30,6 +31,7 @@ Item {
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('4-0-0-0-2-0-0');
     }
 
 
@@ -42,6 +44,7 @@ Item {
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('4-0-0-0-2-0-8');
     }
 
     BaseText{
@@ -60,6 +63,7 @@ Item {
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('4-0-0-0-2-0-0');
     }
 
 
@@ -72,6 +76,7 @@ Item {
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('5-125-125-125-16');
     }
 
     BaseText{
@@ -89,6 +94,7 @@ Item {
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('5-125-125-125-0');
     }
 
 
@@ -120,16 +126,18 @@ Item {
             anchors.left: parent.left;
             normalSource: "qrc:/images/effects/AC_Tem_leftAdd_nml.png";
             pressSource:  "qrc:/images/effects/AC_Tem_leftAdd_exe.png";
+            onClicked: onAdjustmentBtnClicked(10);
         }
         BaseButton{
             width: 110;  height: 110;
             anchors.right: parent.right;
             normalSource: "qrc:/images/effects/AC_Tem_leftSub_nml.png";
             pressSource:  "qrc:/images/effects/AC_Tem_leftSub_exe.png";
+            onClicked: onAdjustmentBtnClicked(11);
         }
         BaseText{
             anchors.centerIn: parent;
-            text: "00"
+            text: level//"00"
         }
     }
     BaseText{
@@ -143,11 +151,18 @@ Item {
 
     function onAdjustmentBtnClicked(val)
     {
+        var strData;
         switch(val)
         {
         case 10:
+            level += 1
+            strData = "5-125-125-125-" + level+1
+            c_qmlInterface.sendRccCAN(strData);
             break;
         case 11:
+            level += 1
+            strData = "5-125-125-125-" + level+1
+            c_qmlInterface.sendRccCAN(strData);
             break;
         default:
             break;

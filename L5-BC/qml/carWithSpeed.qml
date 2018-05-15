@@ -11,6 +11,7 @@ Item {
         anchors{left: parent.left; leftMargin: 287; top: parent.top; topMargin: 431;}
         normalSource: "qrc:/images/coldWarm/Set_zr_nml.png";
         pressSource:  "qrc:/images/coldWarm/Set_zr_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('3-0-0');
     }
     BaseButton{
         id: low
@@ -19,6 +20,7 @@ Item {
         anchors{left: off.right; leftMargin: 8; top:off.top;}
         normalSource: "qrc:/images/coldWarm/Set_zr_nml.png";
         pressSource:  "qrc:/images/coldWarm/Set_zr_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('3-0-32');
     }
 
     BaseButton{
@@ -28,6 +30,7 @@ Item {
         anchors{left: low.right; leftMargin: 8; top:off.top;}
         normalSource: "qrc:/images/coldWarm/Set_zr_nml.png";
         pressSource:  "qrc:/images/coldWarm/Set_zr_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('3-0-64');
     }
 
     BaseButton{
@@ -36,6 +39,7 @@ Item {
         anchors{left: middle.right; leftMargin: 8; top:off.top;}
         normalSource: "qrc:/images/coldWarm/Set_zr_nml.png";
         pressSource:  "qrc:/images/coldWarm/Set_zr_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('3-0-96');
     }
 
 

@@ -22,5 +22,7 @@
         <file>qml/TirePressure_Set.qml</file>
         <file>qml/DriverAssistance_Set.qml</file>
         <file>qml/Keyboard.qml</file>
+        <file>qml/TestFccMCU.qml</file>
+        <file>qml/PhotoPlaying.qml</file>
     </qresource>
 </RCC>

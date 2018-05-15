@@ -37,7 +37,7 @@ Item {
 
 
     MenuButton{
-        id:media;
+        id:usbMedia;
         width: 255;
         height: 130;
         anchors.top: parent.top;
@@ -53,7 +53,7 @@ Item {
         width: 255;
         height: 130;
         anchors.top: parent.top;
-        anchors.left: media.right;
+        anchors.left: usbMedia.right;
         btnText: qsTr("导航");
         normalSource: "qrc:/images/Menu_Icon_navi_nml.png";
         pressSource:  "qrc:/images/Menu_Icon_navi_exe.png";

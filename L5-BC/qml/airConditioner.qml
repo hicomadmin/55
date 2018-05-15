@@ -7,6 +7,14 @@ Item {
     property real driverSideTmp: 20.5;
     property int  windSpeedTxt: 5;
 
+    property int autoFlag: 0;
+    property int doubl: 0;
+    property int offFlag: 0;
+    property int acFlag: 0;
+    property int fulizhi: 0;
+    property int denglizhi: 0;
+    property int fengbaidianji: 0;
+
     MenuButton{
         id:driverAdd;
         width: 110; height: 110;
@@ -49,7 +57,15 @@ Item {
             size: 27;
             text: qsTr("自动恒温");
         }
-
+        onClicked: {
+            if(autoFlag === 0){
+                c_qmlInterface.sendRccCAN('4-0-0-16-2-0-0');
+                autoFlag = 1;
+            }else{
+                c_qmlInterface.sendRccCAN('4-0-0-0-2-0-0');
+                autoFlag = 0;
+            }
+        }
     }
 
 
@@ -65,6 +81,15 @@ Item {
             anchors{top: parent.top; topMargin: 40;}
             size: 27;
             text: qsTr("双温区");
+        }
+        onClicked: {
+            if(doubl === 0){
+                c_qmlInterface.sendRccCAN('4-0-0-0-6-0-0');
+                doubl = 1;
+            }else{
+                c_qmlInterface.sendRccCAN('4-0-0-0-2-0-0');
+                doubl = 0;
+            }
         }
     }
 
@@ -122,7 +147,15 @@ Item {
         anchors{left: driverSub.right; leftMargin: 41;}
         normalSource: "qrc:/images/air/AC_Icon_AC_power_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_AC_power_exe.png";
-        //onClicked: onMuteBtnClicked(2);
+        onClicked: {
+            if(offFlag === 0){
+                c_qmlInterface.sendRccCAN('4-0-0-0-2-0-0');
+                offFlag = 1;
+            }else{
+                c_qmlInterface.sendRccCAN('4-0-0-0-0-0-0');
+                offFlag = 0;
+            }
+        }
     }
 
     MenuButton{
@@ -132,7 +165,15 @@ Item {
         anchors{left: power.right; leftMargin: 50;}
         normalSource: "qrc:/images/air/AC_Icon_AC_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_AC_exe.png";
-        //onClicked: onMuteBtnClicked(2);
+        onClicked: {
+            if(acFlag === 0){
+                c_qmlInterface.sendRccCAN('4-0-0-0-3-0-0');
+                acFlag = 1;
+            }else{
+                c_qmlInterface.sendRccCAN('4-0-0-0-2-0-0');
+                acFlag = 0;
+            }
+        }
     }
 
     MenuButton{
@@ -143,7 +184,6 @@ Item {
         anchors{left: ac.right; leftMargin: 51;}
         normalSource: "qrc:/images/air/AC_Icon_cj_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_cj_exe.png";
-        //onClicked: onMuteBtnClicked(2);
     }
 
 
@@ -154,7 +194,15 @@ Item {
         anchors{left: sterilization.right; leftMargin: 51;}
         normalSource: "qrc:/images/air/AC_Icon_flz_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_flz_exe.png";
-        //onClicked: onMuteBtnClicked(2);
+        onClicked: {
+            if(fulizhi === 0){
+                c_qmlInterface.sendRccCAN('4-0-0-128-2-0-0');
+                fulizhi = 1;
+            }else{
+                c_qmlInterface.sendRccCAN('4-0-0-0-2-0-0');
+                fulizhi = 0;
+            }
+        }
     }
 
     MenuButton{
@@ -164,7 +212,15 @@ Item {
         anchors{left: anion.right; leftMargin: 51;}
         normalSource: "qrc:/images/air/AC_Icon_dlz_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_dlz_exe.png";
-        //onClicked: onMuteBtnClicked(2);
+        onClicked: {
+            if(denglizhi === 0){
+                c_qmlInterface.sendRccCAN('4-0-0-64-2-0-0');
+                denglizhi = 1;
+            }else{
+                c_qmlInterface.sendRccCAN('4-0-0-0-2-0-0');
+                denglizhi = 0;
+            }
+        }
     }
 
     MenuButton{
@@ -174,7 +230,15 @@ Item {
         anchors{left: plasma.right; leftMargin: 51;}
         normalSource: "qrc:/images/air/AC_Icon_fbdj_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_fbdj_exe.png";
-        //onClicked: onMuteBtnClicked(2);
+        onClicked: {
+            if(fengbaidianji === 0){
+                c_qmlInterface.sendRccCAN('4-0-0-32-2-0-0');
+                fengbaidianji = 1;
+            }else{
+                c_qmlInterface.sendRccCAN('4-0-0-0-2-0-0');
+                fengbaidianji = 0;
+            }
+        }
     }
 
 
@@ -214,29 +278,62 @@ Item {
 
     function onAdjustmentBtnClicked(val)
     {
+        var temVar;
+        var strData;
         switch(val)
         {
         case 10:
-            driverTmp += 0.5;
+            if(driverTmp < 40.3)
+            {
+                driverTmp += 0.5;
+                temVar = driverTmp*10;
+                strData = "1-" + temVar + "-0" + "-0" + "-2" + "-0" + "-0";
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         case 11:
-            driverTmp -= 0.5;
+            if(driverTmp > 15)
+            {
+                driverTmp -= 0.5;
+                temVar = driverTmp*10;
+                strData = "1-" + temVar + "-0" + "-0" + "-2" + "-0" + "-0";
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         case 20:
-            if(windSpeedTxt > 1){
-                windSpeedTxt = windSpeedTxt - 1;
+            if(windSpeedText > 0){
+                tmp = windSpeedText -1;
+                windSpeedText = tmp;
+                strData =  "1-" + "0-" + "0-" + windSpeedText + "-2" + "-0" + "-0";
+                c_qmlInterface.sendRccCAN(strData);
             }
             break;
         case 21:
-            if(windSpeedTxt < 10){
-                windSpeedTxt = windSpeedTxt + 1;
+            if(windSpeedText < 8)
+            {
+                tmp = windSpeedText +1;
+                windSpeedText = tmp;
+                strData =  "1-" + "0-" + "0-" + windSpeedText + "-2" + "-0" + "-0";
+                c_qmlInterface.sendRccCAN(strData);
             }
             break;
         case 30:
-            driverSideTmp += 0.5;
+            if(driverSideTmp < 40.3)
+            {
+                driverSideTmp += 0.5;
+                temVar = driverSideTmp*10;
+                strData = "1-" + "0-" + temVar + "-0" + "-2" + "-0" + "-0";
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         case 31:
-            driverSideTmp -= 0.5;
+            if(driverSideTmp > 15)
+            {
+                driverSideTmp -= 0.5;
+                temVar = driverSideTmp*10;
+                strData = "1-" + "0-" + temVar + "-0" + "-2" + "-0" + "-0";
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         default:
             break;

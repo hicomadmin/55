@@ -105,7 +105,8 @@ Item {
         anchors.topMargin: 94;
         btnText: qsTr("里程A");
         normalSource: "qrc:/images/set/Set_ty_mmqr_nml.png";
-        pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png"
+        pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-1-0-0');
     }
 
     BaseText{
@@ -125,7 +126,8 @@ Item {
         anchors.top: mileageA.top;
         btnText: qsTr("里程B");
         normalSource: "qrc:/images/set/Set_ty_mmqr_nml.png";
-        pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png"
+        pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-2-0-0');
     }
 
 
@@ -138,7 +140,8 @@ Item {
         anchors.top: mileageA.top;
         btnText: qsTr("里程A复位");
         normalSource: "qrc:/images/set/Set_ty_mmqr_nml.png";
-        pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png"
+        pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-4-0-0');
     }
 
 
@@ -151,7 +154,8 @@ Item {
         anchors.top: mileageA.top;
         btnText: qsTr("里程B复位");
         normalSource: "qrc:/images/set/Set_ty_mmqr_nml.png";
-        pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png"
+        pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-8-0-0');
     }
 
     BaseText{
@@ -206,6 +210,39 @@ Item {
         default:
             break;
         }
+    }
+
+
+    function retTimeMinute(minute)
+    {
+        console.log("################ minute: ", minute);
+    }
+
+    function retTimeHour(hour)
+    {
+         console.log("################ hour: ", hour);
+    }
+
+    function retSubDistanceA(distance)
+    {
+        console.log("################ distance A: ", distance);
+    }
+
+    function retSubDistanceB(distance)
+    {
+        console.log("################ distance B: ", distance);
+    }
+
+//    Connections{
+//        target: c_qmlInterface;
+//        onSigTimeMinute:retTimeMinute(minute);
+//        onSigTimeHour:retTimeHour(hour);
+//        onSigSubDistanceA:retSubDistanceA(distance);
+//        onSigSubDistanceB:retSubDistanceB(distance);
+//    }
+
+    Component.onCompleted: {
+        c_qmlInterface.getCanInfo("TIME");
     }
 
 }

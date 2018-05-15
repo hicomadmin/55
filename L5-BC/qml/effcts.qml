@@ -57,8 +57,7 @@ Item {
         anchors.leftMargin: 94;
         normalSource: "qrc:/images/effects/AC_Tem_leftAdd_nml.png"
         pressSource:  "qrc:/images/effects/AC_Tem_leftAdd_exe.png"
-        onClicked: {
-        }
+        onClicked: c_qmlInterface.sendRccCAN('3-16-7');
     }
     BaseText{
         id: lowTXT
@@ -77,9 +76,7 @@ Item {
         anchors.leftMargin: 106;
         normalSource: "qrc:/images/effects/AC_Tem_leftSub_nml.png"
         pressSource:  "qrc:/images/effects/AC_Tem_leftSub_exe.png"
-        onClicked: {
-
-        }
+        onClicked: c_qmlInterface.sendRccCAN('3-32-7');
     }
 
     BaseButton{
@@ -91,6 +88,7 @@ Item {
         anchors.leftMargin: 56;
         normalSource: "qrc:/images/effects/AC_Tem_leftAdd_nml.png"
         pressSource:  "qrc:/images/effects/AC_Tem_leftAdd_exe.png"
+        onClicked: c_qmlInterface.sendRccCAN('3-0-0');
     }
     Text {
         id:leftRightBalanceTXT;
@@ -110,6 +108,7 @@ Item {
         anchors.leftMargin: 106;
         normalSource: "qrc:/images/effects/AC_Tem_leftSub_nml.png"
         pressSource:  "qrc:/images/effects/AC_Tem_leftSub_exe.png"
+        onClicked: c_qmlInterface.sendRccCAN('3-0-1');
     }
 
 
@@ -122,6 +121,7 @@ Item {
         anchors.leftMargin: 56;
         normalSource: "qrc:/images/effects/AC_Tem_leftAdd_nml.png"
         pressSource:  "qrc:/images/effects/AC_Tem_leftAdd_exe.png"
+        onClicked: c_qmlInterface.sendRccCAN('3-0-2');
     }
     Text {
         id:aroundBalanceTXT;
@@ -141,6 +141,7 @@ Item {
         anchors.leftMargin: 106;
         normalSource: "qrc:/images/effects/AC_Tem_leftSub_nml.png"
         pressSource:  "qrc:/images/effects/AC_Tem_leftSub_exe.png"
+        onClicked: c_qmlInterface.sendRccCAN('3-0-3');
     }
 
 
@@ -153,6 +154,7 @@ Item {
         anchors.left: low1.left;
         normalSource: "qrc:/images/effects/AC_Tem_leftAdd_nml.png"
         pressSource:  "qrc:/images/effects/AC_Tem_leftAdd_exe.png"
+        onClicked: c_qmlInterface.sendRccCAN('3-4-0');
     }
     Text {
         id:highPitchTXT;
@@ -172,6 +174,7 @@ Item {
         anchors.leftMargin: 106;
         normalSource: "qrc:/images/effects/AC_Tem_leftSub_nml.png"
         pressSource:  "qrc:/images/effects/AC_Tem_leftSub_exe.png"
+        onClicked: c_qmlInterface.sendRccCAN('3-8-0');
     }
 
 
@@ -187,6 +190,7 @@ Item {
         topMag: 40;
         normalSource: "qrc:/images/effects/Set_Effects_nml.png"
         pressSource:  "qrc:/images/effects/Set_Effects_exe.png"
+        onClicked: c_qmlInterface.sendRccCAN('3-0-0');
     }
 
     MenuButton{
@@ -200,6 +204,7 @@ Item {
         topMag: 40;
         normalSource: "qrc:/images/effects/Set_Effects_nml.png"
         pressSource:  "qrc:/images/effects/Set_Effects_exe.png"
+        onClicked: c_qmlInterface.sendRccCAN('3-0-39');
     }
 
     MenuButton{
@@ -213,6 +218,7 @@ Item {
         topMag: 40;
         normalSource: "qrc:/images/effects/Set_Effects_nml.png"
         pressSource:  "qrc:/images/effects/Set_Effects_exe.png"
+        onClicked: c_qmlInterface.sendRccCAN('3-0-71');
     }
 
     MenuButton{
@@ -226,6 +232,7 @@ Item {
         topMag: 40;
         normalSource: "qrc:/images/effects/Set_Effects_nml.png"
         pressSource:  "qrc:/images/effects/Set_Effects_exe.png"
+        onClicked: c_qmlInterface.sendRccCAN('3-0-103');
     }
 
 

@@ -178,31 +178,69 @@ Item {
 
     function onjustmentBtnClicked(val)
     {
+        var strData;
+        var tmp;
         switch(val)
         {
         case 1:
-            hotLeftTxt += 1;
+            if(hotLeftTxt < 5){
+                hotLeftTxt += 1;
+                strData = "4-0-0-0-0-" + hotLeftTxt +"-0";
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         case 2:
-            hotLeftTxt -= 1;
+            if(hotLeftTxt > 0){
+                hotLeftTxt -= 1;
+                strData = "4-0-0-0-0-" + hotLeftTxt +"-0";
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         case 3:
-            hotRightTxt += 1;
+            if(hotRightTxt < 5){
+                hotRightTxt += 1;
+                tmp = hotRightTxt*8;
+                strData = "4-0-0-0-0-" + tmp +"-0";
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         case 4:
-            hotRightTxt -= 1;
+            if(hotRightTxt >0){
+                hotRightTxt -= 1;
+                tmp = hotRightTxt*8;
+                strData = "4-0-0-0-0-" + tmp +"-0";
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         case 5:
-            windLeftTxt += 1;
+            if(windLeftTxt < 3){
+                windLeftTxt += 1;
+                tmp = windLeftTxt*64;
+                strData = "4-0-0-0-0-" + tmp +"-0";
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         case 6:
-            windLeftTxt -= 1;
+            if(windLeftTxt > 0){
+                windLeftTxt -= 1;
+                tmp = windLeftTxt*64;
+                strData = "4-0-0-0-0-" + tmp +"-0";
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         case 7:
-            windRightTxt += 1;
+            if(windRightTxt < 3){
+                windRightTxt += 1;
+                strData = "4-0-0-0-0-" + "0-" + windRightTxt;
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         case 8:
-            windRightTxt -= 1;
+            if(windRightTxt > 0){
+                windRightTxt -= 1;
+                strData = "4-0-0-0-0-" + "0-" + windRightTxt;
+                c_qmlInterface.sendRccCAN(strData);
+            }
             break;
         default:
             break;

@@ -19,6 +19,7 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_left.png"
         }
+        onClicked: c_qmlInterface.sendFccCAN('2-15-205-0-0-0');
     }
 
     BaseButton{
@@ -37,6 +38,7 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_up.png"
         }
+        onClicked: c_qmlInterface.sendFccCAN('2-15-197-0-0-0');
     }
 
     BaseButton{
@@ -54,6 +56,7 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_right.png"
         }
+        onClicked: c_qmlInterface.sendFccCAN('2-15-209-0-0-0');
     }
 
     BaseButton{
@@ -71,6 +74,7 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_dn.png"
         }
+        onClicked: c_qmlInterface.sendFccCAN('2-15-201-0-0-0');
     }
 
     Image {
@@ -106,6 +110,7 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_left.png"
         }
+        onClicked: c_qmlInterface.sendFccCAN('2-15-206-0-0-0');
     }
 
     BaseButton{
@@ -123,6 +128,7 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_up.png"
         }
+        onClicked: c_qmlInterface.sendFccCAN('2-15-198-0-0-0');
     }
 
     BaseButton{
@@ -139,6 +145,7 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_right.png"
         }
+        onClicked: c_qmlInterface.sendFccCAN('2-15-210-0-0-0');
     }
 
     BaseButton{
@@ -155,6 +162,7 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_dn.png"
         }
+        onClicked: c_qmlInterface.sendFccCAN('2-15-202-0-0-0');
     }
 
     Image {
@@ -192,6 +200,7 @@ Item {
         btnText: qsTr("开");
         normalSource:"qrc:/images/light/Set_Light_off_nml.png"
         pressSource: "qrc:/images/light/Set_Light_off_exe.png"
+        onClicked: c_qmlInterface.sendFccCAN('2-15-253-0-0-0');
     }
     Image {
         width: 80;
@@ -212,6 +221,7 @@ Item {
         btnText: qsTr("关");
         normalSource:"qrc:/images/light/Set_Light_off_nml.png"
         pressSource: "qrc:/images/light/Set_Light_off_exe.png"
+        onClicked: c_qmlInterface.sendFccCAN('2-15-221-0-0-0');
     }
 
 
@@ -226,6 +236,8 @@ Item {
         btnText: qsTr("开");
         normalSource:"qrc:/images/light/Set_Light_off_nml.png"
         pressSource: "qrc:/images/light/Set_Light_off_exe.png"
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-254-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('2-15-254-0-0-0');
     }
     Image {
         width: 80;
@@ -245,6 +257,7 @@ Item {
         btnText: qsTr("关");
         normalSource:"qrc:/images/light/Set_Light_off_nml.png"
         pressSource: "qrc:/images/light/Set_Light_off_exe.png"
+        onClicked: c_qmlInterface.sendFccCAN('2-15-222-0-0-0');
     }
 
 

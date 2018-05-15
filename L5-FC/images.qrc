@@ -114,5 +114,11 @@
         <file>images/set/Set_keybord_bg.png</file>
         <file>images/set/Set_keybord_input.png</file>
         <file>images/set/Set_keybord_del.png</file>
+        <file>images/voice/yl_bg.png</file>
+        <file>images/voice/yl_dot.png</file>
+        <file>images/voice/yl_icon_nml.png</file>
+        <file>images/voice/ylt_exe.png</file>
+        <file>images/voice/ylt_left_exe.png</file>
+        <file>images/voice/ylt_right_exe.png</file>
     </qresource>
 </RCC>

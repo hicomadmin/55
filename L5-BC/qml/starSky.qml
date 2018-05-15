@@ -12,6 +12,7 @@ Item {
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('5-125-125-125-2');
     }
 
 
@@ -23,6 +24,7 @@ Item {
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendRccCAN('5-125-125-125-1');
     }
 
 
@@ -38,26 +40,54 @@ Item {
     }
 
 
-
-    Image {
-        id: redColor
+    BaseButton{
+        id: redColor;
         width: 86; height: 29;
         anchors{left:skyOFFTxt.left; top:skyON.bottom; topMargin: 127;}
-        source: "qrc:/images/sky/Set_xkdp_dr.png";
+        normalSource: "qrc:/images/sky/Set_xkdp_dr.png";
+        pressSource:  "qrc:/images/sky/Set_xkdp_dr.png";
+        onClicked: c_qmlInterface.sendRccCAN('5-255-0-0-2');
     }
 
-    Image {
+
+    BaseButton{
         id: greenColor
         width: 86; height: 29;
         anchors{left:redColor.right; leftMargin: 40; top:redColor.top;}
-        source: "qrc:/images/sky/Set_xkdp_dg.png";
+        normalSource: "qrc:/images/sky/Set_xkdp_dg.png";
+        pressSource:  "qrc:/images/sky/Set_xkdp_dg.png";
+        onClicked: c_qmlInterface.sendRccCAN('5-0-255-0-2');
     }
-    Image {
+
+    BaseButton{
         id: yellowColor
         width: 86; height: 29;
         anchors{left:greenColor.right; leftMargin: 40; top:redColor.top;}
-        source: "qrc:/images/sky/Set_xkdp_dy.png";
+        normalSource: "qrc:/images/sky/Set_xkdp_dy.png";
+        pressSource:  "qrc:/images/sky/Set_xkdp_dy.png";
+        onClicked: c_qmlInterface.sendRccCAN('5-0-0-255-2');
     }
+
+//    Image {
+//        id: redColor
+//        width: 86; height: 29;
+//        anchors{left:skyOFFTxt.left; top:skyON.bottom; topMargin: 127;}
+//        source: "qrc:/images/sky/Set_xkdp_dr.png";
+//    }
+
+//    Image {
+//        id: greenColor
+//        width: 86; height: 29;
+//        anchors{left:redColor.right; leftMargin: 40; top:redColor.top;}
+//        source: "qrc:/images/sky/Set_xkdp_dg.png";
+//    }
+
+//    Image {
+//        id: yellowColor
+//        width: 86; height: 29;
+//        anchors{left:greenColor.right; leftMargin: 40; top:redColor.top;}
+//        source: "qrc:/images/sky/Set_xkdp_dy.png";
+//    }
 
     Image {
         width: 54; height: 22;

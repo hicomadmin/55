@@ -3,6 +3,7 @@
 Item {
     anchors.fill: parent;
 
+
     BaseText{
         anchors.left: ldwON.left;
         anchors.leftMargin: 12;
@@ -21,7 +22,8 @@ Item {
         anchors.topMargin: 69;
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
     }
 
     BaseButton {
@@ -33,7 +35,8 @@ Item {
         anchors.top: ldwON.top;
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-1');
     }
 
     BaseText{
@@ -53,7 +56,8 @@ Item {
         anchors.top: ldwON.top;
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
     }
 
 
@@ -66,7 +70,8 @@ Item {
         anchors.top: ldwON.top;
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-128');
     }
 
     BaseText{
@@ -86,7 +91,8 @@ Item {
         anchors.topMargin: 60;
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
     }
 
 
@@ -99,7 +105,8 @@ Item {
         anchors.top: fcwON.top;
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-2');
     }
 
 
@@ -120,7 +127,8 @@ Item {
         anchors.top: fcwON.top;
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
     }
 
 
@@ -133,7 +141,8 @@ Item {
         anchors.top: fcwON.top;
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-64');
     }
 
 
@@ -155,7 +164,8 @@ Item {
         anchors.topMargin: 60;
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        //onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
     }
 
     BaseButton {
@@ -167,7 +177,8 @@ Item {
         anchors.top: isaON.top;
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        //onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
     }
 
     BaseText{
@@ -187,7 +198,8 @@ Item {
         anchors.top: isaOFF.top;
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
     }
 
     BaseButton {
@@ -199,7 +211,8 @@ Item {
         anchors.top: ihcON.top;
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-8');
     }
 
     BaseText{
@@ -219,7 +232,8 @@ Item {
         anchors.topMargin: 60;
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
     }
 
     BaseButton {
@@ -231,7 +245,8 @@ Item {
         anchors.top: bsdON.top;
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-16');
     }
 
     BaseText{
@@ -251,7 +266,8 @@ Item {
         anchors.top: bsdOFF.top;
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        //onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
     }
 
     BaseButton {
@@ -263,7 +279,8 @@ Item {
         anchors.top: asdsON.top;
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png"
+        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
+        //onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
     }
 
 
@@ -274,6 +291,92 @@ Item {
         anchors.leftMargin: 838;
         source: "qrc:/images/Main Set_List_SeparatorLine.png"
     }
+
+
+
+    function retBSDInfoFCW(flag)
+    {
+       if(flag === 0){
+           console.log(" ###### BSD Activated");
+       }else{
+           console.log(" ###### BSD deActivated");
+       }
+    }
+
+    function retBSDInfoLDW(flag)
+    {
+        if(flag === 0){
+            console.log(" ###### LDW Activated");
+        }else{
+            console.log(" ###### LDW deActivated");
+        }
+    }
+
+    function retBSDInfoISA(flag)
+    {
+        if(flag === 0){
+            console.log(" ###### ISA Activated");
+        }else{
+            console.log(" ###### ISA deActivated");
+        }
+    }
+
+    function retBSDInfoBSDF(flag)
+    {
+        if(flag === 0){
+            console.log(" ###### BSDF Activated");
+        }else{
+            console.log(" ###### BSDF deActivated");
+        }
+    }
+
+    function retBSDInfoBSD(flag)
+    {
+        if(flag === 0){
+            console.log(" ###### BSD Activated");
+        }else{
+            console.log(" ###### BSD deActivated");
+        }
+    }
+
+    function retBSDInfoRCW(flag)
+    {
+        if(flag === 0){
+            console.log(" ###### RCW Activated");
+        }else{
+            console.log(" ###### RCW deActivated");
+        }
+    }
+
+    function retBSDInfoDOW(flag)
+    {
+        if(flag === 0){
+            console.log(" ###### DOW Activated");
+        }else{
+            console.log(" ###### DOW deActivated");
+        }
+    }
+
+    function retBSDInfoIHC(flag)
+    {
+        if(flag === 0){
+            console.log(" ###### IHC Activated");
+        }else{
+            console.log(" ###### IHC deActivated");
+        }
+    }
+
+//    Connections{
+//        target: c_qmlInterface;
+//        onSigBSDInfoFCW:retBSDInfoFCW(flag);
+//        onSigBSDInfoLDW:retBSDInfoLDW(flag);
+//        onSigBSDInfoISA:retBSDInfoISA(flag);
+//        onSigBSDInfoBSDF:retBSDInfoBSDF(flag);
+//        onSigBSDInfoBSD:retBSDInfoBSD(flag);
+//        onSigBSDInfoRCW:retBSDInfoRCW(flag);
+//        onSigBSDInfoDOW:retBSDInfoDOW(flag);
+//        onSigBSDInfoIHC:retBSDInfoIHC(flag);
+//    }
 
 
 }

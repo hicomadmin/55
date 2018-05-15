@@ -25,6 +25,16 @@ Item {
         }
     }
 
+    Loader {
+        id: testMCU;
+        visible: false;
+        anchors.fill: parent
+        source: "qrc:/qml/TestFccMCU.qml";
+        z:2;
+        onLoaded: {
+            item.testMcuBack.connect(onTestMcuBack);
+        }
+    }
 
     Loader {
         id: setOption;
@@ -95,11 +105,8 @@ Item {
         id: effcts_set;
         anchors.fill: parent;
         visible: false;
-        asynchronous: true;
+        //asynchronous: true;
         source: "qrc:/qml/Effcts_Set.qml";
-        onLoaded: {
-
-        }
     }
 
     Loader {
@@ -108,9 +115,6 @@ Item {
         visible: false;
         asynchronous: true;
         source: "qrc:/qml/Display_Set.qml";
-        onLoaded: {
-
-        }
     }
 
     Loader {
@@ -119,9 +123,6 @@ Item {
         visible: false;
         asynchronous: true;
         source: "qrc:/qml/StarCeiling_Set.qml";
-        onLoaded: {
-
-        }
     }
 
     Loader {
@@ -130,42 +131,77 @@ Item {
         visible: false;
         asynchronous: true;
         source: "qrc:/qml/TirePressure_Set.qml";
+    }
+
+    Loader {
+        id: photoplaying;
+        anchors.fill: parent;
+        visible: false;
+        asynchronous: true;
+        source: "qrc:/qml/PhotoPlaying.qml";
         onLoaded: {
+            item.quitPhoto.connect(function(){
+                                       photoplaying.visible = false;
+                                   });
         }
     }
 
-//    Loader{
-//       id:keyboard;
-//       anchors.fill: parent;
-//       visible: true;
-//       asynchronous: true;
-//       source: "qrc:/qml/Keyboard.qml";
-//       onLoaded: {
-//       }
-//    }
+    VolumeBar{
+        id: volumeBar
+        anchors.centerIn: parent;
+        visible: false;
+        //Component.onCompleted: show();
+    }
+
+    Item { // mcu test MouseArea
+        width: 100;
+        height: 100;
+        anchors.right: parent.right;
+        anchors.bottom: parent.bottom;
+        MouseArea{
+            anchors.fill: parent;
+            onClicked: {
+                c_qmlInterface.qmlDebug("testMCU.visible = true");
+                //testMCU.visible = true;
+            }
+        }
+    }
+    function onTestMcuBack()
+    {
+        testMCU.visible = false;
+    }
+
 
 
     function slotMuteBtnClicked(flag)
     {
         switch(flag)
         {
-        case 1:
+        case 1: //radio
+            c_qmlInterface.sendFccCAN('2-1-0-0-0-0');
             break;
-        case 2:
+        case 2: //media
+            c_qmlInterface.sendFccCAN('2-6-0-0-0-0');
             break;
-        case 3:
+        case 3: //Navi
+            c_qmlInterface.sendFccCAN('2-4-0-0-0-0');
             break;
-        case 4:
+        case 4: //BT
+            c_qmlInterface.sendFccCAN('2-5-0-0-0-0');
             break;
-        case 5:
+        case 5: //BT music
+            c_qmlInterface.sendFccCAN('2-7-0-0-0-0');
             break;
-        case 6:
+        case 6: //VR
+            c_qmlInterface.sendFccCAN('2-8-0-0-0-0');
             break;
-        case 7:
+        case 7: //vol+
+            c_qmlInterface.setVolumeUp();
             break;
         case 8:
+            volumeBar.visible = true;
             break;
-        case 9:
+        case 9: //HOME
             airConditionerPage.visible = false;
             rearviewMirrorPage.visible = false;
             seatSetingPage.visible = false;
@@ -178,11 +214,14 @@ Item {
             tirePressure_Set.visible = false;
             setOption.visible = true;
             break;
-        case 10:
+        case 10: //Mute
+            c_qmlInterface.setVolumeMute(100);
             break;
-        case 11:
+        case 11: //vol-
+            c_qmlInterface.setVolumeDown();
             break;
         case 12:
+            photoplaying.visible = true;
             break;
         default:
             break;
@@ -212,8 +251,9 @@ Item {
         case 5:
             setOption.visible = false;
             setting.visible = true;
+            c_qmlInterface.getCanInfo("BSD");
             break;
-        case 6:
+        case 6: //泊车雷达
             break;
         default:
             break;
@@ -252,6 +292,33 @@ Item {
     }
 
 
-    Component.onCompleted: c_qmlInterface.qmlDebug("Component.onCompleted");
+    Connections{
+        target: c_qmlInterface;
+        onSigAUDIOInfoVolume:volumeBar.setvolume(vol);
+        onSigAUDIOInfoTreble:effcts_set.item.setTrebleVal(treble);
+        onSigAUDIOInfoBass:effcts_set.item.setBassVal(bass);
+        onSigFACwindSpeedLevel:airConditionerPage.item.retFACwindSpeedLevel(level);
+        onSigFACwindSpeedModel:airConditionerPage.item.retFACwindSpeedModel(model);
+        onSigSRLifeReadingLight:lightingPage.item.retSRLifeReadingLight(flag);
+        onSigSRRightReadingLight:lightingPage.item.retSRRightReadingLight(flag);
+        onSigSRLightLevel:lightingPage.item.retSRLightLevel(level);
+        onSigTimeMinute:despilay_set.item.retTimeMinute(minute);
+        onSigTimeHour:despilay_set.item.retTimeHour(hour);
+        onSigSubDistanceA:despilay_set.item.retSubDistanceA(distance);
+        onSigSubDistanceB:despilay_set.item.retSubDistanceB(distance);
+        onSigBSDInfoFCW:driverAssistancePage.item.retBSDInfoFCW(flag);
+        onSigBSDInfoLDW:driverAssistancePage.item.retBSDInfoLDW(flag);
+        onSigBSDInfoISA:driverAssistancePage.item.retBSDInfoISA(flag);
+        onSigBSDInfoBSDF:driverAssistancePage.item.retBSDInfoBSDF(flag);
+        onSigBSDInfoBSD:driverAssistancePage.item.retBSDInfoBSD(flag);
+        onSigBSDInfoRCW:driverAssistancePage.item.retBSDInfoRCW(flag);
+        onSigBSDInfoDOW:driverAssistancePage.item.retBSDInfoDOW(flag);
+        onSigBSDInfoIHC:driverAssistancePage.item.retBSDInfoIHC(flag);
+    }
+
+    Component.onCompleted: {
+        c_qmlInterface.getCanInfo("AUDIO");
+    }
+
 }
 

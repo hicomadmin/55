@@ -27,6 +27,16 @@ Item {
         }
     }
 
+    Loader {
+        id: testMCU;
+        visible: false;
+        anchors.fill: parent
+        z:2;
+        source: "qrc:/qml/TestRccMCU.qml";
+        onLoaded: {
+            item.testMcuBack.connect(onTestMcuBack);
+        }
+    }
 
     Loader {
         id: setOption;
@@ -36,6 +46,9 @@ Item {
         source: "qrc:/qml/SetOption.qml";
         onLoaded: {
             item.sigSetOptionClicked.connect(slotSetOptionClicked);
+        }
+        Component.onCompleted: {
+            console.log("setOption ######");
         }
     }
 
@@ -152,16 +165,32 @@ Item {
         anchors.centerIn: parent;
         visible: false;
         //Component.onCompleted: show();
+        Component.onCompleted: {
+            console.log("volumeBar ######");
+        }
     }
 
-//    Loader {
-//        id: volBar;
-//        visible: true;
-//        anchors.fill: parent
-//        source: "qrc:/qml/VolumeBar.qml";
-//        onLoaded:
 
-//    }
+    Item { // mcu test MouseArea
+        width: 100;
+        height: 100;
+        anchors.right: parent.right;
+        anchors.bottom: parent.bottom;
+        MouseArea{
+            anchors.fill: parent;
+            onClicked: {
+                c_qmlInterface.qmlDebug("testMCU.visible = true");
+                //testMCU.visible = true;
+            }
+        }
+    }
+
+
+    function onTestMcuBack()
+    {
+        testMCU.visible = false;
+    }
+
 
 
     function slotMuteBtnClicked(flag)
@@ -169,36 +198,50 @@ Item {
         switch(flag)
         {
         case 1:
+//            c_qmlInterface.qmlDebug("sendRccCAN1");
+//            c_qmlInterface.sendRccCANTest(1);
             break;
         case 2:
+            c_qmlInterface.qmlDebug("收音机");
+            c_qmlInterface.sendRccCAN('1-1-0-0')
             hideOption();
             setOption.visible = false;
             usbPage.visible = true;
             break;
         case 3:
+            c_qmlInterface.qmlDebug("USB");
+            c_qmlInterface.sendRccCAN('1-6-0-0')
             hideOption();
             setOption.visible = false;
             usbPage.visible = true;
             break;
         case 4:
+            c_qmlInterface.qmlDebug("导航");
+            c_qmlInterface.sendRccCAN('1-4-0-0')
             break;
         case 5:
+            c_qmlInterface.qmlDebug("右屏");
             break;
         case 6:
-            volumeBar.visible = true;
+            c_qmlInterface.qmlDebug("volume-");
+            //volumeBar.visible = true;
             break;
         case 7:
+            c_qmlInterface.qmlDebug("mute");
             break;
         case 8:
+            c_qmlInterface.qmlDebug("HOME");
             hideOption();
             usbPage.visible = false;
             setOption.visible = true;
             break;
         case 9:
-            volumeBar.visible = true;
+            c_qmlInterface.qmlDebug("volume");
+            //volumeBar.visible = true;
             break;
         case 10:
-            volumeBar.visible = true;
+            c_qmlInterface.qmlDebug("volume+");
+            //volumeBar.visible = true;
             break;
         default:
             break;
@@ -289,5 +332,10 @@ Item {
         setOption.visible = true;
     }
 
+    Component.onCompleted: {
+        console.log(" ################ onCompleted #############");
+        //c_qmlInterface.getSyncInfo();
+        //c_qmlInterface.sendRccCAN("1-2-3");
+    }
 }
 
