@@ -126,5 +126,6 @@
         <file>images/voice/yl_icon_nml.png</file>
         <file>images/voice/ylt_exe.png</file>
         <file>images/voice/ylt_left_exe.png</file>
+        <file>images/air/AC_Icon_powerd_dec.png.png</file>
     </qresource>
 </RCC>

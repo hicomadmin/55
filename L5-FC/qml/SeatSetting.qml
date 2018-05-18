@@ -70,8 +70,9 @@ Item {
             width: 110; height: 110;
             anchors.left: parent.left;
             normalSource: "qrc:/images/AC_Tem_leftAdd_nml.png";
-            pressSource:  "qrc:/images/AC_Tem_leftAdd_exe.png"
-            onClicked: onJustmentBtnClicked(1);
+            pressSource:  "qrc:/images/AC_Tem_leftAdd_exe.png";
+            onPressed: onJustmentBtnMouseEvent(1);
+            onReleased: c_qmlInterface.sendFccCAN('1-12-0-0-0-0-0');
         }
 
         BaseButton {
@@ -79,7 +80,8 @@ Item {
             anchors.right: parent.right;
             normalSource: "qrc:/images/AC_Tem_leftSub_nml.png";
             pressSource:  "qrc:/images/AC_Tem_leftSub_exe.png";
-            onClicked: onJustmentBtnClicked(2);
+            onPressed: onJustmentBtnMouseEvent(2);
+            onReleased: c_qmlInterface.sendFccCAN('1-12-0-0-0-0-0');
         }
         BaseText{
             anchors.centerIn: parent;
@@ -99,8 +101,9 @@ Item {
             width: 110; height: 110;
             anchors.left: parent.left;
             normalSource: "qrc:/images/AC_Tem_leftAdd_nml.png";
-            pressSource:  "qrc:/images/AC_Tem_leftAdd_exe.png"
-            onClicked: onJustmentBtnClicked(3);
+            pressSource:  "qrc:/images/AC_Tem_leftAdd_exe.png";
+            onPressed: onJustmentBtnMouseEvent(3);
+            onReleased: c_qmlInterface.sendFccCAN('1-14-0-0-0-0-0');
         }
 
         BaseButton {
@@ -108,7 +111,8 @@ Item {
             anchors.right: parent.right;
             normalSource: "qrc:/images/AC_Tem_leftSub_nml.png";
             pressSource:  "qrc:/images/AC_Tem_leftSub_exe.png";
-            onClicked: onJustmentBtnClicked(4);
+            onPressed: onJustmentBtnMouseEvent(4);
+            onReleased: c_qmlInterface.sendFccCAN('1-14-0-0-0-0-0');
         }
         BaseText{
             anchors.centerIn: parent;
@@ -118,19 +122,19 @@ Item {
     }
 
 
-    // 2
+    // right hot
     Image {
         id: hotBtnBg_r
         width: 326; height: 110;
         anchors{left: hotBtnBg.left; top: hotBtnBg.bottom; topMargin: 80;}
         source: "qrc:/images/light/Set_Light_ld.png"
-
         BaseButton {
             width: 110; height: 110;
             anchors.left: parent.left;
             normalSource: "qrc:/images/AC_Tem_leftAdd_nml.png";
             pressSource:  "qrc:/images/AC_Tem_leftAdd_exe.png"
-            onClicked: onJustmentBtnClicked(5);
+            onPressed: onJustmentBtnMouseEvent(5);
+            onReleased: c_qmlInterface.sendFccCAN('1-13-0-0-0-0-0');
         }
 
         BaseButton {
@@ -138,7 +142,8 @@ Item {
             anchors.right: parent.right;
             normalSource: "qrc:/images/AC_Tem_leftSub_nml.png";
             pressSource:  "qrc:/images/AC_Tem_leftSub_exe.png";
-            onClicked: onJustmentBtnClicked(6);
+            onPressed: onJustmentBtnMouseEvent(6);
+            onReleased: c_qmlInterface.sendFccCAN('1-13-0-0-0-0-0');
         }
         BaseText{
             anchors.centerIn: parent;
@@ -147,7 +152,7 @@ Item {
         }
     }
 
-
+    // right wind
     Image {
         id: tfBtnBg_r
         width: 326; height: 110;
@@ -159,7 +164,8 @@ Item {
             anchors.left: parent.left;
             normalSource: "qrc:/images/AC_Tem_leftAdd_nml.png";
             pressSource:  "qrc:/images/AC_Tem_leftAdd_exe.png";
-            onClicked: onJustmentBtnClicked(7);
+            onPressed: onJustmentBtnMouseEvent(7);
+            onReleased: c_qmlInterface.sendFccCAN('1-15-0-0-0-0-0');
         }
 
         BaseButton {
@@ -167,7 +173,8 @@ Item {
             anchors.right: parent.right;
             normalSource: "qrc:/images/AC_Tem_leftSub_nml.png";
             pressSource:  "qrc:/images/AC_Tem_leftSub_exe.png";
-            onClicked: onJustmentBtnClicked(8);
+            onClicked: onJustmentBtnMouseEvent(8);
+            onReleased: c_qmlInterface.sendFccCAN('1-15-0-0-0-0-0');
         }
         BaseText{
             anchors.centerIn: parent;
@@ -177,7 +184,7 @@ Item {
     }
 
 
-    function onJustmentBtnClicked(val)
+    function onJustmentBtnMouseEvent(val)
     {
         var tmp;
         var strData;
@@ -187,17 +194,15 @@ Item {
             if(hotText_l < 5){
                 tmp = hotText_l +1;
                 hotText_l = tmp;
-                tmp = 65 + hotText_l;
-                strData = "1-0-0-192-24-" + tmp + "-192";
+                strData = "1-12-" + hotText_l +"-0-0-0-0";
                 c_qmlInterface.sendFccCAN(strData);
             }
             break;
         case 2:
-            if(hotText_l > 0){
+            if(hotText_l > 1){
                 tmp = hotText_l -1;
                 hotText_l = tmp;
-                tmp = 65 + hotText_l;
-                strData = "1-0-0-192-24-" + tmp + "-192";
+                strData = "1-12-" + hotText_l +"-0-0-0-0";
                 c_qmlInterface.sendFccCAN(strData);
             }
             break;
@@ -205,103 +210,49 @@ Item {
             if(windText_l < 3){
                 tmp = windText_l +1;
                 windText_l = tmp;
-                windLeft(tmp);
+                strData = "1-14-" + windText_l + "-0-0-0-0";
+                c_qmlInterface.sendFccCAN(strData);
             }
             break;
         case 4:
-            if(windText_l > 0){
+            if(windText_l > 1){
                 tmp = windText_l -1;
                 windText_l = tmp;
-                windLeft(tmp);
+                strData = "1-14-" + windText_l + "-0-0-0-0";
+                c_qmlInterface.sendFccCAN(strData);
             }
             break;
         case 5:
             if(hotText_r < 5){
                 tmp = hotText_r +1;
                 hotText_r = tmp;
-                hotRight(tmp);
+                strData = "1-13-" + hotText_r + "-0-0-0-0";
+                c_qmlInterface.sendFccCAN(strData);
             }
             break;
         case 6:
-            if(hotText_r > 0){
+            if(hotText_r > 1){
                 tmp = hotText_r -1;
                 hotText_r = tmp;
-                hotRight(tmp);
+                strData = "1-13-" + hotText_r + "-0-0-0-0";
+                c_qmlInterface.sendFccCAN(strData);
             }
             break;
         case 7:
             if(windText_r < 3){
                 tmp = windText_r +1;
                 windText_r = tmp;
-                windRight(tmp);
+                strData = "1-15-" + windText_r + "-0-0-0-0";
+                c_qmlInterface.sendFccCAN(strData);
             }
             break;
         case 8:
-            if(windText_r > 0){
+            if(windText_r > 1){
                 tmp = windText_r -1;
                 windText_r = tmp;
-                windRight(tmp);
+                strData = "1-15-" + windText_r + "-0-0-0-0";
+                c_qmlInterface.sendFccCAN(strData);
             }
-            break;
-        default:
-            break;
-        }
-    }
-
-    function hotRight(level)
-    {
-        switch(level)
-        {
-        case 1:
-            c_qmlInterface.sendFccCAN('1-0-0-192-24-15-192');
-            break;
-        case 2:
-            c_qmlInterface.sendFccCAN('1-0-0-192-24-23-192');
-            break;
-        case 3:
-            c_qmlInterface.sendFccCAN('1-0-0-192-24-31-192');
-            break;
-        case 4:
-            c_qmlInterface.sendFccCAN('1-0-0-192-24-39-192');
-            break;
-        case 5:
-            c_qmlInterface.sendFccCAN('1-0-0-192-24-47-192');
-            break;
-        default:
-            break;
-        }
-    }
-
-    function windLeft(level)
-    {
-        switch(level)
-        {
-        case 1:
-            c_qmlInterface.sendFccCAN('1-0-0-192-24-127-192');
-            break;
-        case 2:
-            c_qmlInterface.sendFccCAN('1-0-0-192-24-191-192');
-            break;
-        case 3:
-            c_qmlInterface.sendFccCAN('1-0-0-192-24-255-192');
-            break;
-        default:
-            break;
-        }
-    }
-
-    function windRight(level)
-    {
-        switch(level)
-        {
-        case 1:
-            c_qmlInterface.sendFccCAN('1-0-0-192-23-63-193');
-            break;
-        case 2:
-            c_qmlInterface.sendFccCAN('1-0-0-192-23-63-194');
-            break;
-        case 3:
-            c_qmlInterface.sendFccCAN('1-0-0-192-23-63-195');
             break;
         default:
             break;

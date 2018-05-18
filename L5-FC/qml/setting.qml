@@ -1,0 +1,101 @@
+﻿/*************************************************
+Copyright: Shenzhen Hangsheng Electronics CO.,LTD.
+Author:
+Date: 2018-03-13
+Description: 设置选项按键界面
+**************************************************/
+import QtQuick 2.3
+
+Item {
+    signal sigSettingClicked(int index);
+    property int reset: 0;
+
+    Button{
+        id:effects;
+        width: 720;
+        height: 100;
+        anchors.left: parent.left;
+        btnText: qsTr("音效");
+        normalIcon: "qrc:/images/set/Setting_Icon_Effects_nml.png";
+        pressIcon:  "qrc:/images/set/Setting_Icon_Effects_exe.png";
+        onClicked: onSettingBtnClicked(1);
+    }
+
+    Button{
+        id:display;
+        width: 720;
+        height: 100;
+        anchors.left: effects.left;
+        anchors.top: effects.bottom;
+        btnText: qsTr("显示");
+        normalIcon: "qrc:/images/set/Setting_Icon_Display_nml.png";
+        pressIcon:  "qrc:/images/set/Setting_Icon_Display_exe.png"
+        onClicked: onSettingBtnClicked(2);
+    }
+
+    Button{
+        id:sky;
+        width: 720;
+        height: 100;
+        anchors.left: effects.left;
+        anchors.top: display.bottom;
+        btnText: qsTr("星空顶棚");
+        normalIcon: "qrc:/images/set/Setting_Icon_Sky_nml.png";
+        pressIcon:  "qrc:/images/set/Setting_Icon_Sky_exe.png";
+        onClicked: onSettingBtnClicked(3);
+    }
+
+    Button{
+        id:wiper;
+        width: 720;
+        height: 100;
+        anchors.left: effects.left;
+        anchors.top: sky.bottom;
+        btnText: qsTr("雨刮维修复位");
+        normalIcon: "qrc:/images/set/Setting_Icon_Wiper_nml.png";
+        pressIcon:  "qrc:/images/set/Setting_Icon_Wiper_exe.png"
+        onClicked: {
+            if(reset === 0){
+                c_qmlInterface.sendFccCAN('2-0-0-128-0-0');
+                reset = 1;
+            }else{
+                c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
+                reset = 0;
+            }
+
+            onSettingBtnClicked(4);
+        }
+    }
+
+    Button{
+        id:tirePressure;
+        width: 720;
+        height: 100;
+        anchors.left: effects.left;
+        anchors.top: wiper.bottom;
+        btnText: qsTr("胎压信息");
+        normalIcon: "qrc:/images/set/Setting_Icon_TirePressure_nml.png";
+        pressIcon:  "qrc:/images/set/Setting_Icon_TirePressure_exe.png";
+        onClicked: onSettingBtnClicked(5);
+    }
+
+    Button{
+        width: 720;
+        height: 100;
+        anchors.left: effects.left;
+        anchors.top: tirePressure.bottom;
+        btnText: qsTr("辅助驾驶");
+        normalIcon: "qrc:/images/set/Menu_Icon_auxiliaryDriving_nml.png";
+        pressIcon:  "qrc:/images/set/Menu_Icon_auxiliaryDriving_exe.png";
+        onClicked: onSettingBtnClicked(6);
+    }
+
+
+
+    function onSettingBtnClicked(index)
+    {
+        sigSettingClicked(index);
+    }
+
+
+}

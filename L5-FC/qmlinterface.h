@@ -31,7 +31,11 @@ class QmlInterface : public QObject
     Q_PROPERTY(bool isFrontON  READ readFrontON   WRITE writeFrontON    NOTIFY frontONChanged)
     Q_PROPERTY(bool isBackON   READ readBackON    WRITE writeBackON     NOTIFY backONChanged)
     // AUDIO
-    Q_PROPERTY(bool isMute    READ readMuteStatus  WRITE writeMuteStatus NOTIFY muteStatusChanged)
+    Q_PROPERTY(bool isMute    READ readMuteStatus WRITE writeMuteStatus NOTIFY muteStatusChanged)
+    // LIGHT brightness
+    Q_PROPERTY(bool isLiftReadLightON  READ readLiftReadLight  NOTIFY liftReadLightChanged)
+    Q_PROPERTY(bool isRightReadLigtON  READ readRightReadLight NOTIFY rightReadLightChanged)
+    Q_PROPERTY(int  brightness         READ readBrightness     NOTIFY brightnessChanged)
 
 public:
     //common
@@ -80,6 +84,9 @@ public:
     bool readFrontON();
     bool readBackON();
     bool readMuteStatus();
+    bool readLiftReadLight();
+    bool readRightReadLight();
+    int readBrightness();
     void writeAutoMode(bool isAuto);
     void writeCycleMode(bool cycle);
     void writeAcStatus(bool status);
@@ -114,8 +121,6 @@ signals:
     void sigTimeHour(int hour);
     void sigSubDistanceA(int distance);
     void sigSubDistanceB(int distance);
-    void sigSRLifeReadingLight(int flag);
-    void sigSRRightReadingLight(int flag);
     void sigSRLightLevel(int level);
     //PROPERTY
     void autoModeChanged();
@@ -126,6 +131,9 @@ signals:
     void frontONChanged();
     void backONChanged();
     void muteStatusChanged();
+    void liftReadLightChanged();
+    void rightReadLightChanged();
+    void brightnessChanged();
 
 private:
     MCU_AGENT_API *m_mcuAgentAPI;
@@ -137,6 +145,9 @@ private:
     bool m_isFrontON;
     bool m_isBackON;
     bool m_isMute;
+    bool m_isLiftReadLightON;
+    bool m_isRightReadLightON;
+    int  m_Brightness;
 
 public:
     //flag

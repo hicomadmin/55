@@ -24,5 +24,5 @@ HEADERS += \
     qmlinterface.h \
     protocol/mcu_agent_api.h
 
-LIBS +=-L$${PWD}/protocol -lmcu_agent
+#LIBS +=-L$${PWD}/protocol -lmcu_agent
 message($${PWD})

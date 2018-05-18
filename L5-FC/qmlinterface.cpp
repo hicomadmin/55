@@ -33,8 +33,11 @@ QmlInterface::QmlInterface(QObject *parent) : QObject(parent)
     m_isFrontON = false;
     m_isBackON = false;
     m_isMute = false;
+    m_isLiftReadLightON  = false;
+    m_isRightReadLightON = false;
     m_FACBLWLevel = -1;
     m_FACBLWModel = -1;
+    m_Brightness  = 0;
     m_mcuAgentAPI = McuAgent_client_init(g_mcu_msg_handle_register);
     m_mcuAgentAPI->get_sync_info();
     g_qmlInterface = this;
@@ -86,7 +89,13 @@ void QmlInterface::getLanguage()
 
 void QmlInterface::getBrightness()
 {
-    m_mcuAgentAPI->get_brightness();
+    int ret = m_mcuAgentAPI->get_brightness();
+    qDebug() << "ret = " << ret << " m_Brightness:" << m_Brightness;
+    if(m_Brightness != ret)
+    {
+        m_Brightness = ret;
+        emit brightnessChanged();
+    }
 }
 
 void QmlInterface::getCanInfo(QString info)
@@ -187,6 +196,8 @@ void QmlInterface::setVolumeDown(void)
 
 void QmlInterface::setVolumeMute(int mTime)
 {
+    m_mcuAgentAPI->send_player_play_skip_status((PLATER_PLAY_SKIP_STATUS_INFO)mTime);
+#if 0
     switch(mTime)
     {
     case 0:
@@ -223,6 +234,7 @@ void QmlInterface::setVolumeMute(int mTime)
         m_mcuAgentAPI->send_player_play_skip_status(MCU_MUTE_100);
         break;
     }
+#endif
 }
 
 void QmlInterface::sendFccCAN(QString strData)
@@ -391,7 +403,6 @@ void QmlInterface::McuMsgHandle_RetFccCAN(PACKET_MSG *packet_msg)
         g_qmlInterface->sigBSDInfoDOW((info->data[1]>>6)&0x01);
         break;
     case MCAN_MSG_ID_METER_AUDIO_INFO:
-        qDebug() << "=======================MCAN_MSG_ID_METER_AUDIO_INFO +++++";
         g_qmlInterface->sigAUDIOInfoVolume(info->data[2]&0x0F);   //开机音量
         g_qmlInterface->writeMuteStatus(info->data[2]>>7);        //是否静音
         g_qmlInterface->sigAUDIOInfoTreble(info->data[3]&0x0F);   //高音调节值
@@ -414,9 +425,21 @@ void QmlInterface::McuMsgHandle_RetFccCAN(PACKET_MSG *packet_msg)
         g_qmlInterface->sigSubDistanceB(((info->data[6]<<8)|0xFF)&info->data[5]);
         break;
     case MCAN_MSG_ID_METER_SR_INFO:
-        g_qmlInterface->sigSRLifeReadingLight(info->data[1]&0x01);
-        g_qmlInterface->sigSRRightReadingLight((info->data[1]>>1)&0x01);
+    {
+        bool retLifetON = info->data[1]&0x01;
+        if(g_qmlInterface->m_isLiftReadLightON != retLifetON)
+        {
+            g_qmlInterface->m_isLiftReadLightON = retLifetON;
+            emit g_qmlInterface->liftReadLightChanged();
+        }
+        bool  retRightON = (info->data[1]>>1)&0x01;
+        if(g_qmlInterface->m_isRightReadLightON != retRightON)
+        {
+            g_qmlInterface->m_isRightReadLightON = retRightON;
+            emit g_qmlInterface->rightReadLightChanged();
+        }
         g_qmlInterface->sigSRLightLevel((info->data[1]>>3));
+    }
         break;
     default:
         break;
@@ -472,6 +495,20 @@ bool QmlInterface::readMuteStatus()
     return m_isMute;
 }
 
+bool QmlInterface::readLiftReadLight()
+{
+    return m_isLiftReadLightON;
+}
+
+bool QmlInterface::readRightReadLight()
+{
+    return m_isRightReadLightON;
+}
+
+int QmlInterface::readBrightness()
+{
+    return m_Brightness;
+}
 
 
 
@@ -546,6 +583,7 @@ void QmlInterface::writeMuteStatus(bool isMute)
         emit muteStatusChanged();
     }
 }
+
 
 
 

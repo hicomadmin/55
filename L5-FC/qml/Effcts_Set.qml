@@ -262,56 +262,64 @@ Item {
             if(lowTxt < 10){
                 tmp = lowTxt +1;
                 lowTxt = tmp;
-                c_qmlInterface.sendFccCAN('3-16-0');
+                c_qmlInterface.sendFccCAN('2-4-1-0-0-0');
+                c_qmlInterface.sendFccCAN('2-4-0-0-0-0');
             }
             break;
         case 2:
             if(lowTxt > 1){
                 tmp = lowTxt -1;
                 lowTxt = tmp;
-                c_qmlInterface.sendFccCAN('3-32-0');
+                c_qmlInterface.sendFccCAN('2-4-2-0-0-0');
+                c_qmlInterface.sendFccCAN('2-4-0-0-0-0');
             }
             break;
         case 3:
             if(hightTxt < 10){
                 tmp = hightTxt +1;
                 hightTxt = tmp;
-                c_qmlInterface.sendFccCAN('3-4-0');
+                c_qmlInterface.sendFccCAN('2-3-1-0-0-0');
+                c_qmlInterface.sendFccCAN('2-3-0-0-0-0');
             }
             break;
         case 4:
             if(hightTxt > 1){
                 tmp = hightTxt -1;
                 hightTxt = tmp;
-                c_qmlInterface.sendFccCAN('3-8-0');
+                c_qmlInterface.sendFccCAN('2-3-2-0-0-0');
+                c_qmlInterface.sendFccCAN('2-3-0-0-0-0');
             }
             break;
         case 5:
             if(lrBalanceTxt < 10){
                 tmp = lrBalanceTxt +1;
                 lrBalanceTxt = tmp;
-                c_qmlInterface.sendFccCAN('3-0-0');
+                c_qmlInterface.sendFccCAN('2-5-0-0-0-0');
+                c_qmlInterface.sendFccCAN('2-5-7-0-0-0'); //7为保留，没有Release
             }
             break;
         case 6:
             if(lrBalanceTxt > 1){
                 tmp = lrBalanceTxt -1;
                 lrBalanceTxt = tmp;
-                c_qmlInterface.sendFccCAN('3-0-16');
+                c_qmlInterface.sendFccCAN('2-5-1-0-0-0');
+                c_qmlInterface.sendFccCAN('2-5-7-0-0-0'); //7为保留，没有Release
             }
             break;
         case 7:
             if(fbBalanceTxt < 10){
                 tmp = fbBalanceTxt +1;
                 fbBalanceTxt = tmp;
-                c_qmlInterface.sendFccCAN('3-0-32');
+                c_qmlInterface.sendFccCAN('2-5-2-0-0-0');
+                c_qmlInterface.sendFccCAN('2-5-7-0-0-0'); //7为保留，没有Release
             }
             break;
         case 8:
             if(fbBalanceTxt > 1){
                 tmp = fbBalanceTxt -1;
                 fbBalanceTxt = tmp;
-                c_qmlInterface.sendFccCAN('3-0-48');
+                c_qmlInterface.sendFccCAN('2-5-3-0-0-0');
+                c_qmlInterface.sendFccCAN('2-5-7-0-0-0'); //7为保留，没有Release
             }
             break;
         case 9:
@@ -343,5 +351,6 @@ Item {
         console.log("############### bass ################ ", bass);
         lowTxt = bass;
     }
+
 
 }

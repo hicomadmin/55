@@ -2,7 +2,14 @@
 
 Item {
     anchors.fill: parent;
-
+    property int isLDWoff: 1;
+    property int isDOWOFF: 1;
+    property int isFCWoff: 1;
+    property int isRCWoff: 1;
+    property int isISAoff: 1;
+    property int isIHCoff: 1;
+    property int isBSDoff: 1;
+    property int isASDSoff: 1;
 
     BaseText{
         anchors.left: ldwON.left;
@@ -21,6 +28,11 @@ Item {
         anchors.top: parent.top;
         anchors.topMargin: 69;
         btnText: qsTr("开");
+        Image {
+            x:30; y:12;
+            visible: !isLDWoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
@@ -34,6 +46,11 @@ Item {
         anchors.leftMargin: 66;
         anchors.top: ldwON.top;
         btnText: qsTr("关");
+        Image {
+            x:30; y:12;
+            visible: isLDWoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-1');
@@ -55,6 +72,11 @@ Item {
         anchors.leftMargin: 121;
         anchors.top: ldwON.top;
         btnText: qsTr("开");
+        Image {
+            x:30; y:12;
+            visible: !isDOWOFF
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
@@ -69,6 +91,11 @@ Item {
         anchors.leftMargin: 66;
         anchors.top: ldwON.top;
         btnText: qsTr("关");
+        Image {
+            x:30; y:12;
+            visible: isDOWOFF
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-128');
@@ -90,6 +117,11 @@ Item {
         anchors.top: ldwON.bottom;
         anchors.topMargin: 60;
         btnText: qsTr("开");
+        Image {
+            x:30; y:12;
+            visible: !isFCWoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
@@ -104,6 +136,11 @@ Item {
         anchors.leftMargin: 66;
         anchors.top: fcwON.top;
         btnText: qsTr("关");
+        Image {
+            x:30; y:12;
+            visible: isFCWoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-2');
@@ -126,6 +163,11 @@ Item {
         anchors.leftMargin: 121;
         anchors.top: fcwON.top;
         btnText: qsTr("开");
+        Image {
+            x:30; y:12;
+            visible: !isRCWoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
@@ -140,6 +182,11 @@ Item {
         anchors.leftMargin: 66;
         anchors.top: fcwON.top;
         btnText: qsTr("关");
+        Image {
+            x:30; y:12;
+            visible: isRCWoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-64');
@@ -163,6 +210,11 @@ Item {
         anchors.top: fcwON.bottom;
         anchors.topMargin: 60;
         btnText: qsTr("开");
+        Image {
+            x:30; y:12;
+            visible: !isISAoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         //onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
@@ -176,6 +228,11 @@ Item {
         anchors.leftMargin: 66;
         anchors.top: isaON.top;
         btnText: qsTr("关");
+        Image {
+            x:30; y:12;
+            visible: isISAoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         //onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
@@ -197,6 +254,11 @@ Item {
         anchors.leftMargin: 121;
         anchors.top: isaOFF.top;
         btnText: qsTr("开");
+        Image {
+            x:30; y:12;
+            visible: !isIHCoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
@@ -210,6 +272,11 @@ Item {
         anchors.leftMargin: 66;
         anchors.top: ihcON.top;
         btnText: qsTr("关");
+        Image {
+            x:30; y:12;
+            visible: isIHCoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-8');
@@ -231,6 +298,11 @@ Item {
         anchors.top: ihcOFF.bottom;
         anchors.topMargin: 60;
         btnText: qsTr("开");
+        Image {
+            x:30; y:12;
+            visible: !isBSDoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
@@ -244,6 +316,11 @@ Item {
         anchors.leftMargin: 66;
         anchors.top: bsdON.top;
         btnText: qsTr("关");
+        Image {
+            x:30; y:12;
+            visible: isBSDoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-16');
@@ -265,6 +342,11 @@ Item {
         anchors.leftMargin: 121;
         anchors.top: bsdOFF.top;
         btnText: qsTr("开");
+        Image {
+            x:30; y:12;
+            visible: !isASDSoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         //onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
@@ -278,6 +360,11 @@ Item {
         anchors.leftMargin: 66;
         anchors.top: asdsON.top;
         btnText: qsTr("关");
+        Image {
+            x:30; y:12;
+            visible: isASDSoff
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         //onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
@@ -296,87 +383,58 @@ Item {
 
     function retBSDInfoFCW(flag)
     {
-       if(flag === 0){
-           console.log(" ###### BSD Activated");
-       }else{
-           console.log(" ###### BSD deActivated");
-       }
+       console.log(" ###### isFCWoff Activated flag = ", flag);
+       isFCWoff = flag;
     }
 
     function retBSDInfoLDW(flag)
     {
-        if(flag === 0){
-            console.log(" ###### LDW Activated");
-        }else{
-            console.log(" ###### LDW deActivated");
-        }
+       console.log(" ###### isLDWoff Activated flag = ", flag);
+       isLDWoff = flag;
     }
 
     function retBSDInfoISA(flag)
     {
-        if(flag === 0){
-            console.log(" ###### ISA Activated");
-        }else{
-            console.log(" ###### ISA deActivated");
-        }
+        console.log(" ###### isISAoff Activated flag = ", flag);
+        isISAoff = flag;
     }
 
     function retBSDInfoBSDF(flag)
     {
         if(flag === 0){
-            console.log(" ###### BSDF Activated");
+            console.log(" ###### BSDF Activated = 0");
         }else{
-            console.log(" ###### BSDF deActivated");
+            console.log(" ###### BSDF deActivated = 1");
         }
     }
 
     function retBSDInfoBSD(flag)
     {
-        if(flag === 0){
-            console.log(" ###### BSD Activated");
-        }else{
-            console.log(" ###### BSD deActivated");
-        }
+        console.log(" ###### isBSDoff Activated flag = ", flag);
+        isBSDoff = flag;
     }
 
     function retBSDInfoRCW(flag)
     {
-        if(flag === 0){
-            console.log(" ###### RCW Activated");
-        }else{
-            console.log(" ###### RCW deActivated");
-        }
+        console.log(" ###### isRCWoff Activated flag = ", flag);
+        isRCWoff = flag;
     }
 
     function retBSDInfoDOW(flag)
     {
         if(flag === 0){
-            console.log(" ###### DOW Activated");
+            console.log(" ###### DOW Activated = 0");
         }else{
-            console.log(" ###### DOW deActivated");
+            console.log(" ###### DOW deActivated = 1");
         }
     }
 
     function retBSDInfoIHC(flag)
     {
-        if(flag === 0){
-            console.log(" ###### IHC Activated");
-        }else{
-            console.log(" ###### IHC deActivated");
-        }
+        console.log(" ###### isIHCoff Activated flag = ", flag);
+        isIHCoff = flag;
     }
 
-//    Connections{
-//        target: c_qmlInterface;
-//        onSigBSDInfoFCW:retBSDInfoFCW(flag);
-//        onSigBSDInfoLDW:retBSDInfoLDW(flag);
-//        onSigBSDInfoISA:retBSDInfoISA(flag);
-//        onSigBSDInfoBSDF:retBSDInfoBSDF(flag);
-//        onSigBSDInfoBSD:retBSDInfoBSD(flag);
-//        onSigBSDInfoRCW:retBSDInfoRCW(flag);
-//        onSigBSDInfoDOW:retBSDInfoDOW(flag);
-//        onSigBSDInfoIHC:retBSDInfoIHC(flag);
-//    }
 
 
 }

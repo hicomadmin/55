@@ -22,9 +22,15 @@ Item {
         anchors.top: parent.top;
         anchors.topMargin: 138;
         btnText: qsTr("开");
+        Image {
+            x:30; y:12;
+            visible: c_qmlInterface.isLiftReadLightON;
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked:  c_qmlInterface.sendFccCAN('1-0-0-0-16-0-4');
+        onClicked:  c_qmlInterface.sendFccCAN('5-1-1-0-0');
+        //onClicked:  c_qmlInterface.sendFccCAN('1-0-0-0-16-0-4');
     }
 
     BaseButton {
@@ -35,9 +41,15 @@ Item {
         anchors.leftMargin: 38;
         anchors.top: leftLightON.top;
         btnText: qsTr("关");
+        Image {
+            x:30; y:12;
+            visible: !c_qmlInterface.isLiftReadLightON;
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked:  c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0');
+        onClicked:  c_qmlInterface.sendFccCAN('5-1-0-0-0');
+        //onClicked:  c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0');
     }
 
     BaseText{
@@ -56,9 +68,15 @@ Item {
         anchors.leftMargin: 109;
         anchors.top: leftLightON.top;
         btnText: qsTr("开");
+        Image {
+            x:30; y:12;
+            visible: c_qmlInterface.isRightReadLigtON;
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked:  c_qmlInterface.sendFccCAN('1-0-0-0-16-0-8');
+        onClicked:  c_qmlInterface.sendFccCAN('5-2-1-0-0');
+        //onClicked:  c_qmlInterface.sendFccCAN('1-0-0-0-16-0-8');
     }
 
 
@@ -70,9 +88,15 @@ Item {
         anchors.leftMargin: 38;
         anchors.top: leftLightON.top;
         btnText: qsTr("关");
+        Image {
+            x:30; y:12;
+            visible: !c_qmlInterface.isRightReadLigtON;
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked:  c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0');
+        onClicked:  c_qmlInterface.sendFccCAN('5-2-0-0-0');
+        //onClicked:  c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0');
     }
 
     Image {
@@ -98,9 +122,15 @@ Item {
         anchors.top: parent.top;
         anchors.topMargin: 373;
         btnText: qsTr("开");
+        Image {
+            x:30; y:12;
+            visible: !offFlag.visible;
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked:  c_qmlInterface.sendFccCAN('5-125-125-125-2');
+        onClicked: onJustmentBtnClicked(3);
+        //onClicked:  c_qmlInterface.sendFccCAN('5-125-125-125-2');
     }
 
 
@@ -112,9 +142,16 @@ Item {
         anchors.leftMargin: 38;
         anchors.top: atmosphereLightON.top;
         btnText: qsTr("关");
+        Image {
+            id: offFlag;
+            x:30; y:12;
+            visible: false;
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked:  c_qmlInterface.sendFccCAN('5-125-125-125-1');
+        onClicked:  c_qmlInterface.sendFccCAN('5-7-1-0-0');
+        //onClicked:  c_qmlInterface.sendFccCAN('5-125-125-125-1');
     }
 
 
@@ -141,7 +178,7 @@ Item {
             anchors.left: parent.left;
             normalSource: "qrc:/images/AC_Tem_leftAdd_nml.png";
             pressSource:  "qrc:/images/AC_Tem_leftAdd_exe.png"
-            onClicked: onJustmentBtnClicked(7);
+            onClicked: onJustmentBtnClicked(1);
         }
 
         BaseButton {
@@ -150,7 +187,7 @@ Item {
             anchors.right: parent.right;
             normalSource: "qrc:/images/AC_Tem_leftSub_nml.png";
             pressSource:  "qrc:/images/AC_Tem_leftSub_exe.png"
-            onClicked: onJustmentBtnClicked(8);
+            onClicked: onJustmentBtnClicked(2);
         }
     }
 
@@ -179,79 +216,51 @@ Item {
     function onJustmentBtnClicked(val)
     {
         var tmp;
-        switch(val)
+        if(val === 1)
         {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        case 7:
-            if(brightnessTxt < 10){
+            if(brightnessTxt < 7)
+            {
                 tmp = brightnessTxt +1;
                 brightnessTxt = tmp;
-                tmp = "5-125-125-125-"+"-tmp";
-                c_qmlInterface.sendFccCAN(tmp)
+                tmp = "5-7-"+brightnessTxt + "-0-0";
+                c_qmlInterface.sendFccCAN(tmp);
             }
-            break;
-        case 8:
-            if(brightnessTxt > 1){
+        }
+        else if(val === 2)
+        {
+            if(brightnessTxt > 1)
+            {
                 tmp = brightnessTxt -1;
                 brightnessTxt = tmp;
-                tmp = "5-125-125-125-"+"-tmp";
-                c_qmlInterface.sendFccCAN(tmp)
+                tmp = "5-7-"+brightnessTxt + "-0-0";
+                c_qmlInterface.sendFccCAN(tmp);
             }
-            break;
-        default:
-            break;
+        }else if(val === 3)
+        {
+            tmp = "5-7-"+brightnessTxt + "-0-0";
+            c_qmlInterface.sendFccCAN(tmp);
         }
+        else
+        {
+              console.log(" #### LightPage.qml undeifne Val ###");
+        }
+
     }
 
-    function retSRLifeReadingLight(flag)
-    {
-        if(flag === 0){
-            console.log(" ###### Life Reading Light Off");
-            leftLightOFF.normalSource = "qrc:/images/light/Set_Light_off_exe.png";
-            leftLightON.normalSource = "qrc:/images/light/Set_Light_off_nml.png";
-        }else{
-            console.log(" ###### Life Reading Light On");
-            leftLightOFF.normalSource = "qrc:/images/light/Set_Light_off_nml.png";
-            leftLightON.normalSource = "qrc:/images/light/Set_Light_off_exe.png";
-        }
-    }
 
-    function retSRRightReadingLight(flag)
-    {
-        if(flag === 0){
-            console.log(" ###### Right Reading Light Off");
-            rightLightOFF.normalSource = "qrc:/images/light/Set_Light_off_exe.png";
-            rightLightOFF.normalSource = "qrc:/images/light/Set_Light_off_nml.png";
-        }else{
-            console.log(" ###### Right Reading Light On");
-            rightLightOFF.normalSource = "qrc:/images/light/Set_Light_off_nml.png";
-            rightLightOFF.normalSource = "qrc:/images/light/Set_Light_off_exe.png";
-        }
-    }
 
     function retSRLightLevel(level)
     {
         console.log(" ###### retSRLightLevel level:", level);
         brightnessTxt = level;
+        if(level === 1)
+        {
+            offFlag.visible = true;
+        }
+        else{
+            offFlag.visible = false;
+        }
     }
-
-//    Connections{
-//        target: c_qmlInterface;
-//        onSigSRLifeReadingLight:retSRLifeReadingLight(flag);
-//        onSigSRRightReadingLight:retSRRightReadingLight(flag);
-//        onSigSRLightLevel:retSRLightLevel(level);
-//    }
 
 
     Component.onCompleted: {

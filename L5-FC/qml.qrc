@@ -24,5 +24,6 @@
         <file>qml/Keyboard.qml</file>
         <file>qml/TestFccMCU.qml</file>
         <file>qml/PhotoPlaying.qml</file>
+        <file>qml/setTime_set.qml</file>
     </qresource>
 </RCC>

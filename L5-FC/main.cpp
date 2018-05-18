@@ -55,10 +55,10 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
     if(QString(context.file).indexOf("qpnghandler.cpp") > 0)
         return;
 
-        QString msgFormat = "[ %Level% ][%current_date_time%][%File%] << %Message%";
+        QString msgFormat = "[ %Level% ][%AppId%][%current_date_time%][%File%] << %Message%";
         QString shellColor = "\e[33m";
         QString level = "Debug";
-        //qint64 appId = QGuiApplication::applicationPid();
+        qint64 appId = QGuiApplication::applicationPid();
         QString current_date_time =QDateTime::currentDateTime().toString("hh:mm:ss.zzz ");
         switch (static_cast<int>(type)) {
         case QtDebugMsg:
@@ -83,9 +83,10 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
             break;
         }
         msgFormat.replace("%Level%", level);
-        //msgFormat.replace("%AppId%", QString::number(appId));
+        msgFormat.replace("%AppId%", QString::number(appId));
         msgFormat.replace("%current_date_time%", current_date_time);
         msgFormat.replace("%File%", QFileInfo(context.file).fileName().toLocal8Bit().constData());
+        //msgFormat.replace("%File%", QString("%1 :%2").arg(QFileInfo(context.file).fileName()).arg(context.line));
         //msgFormat.replace("%Line%", QString::number(context.line));
         msgFormat.replace("%Message%", msg);
 
@@ -96,21 +97,28 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 
 int main(int argc, char *argv[])
 {
-    //开启三级缓冲
-    char env[] = "FB_MULTI_BUFFER=3";
-    putenv(env);
-
     QApplication app(argc, argv);
 
     //注册MessageHandler
     qInstallMessageHandler(myMessageOutput);
 
+    qInfo("************************************************* ");
+    qInfo("*                                               * ");
+#ifdef VER
+    qInfo("* App Build L5-FC Version. : %-*s *", 18, VER);
+#endif
+    qInfo("************************************************* ");
+    qInfo("*                                               * ");
+#ifdef DTM
+    qInfo("* App Build L5-FC Date.   : %-*s *", 19, DTM);
+#endif
+    qInfo("*                                               * ");
+    qInfo("************************************************* ");
+
     AppUpdateViewer viewer;
     viewer.setQmlObject(QStringLiteral("c_qmlInterface"), new QmlInterface);
     viewer.setMainQmlFile(QStringLiteral("qrc:/qml/main.qml"));
     viewer.showExpanded();
-
-    qDebug() << "showExpanded main";
 
     return app.exec();
 }

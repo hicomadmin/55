@@ -11,6 +11,7 @@ Item {
     property string pressSource:"";
     signal pressed();
     signal clicked();
+    signal released();
     signal pressAndHold();
 
     Image {
@@ -37,7 +38,6 @@ Item {
         onPressed: {
             button.focus = true;
             button.pressed();
-            //onButtonPressed(mouse.x, mouse.y);
         }
 
         onExited: {
@@ -46,12 +46,12 @@ Item {
 
         onReleased: {
             button.focus = false;
+            button.released();
         }
 
         onClicked: {
             button.focus = false;
             button.clicked();
-            //onButtonClicked(mouse.x, mouse.y);
         }
         onPressAndHold: {
             button.focus = true;
@@ -59,12 +59,5 @@ Item {
         }
     }
 
-
-    function onButtonPressed(x, y) {
-        pressed();
-    }
-    function onButtonClicked(x, y) {
-        clicked();
-    }
 }
 

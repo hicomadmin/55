@@ -19,7 +19,17 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_left.png"
         }
-        onClicked: c_qmlInterface.sendFccCAN('2-15-205-0-0-0');
+        onPressed: {
+            c_qmlInterface.sendFccCAN('1-16-1-0-0-0-0');
+            console.log("##### 外后视镜-左-向左 Pressed");
+            c_qmlInterface.sendFccCAN('1-17-3-0-0-0-0');
+        }
+        onReleased:  {
+            c_qmlInterface.sendFccCAN('1-16-0-0-0-0-0');
+            console.log("##### 外后视镜-左-向左 Released");
+            c_qmlInterface.sendFccCAN('1-17-0-0-0-0-0');
+        }
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-205-0-0-0');
     }
 
     BaseButton{
@@ -38,7 +48,17 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_up.png"
         }
-        onClicked: c_qmlInterface.sendFccCAN('2-15-197-0-0-0');
+        onPressed: {
+            c_qmlInterface.sendFccCAN('1-16-1-0-0-0-0');
+            console.log("##### 外后视镜-左-向上 Pressed");
+            c_qmlInterface.sendFccCAN('1-17-1-0-0-0-0');
+        }
+        onReleased:  {
+            c_qmlInterface.sendFccCAN('1-16-0-0-0-0-0');
+            console.log("##### 外后视镜-左-向上 Released");
+            c_qmlInterface.sendFccCAN('1-17-0-0-0-0-0');
+        }
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-197-0-0-0');
     }
 
     BaseButton{
@@ -56,7 +76,17 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_right.png"
         }
-        onClicked: c_qmlInterface.sendFccCAN('2-15-209-0-0-0');
+        onPressed: {
+            c_qmlInterface.sendFccCAN('1-16-1-0-0-0-0');
+            console.log("##### 外后视镜-左-向右 Pressed");
+            c_qmlInterface.sendFccCAN('1-17-4-0-0-0-0');
+        }
+        onReleased:  {
+            c_qmlInterface.sendFccCAN('1-16-0-0-0-0-0');
+            console.log("##### 外后视镜-左-向右 Released");
+            c_qmlInterface.sendFccCAN('1-17-0-0-0-0-0');
+        }
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-209-0-0-0');
     }
 
     BaseButton{
@@ -74,7 +104,17 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_dn.png"
         }
-        onClicked: c_qmlInterface.sendFccCAN('2-15-201-0-0-0');
+        onPressed: {
+            c_qmlInterface.sendFccCAN('1-16-1-0-0-0-0');
+            console.log("##### 外后视镜-左-向下 Pressed");
+            c_qmlInterface.sendFccCAN('1-17-2-0-0-0-0');
+        }
+        onReleased:  {
+            c_qmlInterface.sendFccCAN('1-16-0-0-0-0-0');
+            console.log("##### 外后视镜-左-向下 Released");
+            c_qmlInterface.sendFccCAN('1-17-0-0-0-0-0');
+        }
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-201-0-0-0');
     }
 
     Image {
@@ -110,7 +150,17 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_left.png"
         }
-        onClicked: c_qmlInterface.sendFccCAN('2-15-206-0-0-0');
+        onPressed: {
+            c_qmlInterface.sendFccCAN('1-16-2-0-0-0-0');
+            console.log("##### 外后视镜-右-向左 Pressed");
+            c_qmlInterface.sendFccCAN('1-17-3-0-0-0-0');
+        }
+        onReleased:  {
+            c_qmlInterface.sendFccCAN('1-16-0-0-0-0-0');
+            console.log("##### 外后视镜-右-向左 Released");
+            c_qmlInterface.sendFccCAN('1-17-0-0-0-0-0');
+        }
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-206-0-0-0');
     }
 
     BaseButton{
@@ -128,7 +178,17 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_up.png"
         }
-        onClicked: c_qmlInterface.sendFccCAN('2-15-198-0-0-0');
+        onPressed: {
+            c_qmlInterface.sendFccCAN('1-16-2-0-0-0-0');
+            console.log("##### 外后视镜-右-向上 Pressed");
+            c_qmlInterface.sendFccCAN('1-17-1-0-0-0-0');
+        }
+        onReleased:  {
+            c_qmlInterface.sendFccCAN('1-16-0-0-0-0-0');
+            console.log("##### 外后视镜-右-向上 Released");
+            c_qmlInterface.sendFccCAN('1-17-0-0-0-0-0');
+        }
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-198-0-0-0');
     }
 
     BaseButton{
@@ -145,7 +205,17 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_right.png"
         }
-        onClicked: c_qmlInterface.sendFccCAN('2-15-210-0-0-0');
+        onPressed: {
+            c_qmlInterface.sendFccCAN('1-16-2-0-0-0-0');
+            console.log("##### 外后视镜-右-向右 Pressed");
+            c_qmlInterface.sendFccCAN('1-17-4-0-0-0-0');
+        }
+        onReleased:  {
+            c_qmlInterface.sendFccCAN('1-16-0-0-0-0-0');
+            console.log("##### 外后视镜-右-向右 Released");
+            c_qmlInterface.sendFccCAN('1-17-0-0-0-0-0');
+        }
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-210-0-0-0');
     }
 
     BaseButton{
@@ -162,7 +232,17 @@ Item {
             anchors.centerIn: parent;
             source: "qrc:/images/mirror/AC_icon_dn.png"
         }
-        onClicked: c_qmlInterface.sendFccCAN('2-15-202-0-0-0');
+        onPressed: {
+            c_qmlInterface.sendFccCAN('1-16-2-0-0-0-0');
+            console.log("##### 外后视镜-右-向下 Pressed");
+            c_qmlInterface.sendFccCAN('1-17-2-0-0-0-0');
+        }
+        onReleased:  {
+            c_qmlInterface.sendFccCAN('1-16-0-0-0-0-0');
+            console.log("##### 外后视镜-右-向下 Released");
+            c_qmlInterface.sendFccCAN('1-17-0-0-0-0-0');
+        }
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-202-0-0-0');
     }
 
     Image {
@@ -200,7 +280,8 @@ Item {
         btnText: qsTr("开");
         normalSource:"qrc:/images/light/Set_Light_off_nml.png"
         pressSource: "qrc:/images/light/Set_Light_off_exe.png"
-        onClicked: c_qmlInterface.sendFccCAN('2-15-253-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('1-18-1-0-0-0-0');
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-253-0-0-0');
     }
     Image {
         width: 80;
@@ -221,7 +302,8 @@ Item {
         btnText: qsTr("关");
         normalSource:"qrc:/images/light/Set_Light_off_nml.png"
         pressSource: "qrc:/images/light/Set_Light_off_exe.png"
-        onClicked: c_qmlInterface.sendFccCAN('2-15-221-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('1-18-0-0-0-0-0');
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-221-0-0-0');
     }
 
 
@@ -236,8 +318,8 @@ Item {
         btnText: qsTr("开");
         normalSource:"qrc:/images/light/Set_Light_off_nml.png"
         pressSource: "qrc:/images/light/Set_Light_off_exe.png"
+        onClicked: c_qmlInterface.sendFccCAN('1-18-1-0-0-0-0');
         //onClicked: c_qmlInterface.sendFccCAN('2-15-254-0-0-0');
-        onClicked: c_qmlInterface.sendFccCAN('2-15-254-0-0-0');
     }
     Image {
         width: 80;
@@ -257,7 +339,8 @@ Item {
         btnText: qsTr("关");
         normalSource:"qrc:/images/light/Set_Light_off_nml.png"
         pressSource: "qrc:/images/light/Set_Light_off_exe.png"
-        onClicked: c_qmlInterface.sendFccCAN('2-15-222-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('1-18-0-0-0-0-0');
+        //onClicked: c_qmlInterface.sendFccCAN('2-15-222-0-0-0');
     }
 
 

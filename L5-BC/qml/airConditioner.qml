@@ -52,11 +52,6 @@ Item {
         normalSource: "qrc:/images/air/AC_Tem_auto_nml.png";
         pressSource:  "qrc:/images/air/AC_Tem_auto_exe.png";
         //onClicked: auto.pressSource = "qrc:/images/air/AC_Tem_auto_dec.png";
-        BaseText{
-            anchors{left: parent.left;leftMargin: 110; top: parent.top; topMargin: 40;}
-            size: 27;
-            text: qsTr("自动恒温");
-        }
         onClicked: {
             if(autoFlag === 0){
                 c_qmlInterface.sendRccCAN('4-0-0-16-2-0-0');
@@ -75,6 +70,12 @@ Item {
         anchors{top: driverAdd.top; left: parent.left; leftMargin: 672;}
         normalSource: "qrc:/images/air/AC_Tem_dub_nml.png";
         pressSource:  "qrc:/images/air/AC_Tem_dub_exe.png";
+
+        Image {
+            x:113;
+            y:12;
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png.png"
+        }
         //onClicked: onMuteBtnClicked(2);
         BaseText{
             anchors{left: parent.left; leftMargin: 130;}

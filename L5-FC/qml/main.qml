@@ -115,6 +115,9 @@ Item {
         visible: false;
         asynchronous: true;
         source: "qrc:/qml/Display_Set.qml";
+        onLoaded: {
+            item.clockButtonClicked.connect(onClockButtonClicked)
+        }
     }
 
     Loader {
@@ -146,6 +149,16 @@ Item {
         }
     }
 
+    Loader{
+        id: setTimePage
+        anchors.fill: parent;
+        visible: false;
+        source: "qrc:/qml/setTime_set.qml";
+        onLoaded: {
+            item.hideClicked.connect(onHideClicked);
+        }
+    }
+
     VolumeBar{
         id: volumeBar
         anchors.centerIn: parent;
@@ -154,7 +167,7 @@ Item {
     }
 
     Item { // mcu test MouseArea
-        width: 100;
+        width: 50;
         height: 100;
         anchors.right: parent.right;
         anchors.bottom: parent.bottom;
@@ -162,7 +175,7 @@ Item {
             anchors.fill: parent;
             onClicked: {
                 c_qmlInterface.qmlDebug("testMCU.visible = true");
-                //testMCU.visible = true;
+                testMCU.visible = true;
             }
         }
     }
@@ -172,31 +185,42 @@ Item {
     }
 
 
+    function onClockButtonClicked()
+    {
+        setTimePage.visible = true;
+    }
+
+    function onHideClicked()
+    {
+        setTimePage.visible = false;
+    }
 
     function slotMuteBtnClicked(flag)
     {
         switch(flag)
         {
         case 1: //radio
-            c_qmlInterface.sendFccCAN('2-1-0-0-0-0');
+            c_qmlInterface.sendFccCAN('2-1-1-0-0-0');
             break;
         case 2: //media
-            c_qmlInterface.sendFccCAN('2-6-0-0-0-0');
+            c_qmlInterface.sendFccCAN('2-1-6-0-0-0');
             break;
         case 3: //Navi
-            c_qmlInterface.sendFccCAN('2-4-0-0-0-0');
+            c_qmlInterface.sendFccCAN('2-1-4-0-0-0');
             break;
         case 4: //BT
-            c_qmlInterface.sendFccCAN('2-5-0-0-0-0');
+            c_qmlInterface.sendFccCAN('2-1-5-0-0-0');
             break;
         case 5: //BT music
-            c_qmlInterface.sendFccCAN('2-7-0-0-0-0');
+            c_qmlInterface.sendFccCAN('2-1-7-0-0-0');
             break;
         case 6: //VR
-            c_qmlInterface.sendFccCAN('2-8-0-0-0-0');
+            c_qmlInterface.sendFccCAN('2-1-8-0-0-0');
             break;
         case 7: //vol+
-            c_qmlInterface.setVolumeUp();
+            c_qmlInterface.sendFccCAN('2-6-1-0-0-0');
+            c_qmlInterface.sendFccCAN('2-6-0-0-0-0');
+            //c_qmlInterface.setVolumeUp();
             break;
         case 8:
             volumeBar.visible = true;
@@ -218,7 +242,9 @@ Item {
             c_qmlInterface.setVolumeMute(100);
             break;
         case 11: //vol-
-            c_qmlInterface.setVolumeDown();
+            c_qmlInterface.sendFccCAN('2-6-2-0-0-0');
+            c_qmlInterface.sendFccCAN('2-6-0-0-0-0');
+            //c_qmlInterface.setVolumeDown();
             break;
         case 12:
             photoplaying.visible = true;
@@ -251,6 +277,7 @@ Item {
         case 5:
             setOption.visible = false;
             setting.visible = true;
+            c_qmlInterface.getBrightness();
             c_qmlInterface.getCanInfo("BSD");
             break;
         case 6: //泊车雷达
@@ -264,25 +291,27 @@ Item {
     {
         switch(index)
         {
-        case 1:
+        case 1: //Effcts
             setting.visible = false;
             effcts_set.visible = true;
             break;
-        case 2:
+        case 2: //desplay
             setting.visible = false;
             despilay_set.visible = true;
             break;
-        case 3:
+        case 3: //星空顶棚
             setting.visible = false;
             starCeiling_Set.visible = true;
             break;
-        case 4:
+        case 4: //雨刮复位
+            c_qmlInterface.sendFccCAN('1-19-1-0-0-0-0');
+            c_qmlInterface.sendFccCAN('1-19-0-0-0-0-0');
             break;
-        case 5:
+        case 5://胎压
             setting.visible = false;
             tirePressure_Set.visible = true;
             break;
-        case 6:
+        case 6://辅助驾驶
             setting.visible = false;
             driverAssistancePage.visible = true;
             break;
@@ -299,11 +328,10 @@ Item {
         onSigAUDIOInfoBass:effcts_set.item.setBassVal(bass);
         onSigFACwindSpeedLevel:airConditionerPage.item.retFACwindSpeedLevel(level);
         onSigFACwindSpeedModel:airConditionerPage.item.retFACwindSpeedModel(model);
-        onSigSRLifeReadingLight:lightingPage.item.retSRLifeReadingLight(flag);
-        onSigSRRightReadingLight:lightingPage.item.retSRRightReadingLight(flag);
-        onSigSRLightLevel:lightingPage.item.retSRLightLevel(level);
-        onSigTimeMinute:despilay_set.item.retTimeMinute(minute);
-        onSigTimeHour:despilay_set.item.retTimeHour(hour);
+        //onSigSRLightLevel:lightingPage.item.retSRLightLevel(level);//星空顶棚模式
+        onSigLightBrightnessLevel:lightingPage.item.retSRLightLevel(level);
+        onSigTimeMinute:setTimePage.item.retTimeMinute(minute);
+        onSigTimeHour:setTimePage.item.retTimeHour(hour);
         onSigSubDistanceA:despilay_set.item.retSubDistanceA(distance);
         onSigSubDistanceB:despilay_set.item.retSubDistanceB(distance);
         onSigBSDInfoFCW:driverAssistancePage.item.retBSDInfoFCW(flag);
@@ -319,6 +347,7 @@ Item {
     Component.onCompleted: {
         c_qmlInterface.getCanInfo("AUDIO");
     }
+
 
 }
 

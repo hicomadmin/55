@@ -5,33 +5,24 @@ Item {
     property real driverTmp: 27.5;
     property real driverSideTmp: 27.5;
     property int  windSpeedText: 7;
-
-    property int ofFlag:0;
-    property int flag:0;
-    property int onOffFlag:0;
-    property int auto: 0;
-    property int dual: 0;
-    property int chushuang: 0;
-    property int shangchuifeng: 0;
-    property int xiachuifeng: 0;
-    property int shangxiachuifeng: 0;
-    property int xiajiachushuang: 0;
-    property int neixunhuan: 0;
-    property int waixunhuan: 0;
-    property int degnlizhi: 0;
-    property int fulizhi: 0;
+    property int  circle: 1500;
 
     BaseButton {
         id:off;
         width: 194; height: 102;
         anchors{left: parent.left; leftMargin: 460;}
         anchors{top: parent.top; topMargin: 54;}
-        normalSource: c_qmlInterface.isFrontON ? "qrc:/images/air/AC_Icon_powerd_nml.png":"qrc:/images/air/AC_Icon_powerd_dec.png";
+        normalSource: "qrc:/images/air/AC_Icon_powerd_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_powerd_exe.png";
         Image {
             width: 176; height: 84;
             anchors{left: parent.left; verticalCenter: parent.verticalCenter;}
             source: "qrc:/images/air/AC_Icon_power_nml.png"
+        }
+        Image {
+            x:71; y:8;
+            visible: !c_qmlInterface.isFrontON
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
         }
         BaseText{
             anchors{left: parent.left; leftMargin: 96;}
@@ -40,12 +31,12 @@ Item {
             text: qsTr("关机");
         }
         onClicked: {
-            if(onOffFlag == 0){
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //on
-                onOffFlag = 1;
+            if(c_qmlInterface.isFrontON){
+                c_qmlInterface.sendFccCAN('1-9-0-0-0-0-0')   //off
+                //c_qmlInterface.sendFccCAN('1-0-0-0-0-0-0');//off
             }else{
-                c_qmlInterface.sendFccCAN('1-0-0-0-0-0-0');//off
-                onOffFlag = 0;
+                c_qmlInterface.sendFccCAN('1-9-1-0-0-0-0')      //on
+                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0');  //on
             }
         }
     }
@@ -54,7 +45,7 @@ Item {
         id:autoTmp;
         width: 194;  height: 102;
         anchors{left: off.left; leftMargin: 191; top: off.top;}
-        normalSource: c_qmlInterface.isAutoMode?"qrc:/images/air/AC_Icon_powerd_dec.png":"qrc:/images/air/AC_Icon_powerd_nml.png";
+        normalSource: "qrc:/images/air/AC_Icon_powerd_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_powerd_exe.png"
         Image {
             width: 176; height: 84;
@@ -66,13 +57,16 @@ Item {
             size: 27;
             text: qsTr("自动恒温");
         }
+        Image {
+            x:71; y:8;
+            visible: c_qmlInterface.isAutoMode
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         onClicked: {
-            if(auto == 0){
-                c_qmlInterface.sendFccCAN('1-0-0-16-16-0-0');
-                auto = 1;
+            if(c_qmlInterface.isAutoMode){
+                c_qmlInterface.sendFccCAN('1-4-0-0-0-0-0'); //off cmd
             }else{
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0');
-                auto = 0;
+                c_qmlInterface.sendFccCAN('1-4-1-0-0-0-0'); //on cmd
             }
         }
     }
@@ -81,12 +75,17 @@ Item {
         id:doubleZone;
         width: 194;  height: 102;
         anchors{left: autoTmp.left; leftMargin: 191; top: off.top;}
-        normalSource: c_qmlInterface.daulStatus?"qrc:/images/air/AC_Icon_powerd_dec.png":"qrc:/images/air/AC_Icon_powerd_nml.png";
-        pressSource:  "qrc:/images/air/AC_Icon_powerd_exe.png"
+        normalSource: "qrc:/images/air/AC_Icon_powerd_nml.png";
+        pressSource:  "qrc:/images/air/AC_Icon_powerd_exe.png";
         Image {
             width: 176; height: 84;
             anchors{left: parent.left; leftMargin: 15; verticalCenter: parent.verticalCenter;}
             source: "qrc:/images/air/AC_Icon_seq_nml.png"
+        }
+        Image {
+            x:71; y:8;
+            visible: c_qmlInterface.daulStatus
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
         }
         BaseText{
             anchors{left: parent.left; leftMargin: 85;}
@@ -94,13 +93,14 @@ Item {
             size: 27;
             text: qsTr("双温区");
         }
+
         onClicked: {
-            if(dual == 0){
-                c_qmlInterface.sendFccCAN('1-0-0-00-80-0-0');
-                dual = 1;
+            if(c_qmlInterface.daulStatus){
+                c_qmlInterface.sendFccCAN('1-11-0-0-0-0-0'); //off cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-00-80-0-0');
             }else{
-                c_qmlInterface.sendFccCAN('1-0-0-00-16-0-0');
-                dual = 0;
+                c_qmlInterface.sendFccCAN('1-11-1-0-0-0-0'); //on cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-00-16-0-0');
             }
         }
     }
@@ -109,7 +109,7 @@ Item {
         id:air_B;
         width: 194; height: 102;
         anchors{left: doubleZone.left; leftMargin: 191; top: off.top;}
-        normalSource: c_qmlInterface.isBackON?"qrc:/images/air/AC_Icon_powerd_nml.png":"qrc:/images/air/AC_Icon_powerd_dec.png";
+        normalSource: "qrc:/images/air/AC_Icon_powerd_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_powerd_exe.png";
         Image {
             width: 176; height: 84;
@@ -121,14 +121,19 @@ Item {
             size: 27;
             text: qsTr("后空调");
         }
+        Image {
+            x:71; y:8;
+            visible: !c_qmlInterface.isBackON
+            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
+        }
         onClicked: {
-            if(ofFlag === 0){
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-128'); //on
-                ofFlag = 1;
+            if(c_qmlInterface.isBackON){
+                c_qmlInterface.sendFccCAN('1-20-0-0-0-0-0'); //off cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-64'); //off
             }
             else{
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-64'); //off
-                ofFlag = 0;
+                c_qmlInterface.sendFccCAN('1-20-1-0-0-0-0'); //on cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-128'); //on
             }
         }
     }
@@ -177,10 +182,31 @@ Item {
     }
 
     BaseText {
+        id: speedText;
         anchors{top: windSpeedAdd.bottom; topMargin: 5;}
         anchors.horizontalCenter: windSpeedAdd.horizontalCenter
+        anchors.horizontalCenterOffset: 10;
         font.pixelSize: 60;
         text: windSpeedText
+    }
+
+    Image {
+        id: windSpeedIcn
+        width: 42;
+        height: 44;
+        anchors.verticalCenter: speedText.verticalCenter;
+        anchors.right: speedText.left;
+        source: "qrc:/images/air/AC_Scale_nml.png"
+    }
+    NumberAnimation {
+        id: animation
+        running: c_qmlInterface.isFrontON
+        loops: Animation.Infinite
+        target: windSpeedIcn
+        from: 0
+        to: -360
+        property: "rotation"
+        duration: circle
     }
 
     BaseButton{
@@ -232,12 +258,10 @@ Item {
         normalSource: "qrc:/images/air/AC_Icon_qcs_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_qcs_exe.png";
         onClicked: {
-            if(chushuang == 0){
-                c_qmlInterface.sendFccCAN('1-0-0-0-48-0-0'); //前除霜on
-                chushuang = 1;
+            if(qcsIcon.normalSource == "qrc:/images/air/AC_Icon_qcs_nml.png"){
+                c_qmlInterface.sendFccCAN('1-7-5-0-0-48-0'); //前除霜on cmd
             }else{
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //前除霜off
-                chushuang = 0;
+                c_qmlInterface.sendFccCAN('1-7-0-0-0-0-0'); //未选择 cmd
             }
         }
     }
@@ -249,12 +273,12 @@ Item {
         normalSource: "qrc:/images/air/AC_Icon_cm_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_cm_exe.png";
         onClicked: {
-            if(shangchuifeng == 0){
-                c_qmlInterface.sendFccCAN('1-0-0-0-17-0-0'); //上吹风on
-                shangchuifeng = 1;
+            if(cmIcon.normalSource == "qrc:/images/air/AC_Icon_cm_nml.png"){
+                c_qmlInterface.sendFccCAN('1-7-1-0-0-0-0'); //上吹风on cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-0-17-0-0');
             }else{
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //上吹风off
-                shangchuifeng = 0;
+                c_qmlInterface.sendFccCAN('1-7-0-0-0-0-0'); //上吹风未选择 cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0');
             }
         }
     }
@@ -267,12 +291,12 @@ Item {
         normalSource: "qrc:/images/air/AC_Icon_cj_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_cj_exe.png";
         onClicked: {
-            if(xiachuifeng == 0){
-                c_qmlInterface.sendFccCAN('1-0-0-0-19-0-0'); //下吹风on
-                xiachuifeng = 1;
+            if(cjIcon.normalSource == "qrc:/images/air/AC_Icon_cj_nml.png"){
+                c_qmlInterface.sendFccCAN('1-7-3-0-0-19-0'); //下吹风on cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-0-19-0-0');
             }else{
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //下吹风off
-                xiachuifeng = 0;
+                c_qmlInterface.sendFccCAN('1-7-0-0-0-0-0'); //上吹风未选择 cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //下吹风off
             }
         }
     }
@@ -284,12 +308,12 @@ Item {
         normalSource: "qrc:/images/air/AC_Icon_cmj_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_cmj_exe.png";
         onClicked: {
-            if(shangxiachuifeng == 0){
-                c_qmlInterface.sendFccCAN('1-0-0-0-18-0-0'); //上下吹风on
-                shangxiachuifeng = 1;
+            if(cmjIcon.normalSource == "qrc:/images/air/AC_Icon_cmj_nml.png"){
+                c_qmlInterface.sendFccCAN('1-7-2-0-0-0-0'); //上下吹风on cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-0-18-0-0');
             }else{
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //上下吹风off
-                shangxiachuifeng = 0;
+                c_qmlInterface.sendFccCAN('1-7-0-0-0-0-0'); //上吹风未选择 cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //上下吹风off
             }
         }
     }
@@ -301,25 +325,30 @@ Item {
         normalSource: "qrc:/images/air/AC_Icon_cjch_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_cjch_exe.png";
         onClicked: {
-            if(xiajiachushuang == 0){
-                c_qmlInterface.sendFccCAN('1-0-0-0-29-0-0'); //下吹风+除霜
-                xiajiachushuang = 1;
+            if(cjchIcon.normalSource == "qrc:/images/air/AC_Icon_cjch_nml.png"){
+                c_qmlInterface.sendFccCAN('1-7-4-0-0-18-0'); //下吹风+除霜 cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-0-29-0-0');
             }else{
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //下吹风+除霜
-                xiajiachushuang = 0;
+                c_qmlInterface.sendFccCAN('1-7-0-0-0-0-0'); //未选择 cmd
+                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0');
             }
         }
     }
 
     BaseButton{
+        id:hccIcon
         width: 72; height: 46;
         anchors{left: cjchIcon.right; leftMargin: 55; top: qcsIcon.top;}
         normalSource: c_qmlInterface.defrost?"qrc:/images/air/AC_Icon_hcc_exe.png":"qrc:/images/air/AC_Icon_hcc_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_hcc_exe.png";
-        onClicked: console.log("#### 后除霜 ####");
+        onClicked: {
+            if(c_qmlInterface.defrost){
+               c_qmlInterface.sendFccCAN('1-10-0-0-0-0-0'); //off cmd
+            }else{
+               c_qmlInterface.sendFccCAN('1-10-1-0-0-0-0'); //on cmd
+            }
+        }
     }
-
-
 
 
     ////
@@ -330,13 +359,13 @@ Item {
         normalSource: c_qmlInterface.acStatus?"qrc:/images/air/AC_Icon_ac_exe.png":"qrc:/images/air/AC_Icon_ac_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_ac_exe.png";
         onClicked: {
-            if(flag === 1){
-                c_qmlInterface.sendFccCAN('1-0-0-192-16-0-0'); //AC off
-                flag = 0;
+            if(c_qmlInterface.acStatus){
+                c_qmlInterface.sendFccCAN('1-8-0-0-0-0-0'); //AC off
+                //c_qmlInterface.sendFccCAN('1-0-0-192-16-0-0');
             }
             else{
-                c_qmlInterface.sendFccCAN('1-0-0-192-24-0-0'); //AC on
-                flag = 1;
+                c_qmlInterface.sendFccCAN('1-8-1-0-0-0-0'); //AC on
+                //c_qmlInterface.sendFccCAN('1-0-0-192-24-0-0');
             }
         }
     }
@@ -347,13 +376,13 @@ Item {
         normalSource: c_qmlInterface.cycleMode?"qrc:/images/air/AC_Icon_nxh_exe.png":"qrc:/images/air/AC_Icon_nxh_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_nxh_exe.png";
         onClicked: {
-            if(neixunhuan === 0){
-                c_qmlInterface.sendFccCAN('1-0-0-32-16-0-0'); //内循环 on
-                neixunhuan = 1;
+            if(c_qmlInterface.cycleMode){
+                console.log("内循环 on");
+                //c_qmlInterface.sendFccCAN('1-0-0-32-16-0-0');
             }
             else{
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //内循环 off
-                neixunhuan = 0;
+                c_qmlInterface.sendFccCAN('1-5-1-0-0-0-0'); //内循环 on
+                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //内循环 off
             }
         }
     }
@@ -364,13 +393,12 @@ Item {
         normalSource: c_qmlInterface.cycleMode?"qrc:/images/air/AC_Icon_wxh_nml.png":"qrc:/images/air/AC_Icon_wxh_exe.png";
         pressSource:  "qrc:/images/air/AC_Icon_wxh_exe.png";
         onClicked: {
-            if(waixunhuan === 0){
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //外循环 on
-                waixunhuan = 1;
+            if(c_qmlInterface.cycleMode){
+                c_qmlInterface.sendFccCAN('1-5-0-0-0-0-0');
+                //c_qmlInterface.sendFccCAN('1-0-0-32-16-0-0');
             }
             else{
-                c_qmlInterface.sendFccCAN('1-0-0-32-16-0-0'); //外循环 off
-                waixunhuan = 0;
+                console.log("外循环 on");
             }
         }
     }
@@ -384,35 +412,37 @@ Item {
     }
 
     BaseButton{
+        id:dlzIcon
         width: 72; height: 46;
         anchors{left: cmjIcon.right; leftMargin: 55; top: acIcon.top;}
         normalSource: "qrc:/images/air/AC_Icon_dlz_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_dlz_exe.png";
         onClicked: {
-            if(degnlizhi === 0){
-                c_qmlInterface.sendFccCAN('1-0-0-64-16-0-0'); //等离子 on
-                degnlizhi = 1;
+            if(dlzIcon.normalSource == "qrc:/images/air/AC_Icon_dlz_nml.png"){
+                c_qmlInterface.sendFccCAN('1-6-1-0-0-0-0'); //等离子 on
+                //c_qmlInterface.sendFccCAN('1-0-0-64-16-0-0');
             }
             else{
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //等离子 off
-                degnlizhi = 0;
+                c_qmlInterface.sendFccCAN('1-6-0-0-0-0-0');  //等离子 off
+                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0');
             }
         }
     }
 
     BaseButton{
+        id:flzIcon
         width: 72; height: 46;
         anchors{left: cjchIcon.right;leftMargin: 55; top: acIcon.top;}
         normalSource: "qrc:/images/air/AC_Icon_flz_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_flz_exe.png";
         onClicked: {
-            if(fulizhi === 0){
-                c_qmlInterface.sendFccCAN('1-0-0-128-16-0-0'); //负离子 on
-                fulizhi = 1;
+            if(flzIcon.normalSource == "qrc:/images/air/AC_Icon_flz_nml.png"){
+                c_qmlInterface.sendFccCAN('1-6-2-0-0-0-0'); //负离子 on
+                //c_qmlInterface.sendFccCAN('1-0-0-128-16-0-0');
             }
             else{
-                c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0'); //负离子 off
-                fulizhi = 0;
+                c_qmlInterface.sendFccCAN('1-6-2-0-0-0-0'); //负离子 off
+                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0');
             }
         }
     }
@@ -430,7 +460,7 @@ Item {
             {
                 driverTmp += 0.5;
                 temVar = driverTmp*10;
-                strData = "1-" + temVar + "-0" + "-0" + "-16" + "-0" + "-0";
+                strData = "1-1-" + temVar + "-0" + "-0" + "-0" + "-0";
                 c_qmlInterface.sendFccCAN(strData);
             }
             break;
@@ -439,7 +469,7 @@ Item {
             {
                 driverTmp -= 0.5;
                 temVar = driverTmp*10;
-                strData = "1-" + temVar + "-0" + "-0" + "-16" + "-0" + "-0";
+                strData = "1-1-" + temVar + "-0" + "-0" + "-0" + "-0";
                 c_qmlInterface.sendFccCAN(strData);
             }
             break;
@@ -447,16 +477,20 @@ Item {
             if(windSpeedText < 8)
             {
                 tmp = windSpeedText +1;
+                ctlSpeedIcon(tmp);
                 windSpeedText = tmp;
-                strData =  "1-" + "0-" + "0-" + windSpeedText + "-16" + "-0" + "-0";
+                strData =  "1-3-" + windSpeedText + "-0" + "-0" + "-0" + "-0";
+                //strData =  "1-" + "0-" + "0-" + windSpeedText + "-16" + "-0" + "-0";
                 c_qmlInterface.sendFccCAN(strData);
             }
             break;
         case 21:
             if(windSpeedText > 0){
                 tmp = windSpeedText -1;
+                ctlSpeedIcon(tmp);
                 windSpeedText = tmp;
-                strData =  "1-" + "0-" + "0-" + windSpeedText + "-16" + "-0" + "-0";
+                strData =  "1-3-" + windSpeedText + "-0" + "-0" + "-0" + "-0";
+                //strData =  "1-" + "0-" + "0-" + windSpeedText + "-16" + "-0" + "-0";
                 c_qmlInterface.sendFccCAN(strData);
             }
             break;
@@ -465,7 +499,8 @@ Item {
             {
                 driverSideTmp += 0.5;
                 temVar = driverSideTmp*10;
-                strData = "1-" + "0-" + temVar + "-0" + "-16" + "-0" + "-0";
+                strData = "1-2-" + temVar + "-0"  + "-0" + "-0" + "-0";
+                //strData = "1-" + "0-" + temVar + "-0" + "-16" + "-0" + "-0";
                 c_qmlInterface.sendFccCAN(strData);
             }
             break;
@@ -474,9 +509,47 @@ Item {
             {
                 driverSideTmp -= 0.5;
                 temVar = driverSideTmp*10;
-                strData = "1-" + "0-" + temVar + "-0" + "-16" + "-0" + "-0";
+                strData = "1-2-" + temVar + "-0"  + "-0" + "-0" + "-0";
+                //strData = "1-" + "0-" + temVar + "-0" + "-16" + "-0" + "-0";
                 c_qmlInterface.sendFccCAN(strData);
             }
+            break;
+        default:
+            break;
+        }
+    }
+
+
+    function ctlSpeedIcon(val)
+    {
+        switch(val)
+        {
+        case 0:
+            circle = 1000;
+            break;
+        case 1:
+            circle = 1200;
+            break;
+        case 2:
+            circle = 1400;
+            break;
+        case 3:
+            circle = 1600;
+            break;
+        case 4:
+            circle = 1800;
+            break;
+        case 5:
+            circle = 2000;
+            break;
+        case 6:
+            circle = 2200;
+            break;
+        case 7:
+            circle = 2400;
+            break;
+        case 7:
+            circle = 2600;
             break;
         default:
             break;
@@ -487,6 +560,7 @@ Item {
     {
         console.log("###### retFACwindSpeedLevel level #####", level);
         windSpeedText = level;
+        ctlSpeedIcon(level);
     }
 
     function retFACwindSpeedModel(model)
@@ -525,15 +599,7 @@ Item {
         }
     }
 
-
-//    Connections{
-//        target: c_qmlInterface;
-//        onSigFACwindSpeedLevel:retFACwindSpeedLevel(level);
-//        onSigFACwindSpeedModel:retFACwindSpeedModel(model);
-//    }
-
-    Component.onCompleted: {
+    Component.onCompleted:{
         c_qmlInterface.getCanInfo("AC");
     }
-
 }

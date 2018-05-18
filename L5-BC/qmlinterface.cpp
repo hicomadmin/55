@@ -25,9 +25,9 @@ MCU_MSG_HANDLE_REGISTER g_mcu_msg_handle_register[] = {
  */
 QmlInterface::QmlInterface(QObject *parent) : QObject(parent)
 {
-    m_mcuAgentAPI = McuAgent_client_init(g_mcu_msg_handle_register);
-    int ret = m_mcuAgentAPI->get_sync_info();
-    qDebug() << "============== get_sync_info ret : " << ret;
+//    m_mcuAgentAPI = McuAgent_client_init(g_mcu_msg_handle_register);
+//    int ret = m_mcuAgentAPI->get_sync_info();
+//    qDebug() << "============== get_sync_info ret : " << ret;
 }
 
 

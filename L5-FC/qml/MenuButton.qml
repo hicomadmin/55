@@ -12,6 +12,7 @@ Item {
     property string btnText: "";
     signal pressed();
     signal clicked();
+    signal released();
 
 
     Image {
@@ -40,7 +41,7 @@ Item {
 
         onPressed: {
             button.focus = true;
-            //onButtonPressed(mouse.x, mouse.y);
+            onButtonPressed(mouse.x, mouse.y);
         }
 
         onExited: {
@@ -49,6 +50,7 @@ Item {
 
         onReleased: {
             button.focus = false;
+            onButtonReleased(mouse.x, mouse.y);
         }
 
         onClicked: {
@@ -61,8 +63,12 @@ Item {
 
     function onButtonPressed(x, y) {
         pressed();
-        pressedXY(x, y);
     }
+
+    function onButtonReleased(x, y) {
+        released();
+    }
+
     function onButtonClicked(x, y) {
         clicked();
     }

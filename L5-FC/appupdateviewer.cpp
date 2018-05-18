@@ -46,14 +46,13 @@ AppUpdateViewer::AppUpdateViewer(QObject *parent) :
 
 AppUpdateViewer::~AppUpdateViewer()
 {
-    qInfo() << "==== Destruction AppUpdateViewer.";
+    qInfo() << "==== Destruction AppUpdateViewer. ====";
     Q_D(AppUpdateViewer);
     delete d;
 }
 
 void AppUpdateViewer::setMainQmlFile(const QString &file)
 {
-    qDebug() << "==== setMainQmlFile " << file;
     Q_D(AppUpdateViewer);
     d->mainQmlFile = AppUpdateViewerPrivate::adjustPath(file);
     //qDebug() << "1111" << d->mainQmlFile;

@@ -2,9 +2,8 @@
 
 Item {
     anchors.fill: parent;
-    property int brightnessTxt: 5
-
-
+    property int brightnessTxt:c_qmlInterface.brightness;
+    signal clockButtonClicked();
 
     Image {
         id: brightnessBtnBg
@@ -22,7 +21,7 @@ Item {
             anchors.left: parent.left;
             normalSource: "qrc:/images/AC_Tem_leftAdd_nml.png";
             pressSource:  "qrc:/images/AC_Tem_leftAdd_exe.png"
-            onClicked: onJustmentBtnClicked(7);
+            onClicked: onJustmentBtnClicked(1);
         }
 
         BaseButton {
@@ -31,7 +30,7 @@ Item {
             anchors.right: parent.right;
             normalSource: "qrc:/images/AC_Tem_leftSub_nml.png";
             pressSource:  "qrc:/images/AC_Tem_leftSub_exe.png"
-            onClicked: onJustmentBtnClicked(8);
+            onClicked: onJustmentBtnClicked(2);
         }
         BaseText{
             anchors.centerIn: parent;
@@ -93,6 +92,7 @@ Item {
         btnText: qsTr("时钟调节");
         normalSource: "qrc:/images/set/Set_ty_mmqr_nml.png";
         pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png"
+        onClicked: clockButtonClicked();
     }
 
 
@@ -106,7 +106,8 @@ Item {
         btnText: qsTr("里程A");
         normalSource: "qrc:/images/set/Set_ty_mmqr_nml.png";
         pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-1-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('2-8-1-0-0-0');
+        //onClicked: c_qmlInterface.sendFccCAN('2-0-0-1-0-0');
     }
 
     BaseText{
@@ -127,7 +128,8 @@ Item {
         btnText: qsTr("里程B");
         normalSource: "qrc:/images/set/Set_ty_mmqr_nml.png";
         pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-2-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('2-8-2-0-0-0');
+        //onClicked: c_qmlInterface.sendFccCAN('2-0-0-2-0-0');
     }
 
 
@@ -141,7 +143,9 @@ Item {
         btnText: qsTr("里程A复位");
         normalSource: "qrc:/images/set/Set_ty_mmqr_nml.png";
         pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-4-0-0');
+        onPressed: c_qmlInterface.sendFccCAN('2-9-1-0-0-0');
+        onReleased: c_qmlInterface.sendFccCAN('2-9-0-0-0-0');
+        //onClicked: c_qmlInterface.sendFccCAN('2-0-0-4-0-0');
     }
 
 
@@ -155,7 +159,9 @@ Item {
         btnText: qsTr("里程B复位");
         normalSource: "qrc:/images/set/Set_ty_mmqr_nml.png";
         pressSource:  "qrc:/images/set/Set_ty_mmqr_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-8-0-0');
+        onPressed: c_qmlInterface.sendFccCAN('2-10-1-0-0-0');
+        onReleased: c_qmlInterface.sendFccCAN('2-10-0-0-0-0');
+        //onClicked: c_qmlInterface.sendFccCAN('2-0-0-8-0-0');
     }
 
     BaseText{
@@ -168,6 +174,7 @@ Item {
     }
 
     BaseText{
+        id: hinit;
         anchors.left: mileageAReset.right;
         anchors.leftMargin: 32;
         anchors.top: mileageB.bottom;
@@ -178,33 +185,52 @@ Item {
 
 
 
+    Item {
+        width: 100;
+        height: 40
+        anchors.left: mileageAReset.right;
+        anchors.leftMargin: 32;
+        anchors.top: mileageB.bottom;
+        anchors.topMargin: 10;
+        MouseArea{
+            anchors.fill: parent;
+            onPressed: version.visible = true;
+            onReleased: version.visible = false;
+        }
+    }
+    BaseText{
+        id: version
+        anchors.left: mileageA.left;
+        anchors.top: mileageA.bottom;
+        anchors.topMargin: 5;
+        size: 22;
+        visible: false;
+        text: qsTr("V1.0_20180517");
+    }
+
+
+
     function onJustmentBtnClicked(val)
     {
         var tmp;
-        switch(val)
+        var strData;
+        switch(val) //本机设置亮度
         {
         case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        case 7:
             if(brightnessTxt < 10){
-                tmp = brightnessTxt +1;
-                brightnessTxt = tmp;
+                brightnessTxt = brightnessTxt +1;
+                tmp = brightnessTxt* 100;
+                console.log(" ################# +++ c_qmlInterface.brightness",c_qmlInterface.brightness);
+                console.log(" ################# +++ tmp",tmp);
+                c_qmlInterface.setBrightness(brightnessTxt);
             }
             break;
-        case 8:
-            if(brightnessTxt > 1){
-                tmp = brightnessTxt -1;
-                brightnessTxt = tmp;
+        case 2:
+            if(brightnessTxt > 0){
+                brightnessTxt = brightnessTxt -1;
+                tmp = brightnessTxt* 100;
+                console.log(" ################# --- tmp",tmp);
+                c_qmlInterface.setBrightness(brightnessTxt);
             }
             break;
         default:
@@ -212,16 +238,6 @@ Item {
         }
     }
 
-
-    function retTimeMinute(minute)
-    {
-        console.log("################ minute: ", minute);
-    }
-
-    function retTimeHour(hour)
-    {
-         console.log("################ hour: ", hour);
-    }
 
     function retSubDistanceA(distance)
     {
@@ -233,13 +249,6 @@ Item {
         console.log("################ distance B: ", distance);
     }
 
-//    Connections{
-//        target: c_qmlInterface;
-//        onSigTimeMinute:retTimeMinute(minute);
-//        onSigTimeHour:retTimeHour(hour);
-//        onSigSubDistanceA:retSubDistanceA(distance);
-//        onSigSubDistanceB:retSubDistanceB(distance);
-//    }
 
     Component.onCompleted: {
         c_qmlInterface.getCanInfo("TIME");

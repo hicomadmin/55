@@ -11,9 +11,9 @@ Item {
     property string pressSource;
     property string btnText: "";
     signal pressed();
-    signal pressedXY(int x, int y);
     signal clicked();
-    signal clickedXY(int x, int y);
+    signal release();
+    signal pressedXY(int x, int y);
 
 
     Image {
@@ -39,11 +39,12 @@ Item {
     }
 
     MouseArea  {
+        id: mouseEvent
         anchors.fill: parent;
 
         onPressed: {
             button.focus = true;
-            onButtonPressed(mouse.x, mouse.y);
+            onButtonPressed();
         }
 
         onExited: {
@@ -52,6 +53,7 @@ Item {
 
         onReleased: {
             button.focus = false;
+            onButtonReslease();
         }
 
         onClicked: {
@@ -66,8 +68,12 @@ Item {
         pressed();
         pressedXY(x, y);
     }
-    function onButtonClicked(x, y) {
+    function onButtonClicked() {
         clicked();
     }
+    function onButtonReslease() {
+        release();
+    }
+
 }
 
