@@ -318,16 +318,15 @@ Item {
         btnText: qsTr("开");
         normalSource:"qrc:/images/light/Set_Light_off_nml.png"
         pressSource: "qrc:/images/light/Set_Light_off_exe.png"
-        onClicked: c_qmlInterface.sendFccCAN('1-18-1-0-0-0-0');
-        //onClicked: c_qmlInterface.sendFccCAN('2-15-254-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('1-21-1-0-0-0-0');
     }
     Image {
-        width: 80;
-        height: 61;
+        width: 83;
+        height: 58;
         anchors.verticalCenter: xhOpen.verticalCenter;
         anchors.left: xhOpen.right;
-        anchors.leftMargin: 15;
-        source: "qrc:/images/mirror/Set_hsj_hot.png"
+        anchors.leftMargin: 14;
+        source: "qrc:/images/mirror/Set_hsj_xh.png"
     }
 
     BaseButton{
@@ -339,8 +338,7 @@ Item {
         btnText: qsTr("关");
         normalSource:"qrc:/images/light/Set_Light_off_nml.png"
         pressSource: "qrc:/images/light/Set_Light_off_exe.png"
-        onClicked: c_qmlInterface.sendFccCAN('1-18-0-0-0-0-0');
-        //onClicked: c_qmlInterface.sendFccCAN('2-15-222-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('1-21-0-0-0-0-0');
     }
 
 

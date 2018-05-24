@@ -5,7 +5,7 @@ Item {
     width: 1280;
     height: 720;
     visible: true;
-
+    property bool execFlag: true;
 
     Image {
         id: bg;
@@ -81,13 +81,6 @@ Item {
         }
     }
 
-    Loader {
-        id: driverAssistancePage;
-        anchors.fill: parent;
-        visible: false;
-        source: "qrc:/qml/DriverAssistance_Set.qml";
-    }
-
 
     Loader {
         id: setting;
@@ -105,8 +98,10 @@ Item {
         id: effcts_set;
         anchors.fill: parent;
         visible: false;
-        //asynchronous: true;
         source: "qrc:/qml/Effcts_Set.qml";
+        onLoaded: {
+            item.goBackClicked.connect(onGoBackClicked);
+        }
     }
 
     Loader {
@@ -116,7 +111,8 @@ Item {
         asynchronous: true;
         source: "qrc:/qml/Display_Set.qml";
         onLoaded: {
-            item.clockButtonClicked.connect(onClockButtonClicked)
+            item.goBackClicked.connect(onGoBackClicked);
+            item.clockButtonClicked.connect(onClockButtonClicked);
         }
     }
 
@@ -126,6 +122,9 @@ Item {
         visible: false;
         asynchronous: true;
         source: "qrc:/qml/StarCeiling_Set.qml";
+        onLoaded: {
+            item.goBackClicked.connect(onGoBackClicked);
+        }
     }
 
     Loader {
@@ -134,7 +133,21 @@ Item {
         visible: false;
         asynchronous: true;
         source: "qrc:/qml/TirePressure_Set.qml";
+        onLoaded: {
+            item.goBackClicked.connect(onGoBackClicked);
+        }
     }
+
+    Loader {
+        id: driverAssistancePage;
+        anchors.fill: parent;
+        visible: false;
+        source: "qrc:/qml/DriverAssistance_Set.qml";
+        onLoaded: {
+            item.goBackClicked.connect(onGoBackClicked);
+        }
+    }
+
 
     Loader {
         id: photoplaying;
@@ -200,26 +213,18 @@ Item {
         switch(flag)
         {
         case 1: //radio
-            c_qmlInterface.sendFccCAN('2-1-1-0-0-0');
             break;
         case 2: //media
-            c_qmlInterface.sendFccCAN('2-1-6-0-0-0');
             break;
         case 3: //Navi
-            c_qmlInterface.sendFccCAN('2-1-4-0-0-0');
             break;
         case 4: //BT
-            c_qmlInterface.sendFccCAN('2-1-5-0-0-0');
             break;
         case 5: //BT music
-            c_qmlInterface.sendFccCAN('2-1-7-0-0-0');
             break;
         case 6: //VR
-            c_qmlInterface.sendFccCAN('2-1-8-0-0-0');
             break;
         case 7: //vol+
-            c_qmlInterface.sendFccCAN('2-6-1-0-0-0');
-            c_qmlInterface.sendFccCAN('2-6-0-0-0-0');
             //c_qmlInterface.setVolumeUp();
             break;
         case 8:
@@ -242,8 +247,6 @@ Item {
             c_qmlInterface.setVolumeMute(100);
             break;
         case 11: //vol-
-            c_qmlInterface.sendFccCAN('2-6-2-0-0-0');
-            c_qmlInterface.sendFccCAN('2-6-0-0-0-0');
             //c_qmlInterface.setVolumeDown();
             break;
         case 12:
@@ -277,8 +280,11 @@ Item {
         case 5:
             setOption.visible = false;
             setting.visible = true;
-            c_qmlInterface.getBrightness();
-            c_qmlInterface.getCanInfo("BSD");
+            if(execFlag){
+                c_qmlInterface.getBrightness();
+                c_qmlInterface.getCanInfo("BSD");
+                execFlag = false;
+            }
             break;
         case 6: //泊车雷达
             break;
@@ -286,6 +292,23 @@ Item {
             break;
         }
     }
+
+    function onGoBackClicked()
+    {
+        airConditionerPage.visible = false;
+        rearviewMirrorPage.visible = false;
+        seatSetingPage.visible = false;
+        lightingPage.visible = false;
+        driverAssistancePage.visible = false;
+        setting.visible = false;
+        effcts_set.visible = false;
+        despilay_set.visible = false;
+        starCeiling_Set.visible = false;
+        tirePressure_Set.visible = false;
+        setOption.visible = false;
+        setting.visible = true;
+    }
+
 
     function slotSettingClicked(index)
     {
@@ -328,7 +351,7 @@ Item {
         onSigAUDIOInfoBass:effcts_set.item.setBassVal(bass);
         onSigFACwindSpeedLevel:airConditionerPage.item.retFACwindSpeedLevel(level);
         onSigFACwindSpeedModel:airConditionerPage.item.retFACwindSpeedModel(model);
-        //onSigSRLightLevel:lightingPage.item.retSRLightLevel(level);//星空顶棚模式
+        onSigSRLightLevel:starCeiling_Set.item.retSRLightLevel(level);//星空顶棚模式
         onSigLightBrightnessLevel:lightingPage.item.retSRLightLevel(level);
         onSigTimeMinute:setTimePage.item.retTimeMinute(minute);
         onSigTimeHour:setTimePage.item.retTimeHour(hour);

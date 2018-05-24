@@ -30,7 +30,6 @@ Item {
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
         onClicked:  c_qmlInterface.sendFccCAN('5-1-1-0-0');
-        //onClicked:  c_qmlInterface.sendFccCAN('1-0-0-0-16-0-4');
     }
 
     BaseButton {
@@ -100,6 +99,7 @@ Item {
     }
 
     Image {
+        id: split
         width: 787; height: 1;
         anchors{left: leftLightON.left; top: leftLightON.bottom; topMargin: 45;}
         source: "qrc:/images/light/Set_Light_fgt.png"
@@ -107,57 +107,7 @@ Item {
 
 
     BaseText{
-        anchors.left: atmosphereLightON.left;
-        anchors.leftMargin: 12;
-        anchors.bottom: atmosphereLightON.top;
-        size: 28;
-        text: qsTr("氛围灯");
-    }
-
-    BaseButton {
-        id:atmosphereLightON;
-        width: 110;
-        height: 110;
-        anchors.left: leftLightON.left;
-        anchors.top: parent.top;
-        anchors.topMargin: 373;
-        btnText: qsTr("开");
-        Image {
-            x:30; y:12;
-            visible: !offFlag.visible;
-            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
-        }
-        normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: onJustmentBtnClicked(3);
-        //onClicked:  c_qmlInterface.sendFccCAN('5-125-125-125-2');
-    }
-
-
-    BaseButton {
-        id:atmosphereLightOFF;
-        width: 110;
-        height: 110;
-        anchors.left: atmosphereLightON.right;
-        anchors.leftMargin: 38;
-        anchors.top: atmosphereLightON.top;
-        btnText: qsTr("关");
-        Image {
-            id: offFlag;
-            x:30; y:12;
-            visible: false;
-            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
-        }
-        normalSource: "qrc:/images/light/Set_Light_off_nml.png";
-        pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked:  c_qmlInterface.sendFccCAN('5-7-1-0-0');
-        //onClicked:  c_qmlInterface.sendFccCAN('5-125-125-125-1');
-    }
-
-
-    BaseText{
-        anchors.left: rightLightON.left;
-        anchors.leftMargin: 12;
+        anchors.horizontalCenter: name.horizontalCenter;
         anchors.bottom: btnBg.top;
         size: 28;
         text: qsTr("氛围灯亮度");
@@ -167,9 +117,9 @@ Item {
         id: btnBg
         width: 326;
         height: 110;
-        anchors.left: atmosphereLightOFF.right;
-        anchors.leftMargin: 109;
-        anchors.top: atmosphereLightON.top;
+        anchors.horizontalCenter: name.horizontalCenter;
+        anchors.top: parent.top;
+        anchors.topMargin: 373;
         source: "qrc:/images/light/Set_Light_ld.png"
 
         BaseButton {
@@ -197,13 +147,14 @@ Item {
         text: brightnessTxt;
     }
 
-
     BaseText{
-        anchors{left: atmosphereLightON.left; leftMargin: 12;}
-        anchors{top: atmosphereLightON.bottom; topMargin: 52;}
+        anchors.horizontalCenter: name.horizontalCenter;
+        anchors.bottom: name.top;
+        anchors.bottomMargin: 20;
         size: 28;
         text: qsTr("氛围灯颜色");
     }
+
     Image {
         id: name
         width: 669; height: 29;
@@ -211,6 +162,7 @@ Item {
         anchors{top: btnBg.bottom; topMargin: 96;}
         source: "qrc:/images/light/Set_Light_ys.png"
     }
+
 
 
     function onJustmentBtnClicked(val)
@@ -235,10 +187,6 @@ Item {
                 tmp = "5-7-"+brightnessTxt + "-0-0";
                 c_qmlInterface.sendFccCAN(tmp);
             }
-        }else if(val === 3)
-        {
-            tmp = "5-7-"+brightnessTxt + "-0-0";
-            c_qmlInterface.sendFccCAN(tmp);
         }
         else
         {

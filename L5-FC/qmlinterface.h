@@ -31,8 +31,8 @@ class QmlInterface : public QObject
     Q_PROPERTY(bool isFrontON  READ readFrontON   WRITE writeFrontON    NOTIFY frontONChanged)
     Q_PROPERTY(bool isBackON   READ readBackON    WRITE writeBackON     NOTIFY backONChanged)
     // AUDIO
-    Q_PROPERTY(bool isMute    READ readMuteStatus WRITE writeMuteStatus NOTIFY muteStatusChanged)
-    // LIGHT brightness
+    Q_PROPERTY(bool isMute     READ readMuteStatus NOTIFY muteStatusChanged)
+    // LIGHT
     Q_PROPERTY(bool isLiftReadLightON  READ readLiftReadLight  NOTIFY liftReadLightChanged)
     Q_PROPERTY(bool isRightReadLigtON  READ readRightReadLight NOTIFY rightReadLightChanged)
     Q_PROPERTY(int  brightness         READ readBrightness     NOTIFY brightnessChanged)
@@ -94,7 +94,6 @@ public:
     void writedaulStatus(bool status);
     void writeFrontON(bool isON);
     void writeBackON(bool isON);
-    void writeMuteStatus(bool isMute);
 
 signals:
     void sigFACwindSpeedLevel(int level);

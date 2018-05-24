@@ -7,7 +7,7 @@ Item {
     property int lrBalanceTxt: 5;
     property int hightTxt: 5;
     property int lowTxt: 5;
-
+    signal goBackClicked();
 
     Image {
         id: lowBtnBg
@@ -214,7 +214,7 @@ Item {
 
     BaseText{
         anchors.left: lowBtnBg.left;
-        anchors.leftMargin: 12;
+        anchors.leftMargin: 105;
         anchors.bottom: lowBtnBg.top;
         size: 28;
         text: qsTr("低音调节");
@@ -222,7 +222,7 @@ Item {
 
     BaseText{
         anchors.left: hightBtnBg.left;
-        anchors.leftMargin: 12;
+        anchors.leftMargin: 105;
         anchors.bottom: hightBtnBg.top;
         size: 28;
         text: qsTr("高音调节");
@@ -230,7 +230,7 @@ Item {
 
     BaseText{
         anchors.left: lrBalanceBtnBg.left;
-        anchors.leftMargin: 12;
+        anchors.leftMargin: 105;
         anchors.bottom: lrBalanceBtnBg.top;
         size: 28;
         text: qsTr("左右平衡");
@@ -238,7 +238,7 @@ Item {
 
     BaseText{
         anchors.left: fbBalanceBtnBg.left;
-        anchors.leftMargin: 12;
+        anchors.leftMargin: 105;
         anchors.bottom: fbBalanceBtnBg.top;
         size: 28;
         text: qsTr("前后平衡");
@@ -252,6 +252,18 @@ Item {
         text: qsTr("车辆随速音量");
     }
 
+
+    BaseButton {
+        id: goBack
+        width: 60; height: 60;
+        anchors.right: parent.right;
+        anchors.rightMargin: 48;
+        anchors.top: parent.top;
+        anchors.topMargin: 31;
+        normalSource: "qrc:/images/set/Set_icon_tymm_back.png";
+        pressSource:  "qrc:/images/set/Set_icon_tymm_back.png";
+        onClicked: goBackClicked();
+    }
 
     function onJustmentBtnClicked(val)
     {

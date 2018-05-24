@@ -4,7 +4,7 @@
 Item {
     id:volumeProgressBar
     anchors.fill: parent;
-    property int volText //音量值
+    property int volText:0 //音量值
 
     Rectangle {
         id: mask;
@@ -104,7 +104,8 @@ Item {
             width: 60; height: 60;
             anchors.verticalCenter: volBg.verticalCenter;
             source: "qrc:/images/voice/yl_dot.png"
-            x: volBg.x-30
+            //x: volBg.x-30
+            x: volBg.x-30 + ((volBg.width-volBg.x)/40)*volText
 
             MouseArea{//触控区域
                 anchors.fill: parent
@@ -153,6 +154,7 @@ Item {
 
     function setvolume(vol)
     {
+        console.log("###### vol:", vol);
         volText = vol;
     }
 

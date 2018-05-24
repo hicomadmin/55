@@ -3,6 +3,7 @@
 Item {
     anchors.fill: parent;
     property int brightnessTxt: 5
+    signal goBackClicked();
 
     property int fl: 0;
     property int bl: 0;
@@ -14,7 +15,7 @@ Item {
         width: 56;
         height: 90;
         anchors.left:parent.left;
-        anchors.leftMargin: 552;
+        anchors.leftMargin: 672;
         anchors.top: parent.top;
         anchors.topMargin: 142;
         normalSource: "qrc:/images/set/Set_ty_lt_nml.png";
@@ -53,12 +54,11 @@ Item {
 
 
     BaseText{
-        anchors.left: flTyreBtn.left;
-        anchors.leftMargin: 10;
+        anchors.horizontalCenter: carPNG.horizontalCenter;
         anchors.bottom: flTyreBtn.top;
         anchors.bottomMargin: 35;
         size: 28;
-        text: qsTr("传感器ID设置");
+        text: qsTr("胎压显示");
     }
 
     Image {
@@ -66,7 +66,7 @@ Item {
         width: 138;
         height: 294;
         anchors.left: flTyreBtn.right;
-        anchors.leftMargin: 19;
+        anchors.leftMargin: 21;
         anchors.top: parent.top;
         anchors.topMargin: 131;
         source: "qrc:/images/set/Set_ty_car.png";
@@ -77,7 +77,7 @@ Item {
         width: 56;
         height: 90;
         anchors.left:carPNG.right;
-        anchors.leftMargin: 22;
+        anchors.leftMargin: 21;
         anchors.top: flTyreBtn.top;
         normalSource: "qrc:/images/set/Set_ty_lt_nml.png";
         pressSource:  "qrc:/images/set/Set_ty_lt_exe.png";
@@ -126,10 +126,10 @@ Item {
         id:oN;
         width: 110;
         height: 110;
-        anchors.left: line.left;
-        anchors.leftMargin: 116;
-        anchors.top: line.bottom;
-        anchors.topMargin: 32;
+        anchors.left: parent.left;
+        anchors.leftMargin: 669;
+        anchors.top: brTyreBtn.bottom;
+        anchors.topMargin: 104;
         btnText: qsTr("开");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
@@ -141,7 +141,7 @@ Item {
         width: 110;
         height: 110;
         anchors.left: oN.right;
-        anchors.leftMargin: 319;
+        anchors.leftMargin: 77;
         anchors.top: oN.top;
         btnText: qsTr("关");
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
@@ -149,14 +149,18 @@ Item {
         onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
     }
 
-    BaseText{
-        anchors.left: oN.right;
-        anchors.leftMargin: 107;
-        anchors.top: oN.top;
-        anchors.topMargin: 43
-        text: qsTr("胎压显示");
-    }
 
+    BaseButton {
+        id: goBack
+        width: 60; height: 60;
+        anchors.right: parent.right;
+        anchors.rightMargin: 48;
+        anchors.top: parent.top;
+        anchors.topMargin: 31;
+        normalSource: "qrc:/images/set/Set_icon_tymm_back.png";
+        pressSource:  "qrc:/images/set/Set_icon_tymm_back.png";
+        onClicked: goBackClicked();
+    }
 
 
 

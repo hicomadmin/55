@@ -10,6 +10,7 @@ Item {
     property int isIHCoff: 1;
     property int isBSDoff: 1;
     property int isASDSoff: 1;
+    signal goBackClicked();
 
     BaseText{
         anchors.left: ldwON.left;
@@ -24,9 +25,9 @@ Item {
         width: 110;
         height: 110;
         anchors.left: parent.left;
-        anchors.leftMargin: 493;
+        anchors.leftMargin: 483;
         anchors.top: parent.top;
-        anchors.topMargin: 69;
+        anchors.topMargin: 99;
         btnText: qsTr("开");
         Image {
             x:30; y:12;
@@ -35,7 +36,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('6-5-0');
     }
 
     BaseButton {
@@ -53,7 +54,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-1');
+        onClicked:  c_qmlInterface.sendFccCAN('6-5-1');
     }
 
     BaseText{
@@ -79,7 +80,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('6-2-0');
     }
 
 
@@ -98,7 +99,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-128');
+        onClicked: c_qmlInterface.sendFccCAN('6-2-1');
     }
 
     BaseText{
@@ -115,7 +116,7 @@ Item {
         height: 110;
         anchors.left: ldwON.left;
         anchors.top: ldwON.bottom;
-        anchors.topMargin: 60;
+        anchors.topMargin: 50;
         btnText: qsTr("开");
         Image {
             x:30; y:12;
@@ -124,7 +125,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('6-3-0');
     }
 
 
@@ -143,7 +144,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-2');
+        onClicked: c_qmlInterface.sendFccCAN('6-3-1');
     }
 
 
@@ -170,7 +171,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('6-7-0');
     }
 
 
@@ -189,7 +190,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-64');
+        onClicked: c_qmlInterface.sendFccCAN('6-7-1');
     }
 
 
@@ -208,7 +209,7 @@ Item {
         height: 110;
         anchors.left: ldwON.left;
         anchors.top: fcwON.bottom;
-        anchors.topMargin: 60;
+        anchors.topMargin: 50;
         btnText: qsTr("开");
         Image {
             x:30; y:12;
@@ -217,7 +218,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        //onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('6-8-0');
     }
 
     BaseButton {
@@ -235,7 +236,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        //onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('6-8-1');
     }
 
     BaseText{
@@ -261,7 +262,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('6-4-0');
     }
 
     BaseButton {
@@ -279,7 +280,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-8');
+        onClicked: c_qmlInterface.sendFccCAN('6-4-1');
     }
 
     BaseText{
@@ -296,7 +297,7 @@ Item {
         height: 110;
         anchors.left: ldwON.left;
         anchors.top: ihcOFF.bottom;
-        anchors.topMargin: 60;
+        anchors.topMargin: 50;
         btnText: qsTr("开");
         Image {
             x:30; y:12;
@@ -305,7 +306,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-0');
+        onClicked: c_qmlInterface.sendFccCAN('6-1-0');
     }
 
     BaseButton {
@@ -323,7 +324,7 @@ Item {
         }
         normalSource: "qrc:/images/light/Set_Light_off_nml.png";
         pressSource:  "qrc:/images/light/Set_Light_off_exe.png";
-        onClicked: c_qmlInterface.sendFccCAN('2-0-0-0-0-16');
+        onClicked: c_qmlInterface.sendFccCAN('6-1-1');
     }
 
     BaseText{
@@ -380,6 +381,17 @@ Item {
     }
 
 
+    BaseButton {
+        id: goBack
+        width: 60; height: 60;
+        anchors.right: parent.right;
+        anchors.rightMargin: 48;
+        anchors.top: parent.top;
+        anchors.topMargin: 31;
+        normalSource: "qrc:/images/set/Set_icon_tymm_back.png";
+        pressSource:  "qrc:/images/set/Set_icon_tymm_back.png";
+        onClicked: goBackClicked();
+    }
 
     function retBSDInfoFCW(flag)
     {

@@ -7,44 +7,12 @@ Item {
     property int  windSpeedText: 7;
     property int  circle: 1500;
 
-    BaseButton {
-        id:off;
-        width: 194; height: 102;
-        anchors{left: parent.left; leftMargin: 460;}
-        anchors{top: parent.top; topMargin: 54;}
-        normalSource: "qrc:/images/air/AC_Icon_powerd_nml.png";
-        pressSource:  "qrc:/images/air/AC_Icon_powerd_exe.png";
-        Image {
-            width: 176; height: 84;
-            anchors{left: parent.left; verticalCenter: parent.verticalCenter;}
-            source: "qrc:/images/air/AC_Icon_power_nml.png"
-        }
-        Image {
-            x:71; y:8;
-            visible: !c_qmlInterface.isFrontON
-            source: "qrc:/images/air/AC_Icon_powerd_dec.png"
-        }
-        BaseText{
-            anchors{left: parent.left; leftMargin: 96;}
-            anchors{top: parent.top; topMargin: 40;}
-            size: 27;
-            text: qsTr("关机");
-        }
-        onClicked: {
-            if(c_qmlInterface.isFrontON){
-                c_qmlInterface.sendFccCAN('1-9-0-0-0-0-0')   //off
-                //c_qmlInterface.sendFccCAN('1-0-0-0-0-0-0');//off
-            }else{
-                c_qmlInterface.sendFccCAN('1-9-1-0-0-0-0')      //on
-                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-0');  //on
-            }
-        }
-    }
 
     BaseButton {
         id:autoTmp;
         width: 194;  height: 102;
-        anchors{left: off.left; leftMargin: 191; top: off.top;}
+        anchors{left: parent.left; leftMargin: 482;}
+        anchors{top: parent.top; topMargin: 54;}
         normalSource: "qrc:/images/air/AC_Icon_powerd_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_powerd_exe.png"
         Image {
@@ -74,7 +42,7 @@ Item {
     BaseButton {
         id:doubleZone;
         width: 194;  height: 102;
-        anchors{left: autoTmp.left; leftMargin: 191; top: off.top;}
+        anchors{left: autoTmp.right; leftMargin: 42; top: autoTmp.top;}
         normalSource: "qrc:/images/air/AC_Icon_powerd_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_powerd_exe.png";
         Image {
@@ -97,10 +65,8 @@ Item {
         onClicked: {
             if(c_qmlInterface.daulStatus){
                 c_qmlInterface.sendFccCAN('1-11-0-0-0-0-0'); //off cmd
-                //c_qmlInterface.sendFccCAN('1-0-0-00-80-0-0');
             }else{
                 c_qmlInterface.sendFccCAN('1-11-1-0-0-0-0'); //on cmd
-                //c_qmlInterface.sendFccCAN('1-0-0-00-16-0-0');
             }
         }
     }
@@ -108,7 +74,7 @@ Item {
     BaseButton {
         id:air_B;
         width: 194; height: 102;
-        anchors{left: doubleZone.left; leftMargin: 191; top: off.top;}
+        anchors{left: doubleZone.right; leftMargin: 42; top: autoTmp.top;}
         normalSource: "qrc:/images/air/AC_Icon_powerd_nml.png";
         pressSource:  "qrc:/images/air/AC_Icon_powerd_exe.png";
         Image {
@@ -129,11 +95,9 @@ Item {
         onClicked: {
             if(c_qmlInterface.isBackON){
                 c_qmlInterface.sendFccCAN('1-20-0-0-0-0-0'); //off cmd
-                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-64'); //off
             }
             else{
                 c_qmlInterface.sendFccCAN('1-20-1-0-0-0-0'); //on cmd
-                //c_qmlInterface.sendFccCAN('1-0-0-0-16-0-128'); //on
             }
         }
     }
@@ -143,7 +107,7 @@ Item {
         id:driverAdd
         width: 110; height: 110;
         anchors{left: parent.left; leftMargin: 581;}
-        anchors{top: off.bottom; topMargin: 9;}
+        anchors{top: autoTmp.bottom; topMargin: 9;}
         normalSource: "qrc:/images/AC_Tem_leftAdd_nml.png";
         pressSource:  "qrc:/images/AC_Tem_leftAdd_exe.png"
         onClicked: onAdjustmentBtnClicked(10);
@@ -170,6 +134,14 @@ Item {
         onClicked: onAdjustmentBtnClicked(11);
     }
 
+    Image {
+        width: 1; height: 320;
+        anchors.left: driverSub.right;
+        anchors.leftMargin: 49;
+        anchors.top: parent.top;
+        anchors.topMargin: 155;
+        source: "qrc:/images/air/Set_List_SeparatorLine.png"
+    }
 
 
     BaseButton{
@@ -219,6 +191,16 @@ Item {
     }
 
 
+    Image {
+        width: 1; height: 320;
+        anchors.left: windSpeedSub.right;
+        anchors.leftMargin: 49;
+        anchors.top: parent.top;
+        anchors.topMargin: 155;
+        source: "qrc:/images/air/Set_List_SeparatorLine.png"
+    }
+
+
 
     BaseButton{
         id:copilotAdd
@@ -249,6 +231,17 @@ Item {
         pressSource:  "qrc:/images/AC_Tem_leftSub_exe.png"
         onClicked: onAdjustmentBtnClicked(31);
     }
+
+    Image {
+        width: 900; height: 1;
+        anchors{left: parent.left; leftMargin: 410;}
+        anchors.top: copilotSub.bottom;
+        anchors.topMargin: 17;
+        source: "qrc:/images/air/Set_List_SeparatorLineh.png"
+    }
+
+
+
 
     BaseButton{
         id:qcsIcon

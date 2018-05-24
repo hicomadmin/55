@@ -403,10 +403,18 @@ void QmlInterface::McuMsgHandle_RetFccCAN(PACKET_MSG *packet_msg)
         g_qmlInterface->sigBSDInfoDOW((info->data[1]>>6)&0x01);
         break;
     case MCAN_MSG_ID_METER_AUDIO_INFO:
-        g_qmlInterface->sigAUDIOInfoVolume(info->data[2]&0x0F);   //开机音量
-        g_qmlInterface->writeMuteStatus(info->data[2]>>7);        //是否静音
+    {
+        bool retMute = info->data[2]>>7;
+        if(g_qmlInterface->m_isMute != retMute)                   //是否静音
+        {
+            g_qmlInterface->m_isMute = retMute;
+            emit g_qmlInterface->muteStatusChanged();
+        }
+        g_qmlInterface->sigAUDIOInfoVolume(10);   //开机音量
+        //g_qmlInterface->sigAUDIOInfoVolume(info->data[2]&0x0F);   //开机音量
         g_qmlInterface->sigAUDIOInfoTreble(info->data[3]&0x0F);   //高音调节值
         g_qmlInterface->sigAUDIOInfoBass(info->data[3]>>4);       //低音调节值
+    }
         break;
     case MCAN_MSG_ID_METER_AmbientLightColor_INFO:
         g_qmlInterface->sigBCMRedColor(info->data[1]);
@@ -438,7 +446,7 @@ void QmlInterface::McuMsgHandle_RetFccCAN(PACKET_MSG *packet_msg)
             g_qmlInterface->m_isRightReadLightON = retRightON;
             emit g_qmlInterface->rightReadLightChanged();
         }
-        g_qmlInterface->sigSRLightLevel((info->data[1]>>3));
+        g_qmlInterface->sigSRLightLevel((info->data[1]>>4));
     }
         break;
     default:
@@ -574,16 +582,6 @@ void QmlInterface::writeBackON(bool isON)
         emit backONChanged();
     }
 }
-
-void QmlInterface::writeMuteStatus(bool isMute)
-{
-    if(m_isMute != isMute)
-    {
-        m_isMute = isMute;
-        emit muteStatusChanged();
-    }
-}
-
 
 
 

@@ -19,7 +19,9 @@ Item {
         btnText: qsTr("收音机");
         normalSource: "qrc:/images/Menu_Icon_radio_nml.png";
         pressSource:  "qrc:/images/Menu_Icon_radio_exe.png";
-        onClicked: onMuteBtnClicked(1);
+        //onClicked: onMuteBtnClicked(1);
+        onPressed: c_qmlInterface.sendFccCAN('2-1-1-0-0-0');
+        onReleased: c_qmlInterface.sendFccCAN('2-1-0-0-0-0');
     }
 
     MenuButton{
@@ -31,7 +33,9 @@ Item {
         btnText: qsTr("多媒体");
         normalSource: "qrc:/images/Menu_Icon_media_nml.png";
         pressSource:  "qrc:/images/Menu_Icon_media_exe.png";
-        onClicked: onMuteBtnClicked(2);
+        //onClicked: onMuteBtnClicked(2);
+        onPressed: c_qmlInterface.sendFccCAN('2-1-6-0-0-0');
+        onReleased: c_qmlInterface.sendFccCAN('2-1-0-0-0-0');
     }
 
     MenuButton{
@@ -43,7 +47,9 @@ Item {
         btnText: qsTr("导航");
         normalSource: "qrc:/images/Menu_Icon_navi_nml.png";
         pressSource:  "qrc:/images/Menu_Icon_navi_exe.png";
-        onClicked: onMuteBtnClicked(3);
+        //onClicked: onMuteBtnClicked(3);
+        onPressed: c_qmlInterface.sendFccCAN('2-1-4-0-0-0');
+        onReleased:c_qmlInterface.sendFccCAN('2-1-0-0-0-0');
     }
 
     MenuButton{
@@ -55,7 +61,9 @@ Item {
         btnText: qsTr("蓝牙");
         normalSource: "qrc:/images/Menu_Icon_BT_nml.png";
         pressSource:  "qrc:/images/Menu_Icon_BT_exe.png";
-        onClicked:onMuteBtnClicked(4);
+        //onClicked:onMuteBtnClicked(4);
+        onPressed: c_qmlInterface.sendFccCAN('2-1-5-0-0-0');
+        onReleased:c_qmlInterface.sendFccCAN('2-1-0-0-0-0');
     }
 
     MenuButton{
@@ -67,7 +75,9 @@ Item {
         btnText: qsTr("蓝牙音乐");
         normalSource: "qrc:/images/Menu_Icon_BT-Music_nml.png";
         pressSource:  "qrc:/images/Menu_Icon_BT-Music_exe.png";
-        onClicked: onMuteBtnClicked(5);
+        //onClicked: onMuteBtnClicked(5);
+        onPressed: c_qmlInterface.sendFccCAN('2-1-7-0-0-0');
+        onReleased:c_qmlInterface.sendFccCAN('2-1-0-0-0-0');
     }
 
     MenuButton{
@@ -80,6 +90,8 @@ Item {
         normalSource: "qrc:/images/Menu_Icon_VR_nml.png";
         pressSource:  "qrc:/images/Menu_Icon_VR_exe.png";
         onClicked: onMuteBtnClicked(6);
+        onPressed: c_qmlInterface.sendFccCAN('2-1-8-0-0-0');
+        onReleased:c_qmlInterface.sendFccCAN('2-1-0-0-0-0');
     }
 
     Image {
@@ -133,7 +145,9 @@ Item {
         btnText: qsTr("");
         normalSource: "qrc:/images/Top_Icon_volum+_nml.png";
         pressSource:  "qrc:/images/Top_Icon_volum+_exe.png";
-        onClicked: onMuteBtnClicked(7);
+        //onClicked: onMuteBtnClicked(7);
+        onPressed: c_qmlInterface.sendFccCAN('2-6-1-0-0-0');
+        onReleased:c_qmlInterface.sendFccCAN('2-6-0-0-0-0');
     }
 
     MenuButton{
@@ -200,6 +214,8 @@ Item {
         normalSource: "qrc:/images/Top_Icon_volum-_nml.png";
         pressSource:  "qrc:/images/Top_Icon_volum-_exe.png";
         onClicked: onMuteBtnClicked(11);
+        onPressed: c_qmlInterface.sendFccCAN('2-6-2-0-0-0');
+        onReleased:c_qmlInterface.sendFccCAN('2-6-0-0-0-0');
     }
 
 

@@ -80,6 +80,9 @@ typedef enum {
     MCU_MSG_RET_TFT_BRIGHTNESS_STATUS = 0xA9,       /**< 返回亮度值，返回数据为unsigned char 。*/
     MCU_MSG_RET_TFT_CONTRAST_STATUS = 0xAB,         /**< 返回对比度值，返回数据为unsigned char 。*/
     MCU_MSG_RET_TFT_DAYNIGHT_MODE_INFO = 0xAC,      /**< 返回当前白天黑夜模式、当前亮度等级和ILL模式，返回数据参考DAYNIGHT_MODE_SET_INFO相关定义。@see DAYNIGHT_MODE_SET_INFO**/
+
+    MCU_MSG_RET_TFT_L_H_BRIGHTNESS_STATUS = 0xB1,	/**< 返回左头枕屏亮度值*/
+    MCU_MSG_RET_TFT_R_H_BRIGHTNESS_STATUS = 0xB3,	/**< 返回右头枕屏亮度值*/
     
     MCU_MSG_RET_AVM_SETTING_INFO = 0xB2,            /**< 返回AVM设置参数信息，返回数据参考struct AVM_SETTING_INFO  相关定义。@see AVM_SETTING_INFO*/
     MCU_MSG_RET_MHL_SIGNAL_DET = 0xC0,              /**< 返回手机连接状态，返回数据参考enum MHL_SIGNAL_STATUS_ID  相关定义。@see MHL_SIGNAL_STATUS_ID*/
@@ -2276,6 +2279,33 @@ typedef struct {
   */
     int (*set_AVM_default_setting)(void);
 
+
+/**
+  * @brief	   设定左头枕屏亮度
+  * @param	  value  值0~100
+  * @returns  成功返回发送数据包大小，失败返回小于0 。
+  */
+	int (*set_TFT_LH_brightness)(unsigned char value);
+
+/**
+  * @brief	   获取左头枕屏亮度
+  * @returns  成功返回发送数据包大小，失败返回小于0 。
+  */
+	int (*get_TFT_LH_brightness)(void);
+	
+/**
+  * @brief	   设定右头枕屏亮度
+  * @param	  value  值0~100
+  * @returns  成功返回发送数据包大小，失败返回小于0 。
+  */
+	int (*set_TFT_RH_brightness)(unsigned char value);
+
+/**
+  * @brief	   获取右头枕屏亮度
+  * @returns  成功返回发送数据包大小，失败返回小于0 。
+  */
+	int (*get_TFT_RH_brightness)(void);
+
 /**
   * @brief      设定手机连接弹出框类型
   * @param    type  手机连接弹出框类型，参考MHL_POP_TYPE_ID 。
@@ -2395,6 +2425,15 @@ typedef struct {
   * @returns  成功返回发送数据包大小，失败返回小于0 。
   */
     int (*send_hvac_diag_unit_test_mode) (HVAC_DIAG_CTRL_UT_MODE_ID mode);
+
+
+/**
+  * @brief      发送后中控can消息
+  * @param    autotest_info。
+  * @returns  成功返回发送数据包大小，失败返回小于0 。
+  */
+    int (*send_autotest_data)(MCAN_DATA_INFO *autotest_info);
+
 }MCU_AGENT_API;
 
 /**

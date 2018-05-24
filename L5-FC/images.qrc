@@ -66,7 +66,6 @@
         <file>images/air/AC_Icon_powerd_dec.png</file>
         <file>images/air/AC_Icon_powerd_exe.png</file>
         <file>images/air/AC_Icon_powerd_nml.png</file>
-        <file>images/air/AC_Icon_power_nml.png</file>
         <file>images/air/AC_Icon_qcs_exe.png</file>
         <file>images/air/AC_Icon_qcs_nml.png</file>
         <file>images/air/AC_Icon_seq_nml.png</file>
@@ -123,5 +122,7 @@
         <file>images/set/Set_clock_dot.png</file>
         <file>images/set/Set_clock_ld.png</file>
         <file>images/air/AC_Scale_nml.png</file>
+        <file>images/air/AC_Icon_power_nml.png</file>
+        <file>images/set/Set_icon_tymm_back.png</file>
     </qresource>
 </RCC>

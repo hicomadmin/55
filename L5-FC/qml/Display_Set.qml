@@ -4,13 +4,14 @@ Item {
     anchors.fill: parent;
     property int brightnessTxt:c_qmlInterface.brightness;
     signal clockButtonClicked();
+    signal goBackClicked();
 
     Image {
         id: brightnessBtnBg
         width: 326;
         height: 110;
         anchors.left: parent.left;
-        anchors.leftMargin: 455;
+        anchors.leftMargin: 680;
         anchors.top: parent.top;
         anchors.topMargin: 111;
         source: "qrc:/images/light/Set_Light_ld.png"
@@ -40,8 +41,9 @@ Item {
     }
 
     BaseText{
+        id: text1
         anchors.left: brightnessBtnBg.left;
-        anchors.leftMargin: 12;
+        anchors.leftMargin: 60;
         anchors.bottom: brightnessBtnBg.top;
         size: 28;
         text: qsTr("液晶屏亮度调节");
@@ -53,7 +55,8 @@ Item {
         id: autoSetTimeON;
         width: 110;
         height: 110;
-        anchors.left:brightnessBtnBg.left;
+        anchors.left: parent.left;
+        anchors.leftMargin: 590;
         anchors.top: brightnessBtnBg.bottom;
         anchors.topMargin: 95;
         btnText: qsTr("开");
@@ -74,8 +77,7 @@ Item {
     }
 
     BaseText{
-        anchors.left: autoSetTimeON.left;
-        anchors.leftMargin: 12;
+        anchors.horizontalCenter: text1.horizontalCenter;
         anchors.bottom: autoSetTimeON.top;
         size: 28;
         text: qsTr("自动设置时间");
@@ -100,7 +102,8 @@ Item {
         id:mileageA;
         width: 200;
         height: 110;
-        anchors.left: autoSetTimeON.left;
+        anchors.left: parent.left;
+        anchors.leftMargin: 455;
         anchors.top: autoSetTimeON.bottom;
         anchors.topMargin: 94;
         btnText: qsTr("里程A");
@@ -111,8 +114,7 @@ Item {
     }
 
     BaseText{
-        anchors.left: mileageA.left;
-        anchors.leftMargin: 12;
+        anchors.horizontalCenter: text1.horizontalCenter;
         anchors.bottom: mileageA.top;
         size: 28;
         text: qsTr("里程显示");
@@ -208,6 +210,18 @@ Item {
         text: qsTr("V1.0_20180517");
     }
 
+
+    BaseButton {
+        id: goBack
+        width: 60; height: 60;
+        anchors.right: parent.right;
+        anchors.rightMargin: 48;
+        anchors.top: parent.top;
+        anchors.topMargin: 31;
+        normalSource: "qrc:/images/set/Set_icon_tymm_back.png";
+        pressSource:  "qrc:/images/set/Set_icon_tymm_back.png";
+        onClicked: goBackClicked();
+    }
 
 
     function onJustmentBtnClicked(val)
