@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/Button.qml</file>
+        <file>qml/SetOption.qml</file>
+        <file>qml/Menu.qml</file>
+        <file>qml/MenuButton.qml</file>
+        <file>qml/VolumeBar.qml</file>
+        <file>qml/OffScreen.qml</file>
+        <file>qml/Mute.qml</file>
+        <file>qml/voiceAssistant.qml</file>
+        <file>qml/LightPage.qml</file>
+        <file>qml/BaseText.qml</file>
+        <file>qml/BaseButton.qml</file>
+        <file>qml/AirConditioner.qml</file>
+        <file>qml/RearviewMirror.qml</file>
+        <file>qml/SeatSetting.qml</file>
+        <file>qml/Setting.qml</file>
+        <file>qml/Effcts_Set.qml</file>
+        <file>qml/Display_Set.qml</file>
+        <file>qml/StarCeiling_Set.qml</file>
+        <file>qml/TirePressure_Set.qml</file>
+        <file>qml/DriverAssistance_Set.qml</file>
+        <file>qml/Keyboard.qml</file>
+        <file>qml/TestFccMCU.qml</file>
+        <file>qml/PhotoPlaying.qml</file>
+        <file>qml/setTime_set.qml</file>
+    </qresource>
+</RCC>
